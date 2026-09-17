@@ -1,0 +1,11 @@
+year: 2022
+role: historical_exact_candidate
+acs_suffixes: ["17", "18", "19"]
+population_column: p0010001
+group_quarters_column: p0420001
+households_column: p0150001
+area_population_column: Area_Pop
+official_qct_column: qct
+provenance_status: unresolved
+blocking_records: ["060372014010", "060375432020"]
+blocking_issue: Los Angeles cap-boundary poverty-rank tie representation

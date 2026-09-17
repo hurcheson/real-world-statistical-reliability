@@ -1,0 +1,11 @@
+year: 2021
+role: historical_exact_candidate
+acs_suffixes: ["16", "17", "18"]
+population_column: p0010001
+group_quarters_column: p0420001
+households_column: p0150001
+area_population_column: Area_Pop
+official_qct_column: qct
+provenance_status: unresolved
+blocking_record: "510190501000"
+blocking_issue: blank geography and adjusted-income fields; no authoritative exclusion rule recovered

@@ -1,0 +1,19 @@
+year: 2016
+role: historical_exact_candidate
+acs_suffixes: ["11", "12", "13"]
+population_column: p0010001
+group_quarters_column: p0420001
+households_column: p0150001
+area_population_column: Area_Pop
+official_qct_column: qct
+allocation_group_status: unresolved_operational_construction
+expected:
+  official_qct_050: 13619
+  reconstructed_qct_050: 13619
+  mismatches_050: 0
+  E100: 17042
+  E050: 16368
+  Q100: 14057
+  Q050: 13619
+  decomposition: {L1: 473, L2: 159, L3: 19, G1: 71, G2: 142}
+  brd: 0.1223915232729

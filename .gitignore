@@ -1,0 +1,7 @@
+projects/*/data/raw/*
+!projects/*/data/raw/.gitkeep
+projects/*/data/interim/*
+__pycache__/
+.pytest_cache/
+*.pyc
+*.zip

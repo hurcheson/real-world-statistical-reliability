@@ -1,0 +1,207 @@
+{
+  "qct_data_2016.xlsx": {
+    "sheets": [
+      {
+        "name": "AL to MO",
+        "rows": 39174,
+        "columns": 51,
+        "state": "visible"
+      },
+      {
+        "name": "MT to WY & PR",
+        "rows": 35100,
+        "columns": 51,
+        "state": "visible"
+      },
+      {
+        "name": "Variable Definitions",
+        "rows": 61,
+        "columns": 2,
+        "state": "visible"
+      },
+      {
+        "name": "State Codes",
+        "rows": 53,
+        "columns": 3,
+        "state": "visible"
+      },
+      {
+        "name": "County Codes",
+        "rows": 3227,
+        "columns": 5,
+        "state": "visible"
+      },
+      {
+        "name": "Metro CBSA Codes",
+        "rows": 375,
+        "columns": 2,
+        "state": "visible"
+      }
+    ],
+    "defined_names": []
+  },
+  "qct_data_2020.xlsx": {
+    "sheets": [
+      {
+        "name": "AL to MO",
+        "rows": 38901,
+        "columns": 52,
+        "state": "visible"
+      },
+      {
+        "name": "MT to WY & PR",
+        "rows": 35102,
+        "columns": 52,
+        "state": "visible"
+      },
+      {
+        "name": "Variable Definitions",
+        "rows": 61,
+        "columns": 2,
+        "state": "visible"
+      },
+      {
+        "name": "State Codes",
+        "rows": 53,
+        "columns": 3,
+        "state": "visible"
+      },
+      {
+        "name": "County Codes",
+        "rows": 3227,
+        "columns": 5,
+        "state": "visible"
+      },
+      {
+        "name": "Metro CBSA Codes",
+        "rows": 391,
+        "columns": 2,
+        "state": "visible"
+      }
+    ],
+    "defined_names": []
+  },
+  "qct_data_2021.xlsx": {
+    "sheets": [
+      {
+        "name": "AL to MO",
+        "rows": 38901,
+        "columns": 46,
+        "state": "visible"
+      },
+      {
+        "name": "MT to WY & PR",
+        "rows": 35102,
+        "columns": 46,
+        "state": "visible"
+      },
+      {
+        "name": "Variable Definitions",
+        "rows": 59,
+        "columns": 2,
+        "state": "visible"
+      },
+      {
+        "name": "State Codes",
+        "rows": 53,
+        "columns": 3,
+        "state": "visible"
+      },
+      {
+        "name": "County Codes",
+        "rows": 3227,
+        "columns": 5,
+        "state": "visible"
+      },
+      {
+        "name": "Metro CBSA Codes",
+        "rows": 391,
+        "columns": 2,
+        "state": "visible"
+      }
+    ],
+    "defined_names": []
+  },
+  "qct_data_2022.xlsx": {
+    "sheets": [
+      {
+        "name": "AL to MO",
+        "rows": 38901,
+        "columns": 46,
+        "state": "visible"
+      },
+      {
+        "name": "MT to WY & PR",
+        "rows": 35101,
+        "columns": 46,
+        "state": "visible"
+      },
+      {
+        "name": "Variable Definitions",
+        "rows": 59,
+        "columns": 2,
+        "state": "visible"
+      },
+      {
+        "name": "State Codes",
+        "rows": 53,
+        "columns": 3,
+        "state": "visible"
+      },
+      {
+        "name": "County Codes",
+        "rows": 3227,
+        "columns": 5,
+        "state": "visible"
+      },
+      {
+        "name": "Metro CBSA Codes",
+        "rows": 392,
+        "columns": 2,
+        "state": "visible"
+      }
+    ],
+    "defined_names": []
+  },
+  "qct_data_2026.xlsx": {
+    "sheets": [
+      {
+        "name": "AL to MO",
+        "rows": 44934,
+        "columns": 46,
+        "state": "visible"
+      },
+      {
+        "name": "MT to WY & PR",
+        "rows": 40458,
+        "columns": 46,
+        "state": "visible"
+      },
+      {
+        "name": "Variable Definitions",
+        "rows": 47,
+        "columns": 2,
+        "state": "visible"
+      },
+      {
+        "name": "State Codes",
+        "rows": 53,
+        "columns": 3,
+        "state": "visible"
+      },
+      {
+        "name": "County Codes",
+        "rows": 3252,
+        "columns": 5,
+        "state": "visible"
+      },
+      {
+        "name": "Metro CBSA Codes",
+        "rows": 394,
+        "columns": 2,
+        "state": "visible"
+      }
+    ],
+    "defined_names": []
+  }
+}

@@ -1,0 +1,6 @@
+year,filename,bytes,sha256,source_url
+2016,qct_data_2016.xlsx,27467633,75ae56ca258aabde75081739c401aa619886f0463a525d7cf786effbe9ba991f,https://docs.huduser.gov/portal/datasets/qct/qct_data_2016.xlsx
+2020,qct_data_2020.xlsx,28075417,8bab36cb40569a6d79c7bf592eebf0099b631b384c48581244916d48935de0e1,https://docs.huduser.gov/portal/datasets/qct/qct_data_2020.xlsx
+2021,qct_data_2021.xlsx,24842936,bb63235d8c9b103d3a9dddd9b4b3f97949ed6bc8c7b006d9c895c924abba8b16,https://docs.huduser.gov/portal/datasets/qct/qct_data_2021.xlsx
+2022,qct_data_2022.xlsx,25124133,d613b576695f9f01c800616775bc06aa72a514d350fa3c9a11df9ef8d205f3e0,https://docs.huduser.gov/portal/datasets/qct/qct_data_2022.xlsx
+2026,qct_data_2026.xlsx,27656002,aa1a076b63ca839402558fd1b57f017d1b934857851ebf5726876455dffc8e29,https://docs.huduser.gov/portal/datasets/qct/qct_data_2026.xlsx

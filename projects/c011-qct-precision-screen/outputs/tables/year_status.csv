@@ -1,0 +1,6 @@
+year,role,c050_exact,c100_reproducible,provenance_resolved,deterministic,manuscript_admissible,reason
+2016,historical candidate,true,true,true,false,false,"Independent numerical anchors exist, but durable two-run digests and full output families have not yet been regenerated in this workspace"
+2020,historical candidate,true,false,false,false,false,"c=1.00 discrepancy remains: latest 561 churn/167 strict-nonlocal versus surviving anchors about 3.771%/166"
+2021,historical candidate,true,false,false,false,false,"Bedford City blank-geography behavior lacks authoritative operational provenance"
+2022,historical candidate,true,false,false,false,false,"Los Angeles cap-boundary two-record swap remains unexplained"
+2026,development anchor,true,false,false,false,false,"latest reconstruction gives Q(1.00)=15798 versus surviving 15797 anchor; boundary record not yet independently resolved"

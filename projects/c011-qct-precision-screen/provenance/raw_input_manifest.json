@@ -1,0 +1,11 @@
+{
+  "retrieved_utc": "2026-09-17",
+  "immutability_rule": "Official raw workbooks are never edited in place",
+  "files": [
+    {"year": 2016, "bytes": 27467633, "sha256": "75ae56ca258aabde75081739c401aa619886f0463a525d7cf786effbe9ba991f", "source": "https://docs.huduser.gov/portal/datasets/qct/qct_data_2016.xlsx"},
+    {"year": 2020, "bytes": 28075417, "sha256": "8bab36cb40569a6d79c7bf592eebf0099b631b384c48581244916d48935de0e1", "source": "https://docs.huduser.gov/portal/datasets/qct/qct_data_2020.xlsx"},
+    {"year": 2021, "bytes": 24842936, "sha256": "bb63235d8c9b103d3a9dddd9b4b3f97949ed6bc8c7b006d9c895c924abba8b16", "source": "https://docs.huduser.gov/portal/datasets/qct/qct_data_2021.xlsx"},
+    {"year": 2022, "bytes": 25124133, "sha256": "d613b576695f9f01c800616775bc06aa72a514d350fa3c9a11df9ef8d205f3e0", "source": "https://docs.huduser.gov/portal/datasets/qct/qct_data_2022.xlsx"},
+    {"year": 2026, "bytes": 27656002, "sha256": "aa1a076b63ca839402558fd1b57f017d1b934857851ebf5726876455dffc8e29", "source": "ChatGPT Project copy acquired from HUD USER; canonical hash matches R280"}
+  ]
+}

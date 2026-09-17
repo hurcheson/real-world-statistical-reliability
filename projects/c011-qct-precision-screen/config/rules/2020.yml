@@ -1,0 +1,18 @@
+year: 2020
+role: historical_exact_candidate
+acs_suffixes: ["15", "16", "17"]
+population_column: p0010001
+group_quarters_column: p0420001
+households_column: p0150001
+area_population_column: Area_Pop
+official_qct_column: qct
+allocation_group_status: unresolved_operational_construction
+expected:
+  official_qct_050: 14585
+  reconstructed_qct_050: 14585
+  mismatches_050: 0
+  remembered_chr: 0.03771
+  remembered_strict_nonlocal: 166
+  latest_unresolved_Q100: 14772
+  latest_unresolved_churn: 561
+  latest_unresolved_strict_nonlocal: 167

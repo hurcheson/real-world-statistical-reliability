@@ -1,0 +1,18 @@
+year: 2026
+role: development_anchor
+acs_suffixes: ["21", "22", "23"]
+population_column: P1
+group_quarters_column: P5
+households_column: H1
+area_population_column: Area_Pop
+official_qct_column: qct
+expected:
+  records: 85390
+  official_qct_050: 14496
+  reconstructed_qct_050: 14496
+  mismatches_050: 0
+  E100: 19253
+  E050: 17210
+  remembered_Q100: 15797
+  latest_unresolved_Q100: 15798
+  decomposition: {L1: 1534, L2: 524, L3: 5, G1: 430, G2: 332}
