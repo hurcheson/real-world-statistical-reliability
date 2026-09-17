@@ -1,0 +1,15 @@
+C011 reproducibility test report
+Date: 2026-09-17
+
+PASS test_half_up_poverty_rounding
+PASS test_screen_monotonicity
+PASS test_skip_and_continue
+PASS test_decomposition_partition_and_nonlocal_invariant
+PASS test_2016_exact_and_counterfactual_identity
+
+2016 official c=.50 count: 13619
+2016 reconstructed c=.50 count: 13619
+2016 record-level mismatches: 0
+2016 implementation variants tested: ratio_full, ratio_round7, stored_then_raw
+2016 counterfactual classification: IDENTIFIED (identical E/Q sets and decomposition)
+Deterministic run comparison: all generated files byte-identical

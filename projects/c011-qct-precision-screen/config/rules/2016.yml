@@ -6,7 +6,10 @@ group_quarters_column: p0420001
 households_column: p0150001
 area_population_column: Area_Pop
 official_qct_column: qct
-allocation_group_status: unresolved_operational_construction
+allocation_group: cbsa
+allocation_group_status: resolved
+income_release_arithmetic_variants: [ratio_full, ratio_round7, stored_then_raw]
+counterfactual_identification: identified_across_variants
 expected:
   official_qct_050: 13619
   reconstructed_qct_050: 13619
@@ -16,4 +19,5 @@ expected:
   Q100: 14057
   Q050: 13619
   decomposition: {L1: 473, L2: 159, L3: 19, G1: 71, G2: 142}
-  brd: 0.1223915232729
+  historical_brd_diagnostic: 0.1223915232729
+  regenerated_brd: 0.12239634180436126

@@ -1,0 +1,6 @@
+year,role,historical_execution_status,current_reproducibility_status,manuscript_admissibility
+2016,historical,prior_Tier_A,counterfactual_identified,True
+2020,historical,prior_Tier_A,unresolved_allocation_and_c100_arithmetic,False
+2021,historical,prior_Tier_A,unresolved_blank_geography_provenance,False
+2022,historical,prior_Tier_A,nonexact_two_record_cap_boundary_swap,False
+2026,development_anchor,prior_exact_c050,c100_not_uniquely_adjudicated,False
