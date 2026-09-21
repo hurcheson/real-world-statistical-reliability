@@ -23,6 +23,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Install C013 test environment
+        run: python -m pip install -e "projects/c013-places-temporal-provenance[test]"
       - name: Archive frozen Socrata metadata and grouped coverage
         run: python projects/c013-places-temporal-provenance/scripts/archive_socrata_stage0.py
       - name: Validate archived Stage0 state
