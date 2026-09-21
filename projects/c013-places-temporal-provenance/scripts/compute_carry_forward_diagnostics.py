@@ -28,7 +28,7 @@ def now_utc():
     return datetime.now(timezone.utc).isoformat().replace("+00:00","Z")
 
 def geo_field(release_year, level):
-    return "tractfips" if level=="tract" and release_year<=2019 else "locationid"
+    return "uniqueid" if level=="tract" and release_year<=2019 else "locationid"
 
 def norm_num(x):
     if x in (None,"","NA","null"):
