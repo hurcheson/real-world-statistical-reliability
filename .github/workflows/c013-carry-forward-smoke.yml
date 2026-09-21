@@ -23,6 +23,8 @@ jobs:
         run: python projects/c013-places-temporal-provenance/scripts/compute_carry_forward_diagnostics.py --max-pairs 3
       - name: Run first county carry-forward smoke pairs
         run: python projects/c013-places-temporal-provenance/scripts/compute_carry_forward_diagnostics.py --start-pair 45 --max-pairs 2
+      - name: Run later county carry-forward smoke pairs
+        run: python projects/c013-places-temporal-provenance/scripts/compute_carry_forward_diagnostics.py --start-pair 105 --max-pairs 2
       - name: Validate smoke outputs
         run: |
           python - <<'PY'
