@@ -1,4 +1,4 @@
-name: C013 Stage0 network archive
+# Content-addressed Stage 0 network archive; output commits use [skip ci].\nname: C013 Stage0 network archive
 
 on:
   push:
