@@ -1,0 +1,41 @@
+{
+  "dataset_id": "ai6z-tcin",
+  "documented_brfss_years": [
+    2022,
+    2021
+  ],
+  "extracted_fact": "Archive identifier first published 2025-12-04; 2024 release mapping from frozen prosecution: 36 main measures 2022; 4 BP/cholesterol measures 2021",
+  "geography_level": "tract",
+  "observed_schema_profile": [
+    "year",
+    "stateabbr",
+    "statedesc",
+    "locationname",
+    "datasource",
+    "category",
+    "measure",
+    "data_value_unit",
+    "data_value_type",
+    "data_value",
+    "data_value_footnote_symbol",
+    "data_value_footnote",
+    "low_confidence_limit",
+    "high_confidence_limit",
+    "totalpopulation",
+    "geolocation",
+    "locationid",
+    "categoryid",
+    "measureid",
+    "datavaluetypeid",
+    "short_question_text"
+  ],
+  "official_title": "PLACES: Local Data for Better Health, Census Tract Data 2024 release",
+  "product": "PLACES",
+  "raw_http_bytes_available": false,
+  "release_year": 2024,
+  "retrieved_at_utc": "2026-09-21T21:36:26Z",
+  "row_count_from_metadata_cache": null,
+  "snapshot_kind": "browser-mediated extracted official metadata; not raw HTTP bytes",
+  "source_url": "https://catalog.data.gov/dataset/places-local-data-for-better-health-census-tract-data-2024-release-4eb6e",
+  "technical_note": "Web retrieval exposed official metadata content but not transferable raw response bytes to the execution container; byte-level raw archival is deferred and explicitly not claimed."
+}

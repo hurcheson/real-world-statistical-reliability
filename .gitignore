@@ -1,8 +1,14 @@
-projects/*/data/raw/*
-!projects/*/data/raw/.gitkeep
-projects/*/data/interim/*
 __pycache__/
 .pytest_cache/
 *.pyc
 *.zip
 projects/*/outputs/figures/*.png
+projects/*/data/interim/*
+!projects/*/data/interim/.gitkeep
+projects/*/data/derived/*
+!projects/*/data/derived/.gitkeep
+# C013 raw row-level exports are not committed by default; small metadata snapshots are permitted.
+projects/c013-places-temporal-provenance/data/raw/*
+!projects/c013-places-temporal-provenance/data/raw/.gitkeep
+!projects/c013-places-temporal-provenance/data/raw/metadata/
+!projects/c013-places-temporal-provenance/data/raw/metadata/*.json

@@ -1,0 +1,37 @@
+[
+  {
+    "id": "P001",
+    "severity": "material",
+    "status": "verified",
+    "finding": "cwsq-ngmh is now the live 2025 census-tract dataset; 2024 is preserved under ai6z-tcin.",
+    "consequence": "Dataset ID cannot be interpreted solely from older bookmarked catalog title; manifest must bind ID + title + retrieval date + hash."
+  },
+  {
+    "id": "P002",
+    "severity": "material",
+    "status": "verified",
+    "finding": "swc5-untb is now the live 2025 county dataset; 2024 is preserved under fu4u-a9bh.",
+    "consequence": "Same immutable-snapshot rule as P001."
+  },
+  {
+    "id": "P003",
+    "severity": "technical",
+    "status": "open",
+    "finding": "Current tool bridge can inspect official HTTP content but cannot transfer raw response bytes into the local runtime.",
+    "consequence": "Stored Stage 0A metadata extracts are hashable exact local representations, but are not claimed as raw HTTP snapshots. Full raw-byte archival remains required before Stage 0B can be called fully reproducible."
+  },
+  {
+    "id": "P004",
+    "severity": "technical",
+    "status": "open",
+    "finding": "Direct metadata rendering for rja3-32tc, ai6z-tcin and fu4u-a9bh failed in the browser layer, while first-party/HHS catalog records remained discoverable.",
+    "consequence": "Keep retrieval status partial and retry via direct scripted network environment."
+  },
+  {
+    "id": "P005",
+    "severity": "scientific",
+    "status": "by-design",
+    "finding": "Exact-copy percentages and common-geography counts are not populated in preliminary rows without archived row-level snapshots.",
+    "consequence": "Carry-forward classification remains ambiguous where documentation indicates same source wave until exact/revised diagnostic can be computed."
+  }
+]

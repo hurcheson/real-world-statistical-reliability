@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "C013 provenance crosswalk record",
+  "type": "object",
+  "required": [
+    "release_year",
+    "product",
+    "dataset_id",
+    "geography_level",
+    "geography_vintage",
+    "measure_id",
+    "display_name",
+    "exact_definition",
+    "target_population",
+    "eligibility",
+    "data_value_type",
+    "brfss_source_year",
+    "carried_forward_flag",
+    "predecessor",
+    "exact_copy_percentage",
+    "common_geography_count",
+    "coverage_change",
+    "poststratification_population_base",
+    "confidence_interval_method_era",
+    "definition_comparability",
+    "geography_population_comparability",
+    "documentation_source",
+    "verification_note",
+    "carry_forward_classification",
+    "comparability_breaks"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "release_year": {
+      "type": "integer",
+      "minimum": 2016,
+      "maximum": 2100
+    },
+    "product": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dataset_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]{4}-[a-z0-9]{4}$"
+    },
+    "geography_level": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "geography_vintage": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "measure_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "display_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "exact_definition": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "target_population": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "eligibility": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "data_value_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "brfss_source_year": {
+      "type": "integer",
+      "minimum": 2010,
+      "maximum": 2100
+    },
+    "carried_forward_flag": {
+      "type": "boolean"
+    },
+    "predecessor": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "exact_copy_percentage": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 100
+    },
+    "common_geography_count": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "coverage_change": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "poststratification_population_base": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "confidence_interval_method_era": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "definition_comparability": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "geography_population_comparability": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "documentation_source": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "verification_note": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "carry_forward_classification": {
+      "enum": [
+        "exact carry-forward",
+        "revised carry-forward",
+        "new source wave",
+        "ambiguous"
+      ]
+    },
+    "comparability_breaks": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "measure-definition",
+          "target-population-or-eligibility",
+          "geography-or-vintage",
+          "product-scope",
+          "poststratification-basis",
+          "confidence-interval-method",
+          "unresolved-or-conflicting-documentation"
+        ]
+      },
+      "uniqueItems": true
+    }
+  }
+}

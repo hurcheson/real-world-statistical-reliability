@@ -1,0 +1,214 @@
+{
+  "version": "1.0.0",
+  "frozen_protocol": "D039/C013",
+  "anchors": [
+    {
+      "release_year": 2016,
+      "product": "500 Cities",
+      "geography_level": "tract",
+      "dataset_id": "9z78-nsfp",
+      "documented_brfss_years": [
+        2014,
+        2013
+      ],
+      "verification": "direct metadata",
+      "catalog_url": "https://data.cdc.gov/api/views/9z78-nsfp",
+      "api_endpoint": "https://data.cdc.gov/resource/9z78-nsfp.json"
+    },
+    {
+      "release_year": 2017,
+      "product": "500 Cities",
+      "geography_level": "tract",
+      "dataset_id": "vurf-k5wr",
+      "documented_brfss_years": [
+        2015,
+        2014
+      ],
+      "verification": "direct metadata",
+      "catalog_url": "https://data.cdc.gov/api/views/vurf-k5wr",
+      "api_endpoint": "https://data.cdc.gov/resource/vurf-k5wr.json"
+    },
+    {
+      "release_year": 2018,
+      "product": "500 Cities",
+      "geography_level": "tract",
+      "dataset_id": "rja3-32tc",
+      "documented_brfss_years": [
+        2016,
+        2015
+      ],
+      "verification": "HHS archive metadata; direct metadata endpoint inaccessible in browser layer",
+      "catalog_url": "https://data.cdc.gov/api/views/rja3-32tc",
+      "api_endpoint": "https://data.cdc.gov/resource/rja3-32tc.json"
+    },
+    {
+      "release_year": 2019,
+      "product": "500 Cities",
+      "geography_level": "tract",
+      "dataset_id": "6vp6-wxuq",
+      "documented_brfss_years": [
+        2017,
+        2016
+      ],
+      "verification": "direct metadata",
+      "catalog_url": "https://data.cdc.gov/api/views/6vp6-wxuq",
+      "api_endpoint": "https://data.cdc.gov/resource/6vp6-wxuq.json"
+    },
+    {
+      "release_year": 2020,
+      "product": "PLACES",
+      "geography_level": "tract",
+      "dataset_id": "4ai3-zynv",
+      "documented_brfss_years": [
+        2018,
+        2017
+      ],
+      "verification": "direct metadata",
+      "catalog_url": "https://data.cdc.gov/api/views/4ai3-zynv",
+      "api_endpoint": "https://data.cdc.gov/resource/4ai3-zynv.json"
+    },
+    {
+      "release_year": 2021,
+      "product": "PLACES",
+      "geography_level": "tract",
+      "dataset_id": "373s-ayzu",
+      "documented_brfss_years": [
+        2019,
+        2018
+      ],
+      "verification": "direct metadata",
+      "catalog_url": "https://data.cdc.gov/api/views/373s-ayzu",
+      "api_endpoint": "https://data.cdc.gov/resource/373s-ayzu.json"
+    },
+    {
+      "release_year": 2022,
+      "product": "PLACES",
+      "geography_level": "tract",
+      "dataset_id": "nw2y-v4gm",
+      "documented_brfss_years": [
+        2020,
+        2019
+      ],
+      "verification": "direct metadata",
+      "catalog_url": "https://data.cdc.gov/api/views/nw2y-v4gm",
+      "api_endpoint": "https://data.cdc.gov/resource/nw2y-v4gm.json"
+    },
+    {
+      "release_year": 2023,
+      "product": "PLACES",
+      "geography_level": "tract",
+      "dataset_id": "em5e-5hvn",
+      "documented_brfss_years": [
+        2021,
+        2020
+      ],
+      "verification": "direct metadata",
+      "catalog_url": "https://data.cdc.gov/api/views/em5e-5hvn",
+      "api_endpoint": "https://data.cdc.gov/resource/em5e-5hvn.json"
+    },
+    {
+      "release_year": 2024,
+      "product": "PLACES",
+      "geography_level": "tract",
+      "dataset_id": "ai6z-tcin",
+      "documented_brfss_years": [
+        2022,
+        2021
+      ],
+      "verification": "archived 2024 dataset ID; catalog metadata",
+      "catalog_url": "https://data.cdc.gov/api/views/ai6z-tcin",
+      "api_endpoint": "https://data.cdc.gov/resource/ai6z-tcin.json"
+    },
+    {
+      "release_year": 2025,
+      "product": "PLACES",
+      "geography_level": "tract",
+      "dataset_id": "cwsq-ngmh",
+      "documented_brfss_years": [
+        2023,
+        2022
+      ],
+      "verification": "current mutable dataset ID; direct metadata",
+      "catalog_url": "https://data.cdc.gov/api/views/cwsq-ngmh",
+      "api_endpoint": "https://data.cdc.gov/resource/cwsq-ngmh.json"
+    },
+    {
+      "release_year": 2020,
+      "product": "PLACES",
+      "geography_level": "county",
+      "dataset_id": "dv4u-3x3q",
+      "documented_brfss_years": [
+        2018,
+        2017
+      ],
+      "verification": "direct metadata",
+      "catalog_url": "https://data.cdc.gov/api/views/dv4u-3x3q",
+      "api_endpoint": "https://data.cdc.gov/resource/dv4u-3x3q.json"
+    },
+    {
+      "release_year": 2021,
+      "product": "PLACES",
+      "geography_level": "county",
+      "dataset_id": "pqpp-u99h",
+      "documented_brfss_years": [
+        2019,
+        2018
+      ],
+      "verification": "direct metadata",
+      "catalog_url": "https://data.cdc.gov/api/views/pqpp-u99h",
+      "api_endpoint": "https://data.cdc.gov/resource/pqpp-u99h.json"
+    },
+    {
+      "release_year": 2022,
+      "product": "PLACES",
+      "geography_level": "county",
+      "dataset_id": "duw2-7jbt",
+      "documented_brfss_years": [
+        2020,
+        2019
+      ],
+      "verification": "direct metadata",
+      "catalog_url": "https://data.cdc.gov/api/views/duw2-7jbt",
+      "api_endpoint": "https://data.cdc.gov/resource/duw2-7jbt.json"
+    },
+    {
+      "release_year": 2023,
+      "product": "PLACES",
+      "geography_level": "county",
+      "dataset_id": "h3ej-a9ec",
+      "documented_brfss_years": [
+        2021,
+        2020
+      ],
+      "verification": "direct metadata",
+      "catalog_url": "https://data.cdc.gov/api/views/h3ej-a9ec",
+      "api_endpoint": "https://data.cdc.gov/resource/h3ej-a9ec.json"
+    },
+    {
+      "release_year": 2024,
+      "product": "PLACES",
+      "geography_level": "county",
+      "dataset_id": "fu4u-a9bh",
+      "documented_brfss_years": [
+        2022,
+        2021
+      ],
+      "verification": "archived 2024 dataset ID; catalog metadata",
+      "catalog_url": "https://data.cdc.gov/api/views/fu4u-a9bh",
+      "api_endpoint": "https://data.cdc.gov/resource/fu4u-a9bh.json"
+    },
+    {
+      "release_year": 2025,
+      "product": "PLACES",
+      "geography_level": "county",
+      "dataset_id": "swc5-untb",
+      "documented_brfss_years": [
+        2023,
+        2022
+      ],
+      "verification": "current mutable dataset ID; direct metadata",
+      "catalog_url": "https://data.cdc.gov/api/views/swc5-untb",
+      "api_endpoint": "https://data.cdc.gov/resource/swc5-untb.json"
+    }
+  ]
+}

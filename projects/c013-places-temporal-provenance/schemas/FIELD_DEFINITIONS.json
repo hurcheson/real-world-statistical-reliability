@@ -1,0 +1,59 @@
+{
+  "carry_forward_classification": {
+    "definition": "Empirical/documentary relation to predecessor release for the same measure/geography/value type.",
+    "allowed_values": [
+      "exact carry-forward",
+      "revised carry-forward",
+      "new source wave",
+      "ambiguous"
+    ],
+    "missing_policy": "Never missing; use ambiguous if evidence is insufficient/conflicting.",
+    "source_rule": "Use source-year documentation plus exact-copy diagnostics; exact requires 100%, revised requires same documented source wave and >=99.5% exact."
+  },
+  "comparability_breaks": {
+    "definition": "Known break types that can invalidate naive cross-release comparison.",
+    "allowed_values": [
+      "measure-definition",
+      "target-population-or-eligibility",
+      "geography-or-vintage",
+      "product-scope",
+      "poststratification-basis",
+      "confidence-interval-method",
+      "unresolved-or-conflicting-documentation"
+    ],
+    "missing_policy": "Empty list only after explicit check.",
+    "source_rule": "CDC release notes/methodology/measure definitions are primary authority; unresolved conflicts remain explicitly coded."
+  },
+  "brfss_source_year": {
+    "definition": "BRFSS year underlying the specific measure record, not nominal release year.",
+    "allowed_values": "integer year",
+    "missing_policy": "No guessed values; unresolved records must not enter the strict validated crosswalk.",
+    "source_rule": "CDC release descriptions/release notes, verified against Year fields where present."
+  },
+  "exact_copy_percentage": {
+    "definition": "Percent of common geographies whose point estimate and confidence interval are exactly equal to predecessor.",
+    "allowed_values": "0..100 or null",
+    "missing_policy": "null until computed on archived compatible snapshots.",
+    "source_rule": "Computed only from archived records under common-geography restriction."
+  },
+  "definition_comparability": {
+    "definition": "Whether measure wording/eligibility/construct is materially comparable to predecessor.",
+    "allowed_values": [
+      "comparable",
+      "break",
+      "unresolved"
+    ],
+    "missing_policy": "Never blank.",
+    "source_rule": "CDC measure definitions and release notes."
+  },
+  "geography_population_comparability": {
+    "definition": "Whether geography vintage, product coverage, and poststratification population basis support the intended comparison.",
+    "allowed_values": [
+      "comparable",
+      "break",
+      "unresolved"
+    ],
+    "missing_policy": "Never blank.",
+    "source_rule": "CDC methodology/release documentation."
+  }
+}
