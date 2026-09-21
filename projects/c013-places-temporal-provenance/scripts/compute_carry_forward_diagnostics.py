@@ -132,7 +132,11 @@ candidates.sort(key=lambda pair:(pair[1]["release_year"],pair[1]["geography_leve
 
 ap=argparse.ArgumentParser()
 ap.add_argument("--max-pairs",type=int,default=None)
+ap.add_argument("--start-pair",type=int,default=1,help="1-based index in the frozen sorted carry-forward candidate list")
 args=ap.parse_args()
+if args.start_pair < 1:
+    raise ValueError("--start-pair must be >= 1")
+candidates=candidates[args.start_pair-1:]
 if args.max_pairs is not None:
     candidates=candidates[:args.max_pairs]
 
