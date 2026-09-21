@@ -37,6 +37,8 @@ def default_geo_fields(release_year, level):
 def pair_geo_fields(prev, cur):
     if cur["geography_level"]=="county" and prev["release_year"]==2020 and cur["release_year"]==2021:
         return ["stateabbr","locationname"], ["stateabbr","locationname"]
+    if cur["geography_level"]=="tract" and prev["release_year"]==2019 and cur["release_year"]==2020:
+        return ["tractfips"], ["locationid"]
     return (
         default_geo_fields(prev["release_year"],prev["geography_level"]),
         default_geo_fields(cur["release_year"],cur["geography_level"]),
@@ -87,6 +89,7 @@ def fetch_cell(r, gfs=None):
     limit=50000
     offset=0
     values={}
+    duplicate_identical_rows=0
     page_shas=[]
     raw_hasher=hashlib.sha256()
     total_bytes=0
@@ -113,9 +116,13 @@ def fetch_cell(r, gfs=None):
         reader=list(csv.DictReader(io.StringIO(raw.decode("utf-8-sig"))))
         for row in reader:
             key="|".join(str(row.get(gf,"")) for gf in gfs)
+            value=(norm_num(row.get("data_value")),norm_num(row.get("low_confidence_limit")),norm_num(row.get("high_confidence_limit")))
             if key in values:
-                raise ValueError(f"duplicate geography key {key} in {cell_name}")
-            values[key]=(norm_num(row.get("data_value")),norm_num(row.get("low_confidence_limit")),norm_num(row.get("high_confidence_limit")))
+                if values[key] != value:
+                    raise ValueError(f"conflicting duplicate geography key {key} in {cell_name}")
+                duplicate_identical_rows += 1
+                continue
+            values[key]=value
         page_records.append({"offset":offset,"rows":len(reader),"sha256":sha,"snapshot_id":str(rel).replace("\\","/"),"url":url})
         if len(reader)<limit:
             break
@@ -124,6 +131,7 @@ def fetch_cell(r, gfs=None):
         "geography_id_fields":gfs,
         "retrieved_at_utc":retrieval_time,
         "rows":len(values),
+        "duplicate_identical_rows_collapsed":duplicate_identical_rows,
         "raw_bytes":total_bytes,
         "combined_raw_sha256":raw_hasher.hexdigest(),
         "pages":page_records,
@@ -157,10 +165,13 @@ for i,(prev,cur) in enumerate(candidates,1):
     a,ma=fetch_cell(prev,prev_gfs)
     b,mb=fetch_cell(cur,cur_gfs)
     query_manifest.extend([ma,mb])
+    cross_vintage_unlinked=(
+        cur["geography_level"]=="tract" and prev["release_year"]==2023 and cur["release_year"]==2024
+    )
     common=set(a)&set(b)
     comparable=[g for g in common if None not in a[g] and None not in b[g]]
     exact=sum(a[g]==b[g] for g in comparable)
-    pct=(100.0*exact/len(comparable)) if comparable else None
+    pct=None if cross_vintage_unlinked else ((100.0*exact/len(comparable)) if comparable else None)
     if pct==100.0:
         cls="exact carry-forward"
     elif pct is not None and pct>=99.5:
@@ -178,7 +189,8 @@ for i,(prev,cur) in enumerate(candidates,1):
         "current_only_count":len(set(b)-set(a)),
         "exact_equal_count":exact,
         "exact_copy_percentage":pct,
-        "carry_forward_classification":cls,
+        "carry_forward_classification":"ambiguous" if cross_vintage_unlinked else cls,
+        "linkage_status":"unlinked geography-vintage break" if cross_vintage_unlinked else "linked common geography",
         "predecessor_query_sha256":ma["combined_raw_sha256"],
         "current_query_sha256":mb["combined_raw_sha256"],
     })
