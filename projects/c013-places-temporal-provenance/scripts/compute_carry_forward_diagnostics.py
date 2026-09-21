@@ -27,12 +27,20 @@ def read_jsonl(path):
 def now_utc():
     return datetime.now(timezone.utc).isoformat().replace("+00:00","Z")
 
-def geo_fields(release_year, level):
+def default_geo_fields(release_year, level):
     if level=="county":
-        return ["stateabbr","locationname"]
+        return ["locationid"] if release_year>=2021 else ["stateabbr","locationname"]
     if level=="tract" and release_year<=2019:
         return ["uniqueid"]
     return ["locationid"]
+
+def pair_geo_fields(prev, cur):
+    if cur["geography_level"]=="county" and prev["release_year"]==2020 and cur["release_year"]==2021:
+        return ["stateabbr","locationname"], ["stateabbr","locationname"]
+    return (
+        default_geo_fields(prev["release_year"],prev["geography_level"]),
+        default_geo_fields(cur["release_year"],cur["geography_level"]),
+    )
 
 def norm_num(x):
     if x in (None,"","NA","null"):
@@ -66,9 +74,10 @@ def cell_descriptor(r):
         "brfss_source_year":int(r["year"]),
     }
 
-def fetch_cell(r):
+def fetch_cell(r, gfs=None):
     did=r["dataset_id"]
-    gfs=geo_fields(r["release_year"],r["geography_level"])
+    if gfs is None:
+        gfs=default_geo_fields(r["release_year"],r["geography_level"])
     select=",".join(gfs+["data_value","low_confidence_limit","high_confidence_limit"])
     where=(
         f"measureid='{r['measureid']}' AND datavaluetypeid='{r['datavaluetypeid']}' "
@@ -144,8 +153,9 @@ diagnostics=[]
 query_manifest=[]
 for i,(prev,cur) in enumerate(candidates,1):
     print(f"[{i}/{len(candidates)}] {cur['release_year']} {cur['geography_level']} {cur['measureid']} {cur['datavaluetypeid']} source={cur['year']}",flush=True)
-    a,ma=fetch_cell(prev)
-    b,mb=fetch_cell(cur)
+    prev_gfs,cur_gfs=pair_geo_fields(prev,cur)
+    a,ma=fetch_cell(prev,prev_gfs)
+    b,mb=fetch_cell(cur,cur_gfs)
     query_manifest.extend([ma,mb])
     common=set(a)&set(b)
     comparable=[g for g in common if None not in a[g] and None not in b[g]]
