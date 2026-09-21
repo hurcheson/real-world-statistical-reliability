@@ -1,0 +1,1487 @@
+{
+  "id" : "4ai3-zynv",
+  "name" : "PLACES: Local Data for Better Health, Census Tract Data 2020 release",
+  "assetType" : "dataset",
+  "attribution" : "Centers for Disease Control and Prevention, National Center for Chronic Disease Prevention and Health Promotion, Division of Population Health",
+  "attributionLink" : "http://www.cdc.gov/nccdphp/dph/",
+  "averageRating" : 0,
+  "category" : "500 Cities & Places",
+  "createdAt" : 1632928570,
+  "description" : "This dataset contains model-based census tract-level estimates for the PLACES project 2020 release. The PLACES project is the expansion of the original 500 Cities project and covers the entire United States—50 states and the District of Columbia (DC)—at county, place, census tract, and ZIP Code tabulation Areas (ZCTA) levels. It represents a first-of-its kind effort to release information uniformly on this large scale for local areas at 4 geographic levels. Estimates were provided by the Centers for Disease Control and Prevention (CDC), Division of Population Health, Epidemiology and Surveillance Branch. The project was funded by the Robert Wood Johnson Foundation (RWJF) in conjunction with the CDC Foundation. The dataset includes estimates for 27 measures: 5 chronic disease-related unhealthy behaviors, 13 health outcomes, and 9 on use of preventive services. These estimates can be used to identify emerging health problems and to inform development and implementation of effective, targeted public health prevention activities. Because the small area model cannot detect effects due to local interventions, users are cautioned against using these estimates for program or policy evaluations. Data sources used to generate these model-based estimates include Behavioral Risk Factor Surveillance System (BRFSS) 2018 or 2017 data, Census Bureau 2010 population data, and American Community Survey (ACS) 2014-2018 or 2013-2017 estimates. The 2020 release uses 2018 BRFSS data for 23 measures and 2017 BRFSS data for 4 measures (high blood pressure, taking high blood pressure medication, high cholesterol, and cholesterol screening). Four measures are based on the 2017 BRFSS because the relevant questions are only asked every other year in the BRFSS. More information about the methodology can be found at www.cdc.gov/places.",
+  "diciBackend" : false,
+  "displayType" : "table",
+  "downloadCount" : 5522,
+  "hideFromCatalog" : false,
+  "hideFromDataJson" : false,
+  "licenseId" : "PUBLIC_DOMAIN",
+  "locked" : false,
+  "newBackend" : true,
+  "numberOfComments" : 0,
+  "oid" : 37729770,
+  "provenance" : "official",
+  "publicationAppendEnabled" : false,
+  "publicationDate" : 1632931375,
+  "publicationGroup" : 18458890,
+  "publicationStage" : "published",
+  "rowsUpdatedAt" : 1633621945,
+  "tableId" : 18458890,
+  "totalTimesRated" : 0,
+  "viewCount" : 5661,
+  "viewLastModified" : 1789000786,
+  "viewType" : "tabular",
+  "approvals" : [ {
+    "reviewedAt" : 1638446798,
+    "reviewedAutomatically" : true,
+    "state" : "approved",
+    "submissionId" : 4258750,
+    "submissionObject" : "public_audience_request",
+    "submissionOutcome" : "change_audience",
+    "submittedAt" : 1638446798,
+    "targetAudience" : "public",
+    "workflowId" : 2100,
+    "submissionDetails" : {
+      "permissionType" : "READ"
+    },
+    "submissionOutcomeApplication" : {
+      "endedAt" : 1638446798,
+      "failureCount" : 0,
+      "startedAt" : 1638446798,
+      "status" : "success"
+    },
+    "submitter" : {
+      "id" : "fjjr-gap9",
+      "displayName" : "CDC UserSA"
+    }
+  } ],
+  "clientContext" : {
+    "clientContextVariables" : [ ],
+    "inheritedVariables" : { }
+  },
+  "columns" : [ {
+    "id" : 549047011,
+    "name" : "Year",
+    "dataTypeName" : "text",
+    "description" : "Year",
+    "fieldName" : "year",
+    "position" : 1,
+    "renderTypeName" : "text",
+    "tableColumnId" : 139633309,
+    "cachedContents" : {
+      "non_null" : "2024865",
+      "largest" : "2018",
+      "null" : "0",
+      "top" : [ {
+        "item" : "2018",
+        "count" : "1735517"
+      }, {
+        "item" : "2017",
+        "count" : "289348"
+      } ],
+      "smallest" : "2017",
+      "count" : "2024865",
+      "cardinality" : "2"
+    },
+    "format" : { }
+  }, {
+    "id" : 549047013,
+    "name" : "StateAbbr",
+    "dataTypeName" : "text",
+    "description" : "State abbreviation",
+    "fieldName" : "stateabbr",
+    "position" : 3,
+    "renderTypeName" : "text",
+    "tableColumnId" : 139633311,
+    "cachedContents" : {
+      "non_null" : "2024865",
+      "largest" : "WY",
+      "null" : "0",
+      "top" : [ {
+        "item" : "CA",
+        "count" : "224085"
+      }, {
+        "item" : "TX",
+        "count" : "146167"
+      }, {
+        "item" : "NY",
+        "count" : "135456"
+      }, {
+        "item" : "FL",
+        "count" : "116592"
+      }, {
+        "item" : "PA",
+        "count" : "89463"
+      }, {
+        "item" : "IL",
+        "count" : "87182"
+      }, {
+        "item" : "OH",
+        "count" : "82307"
+      }, {
+        "item" : "MI",
+        "count" : "76816"
+      }, {
+        "item" : "NC",
+        "count" : "60687"
+      }, {
+        "item" : "NJ",
+        "count" : "55964"
+      }, {
+        "item" : "GA",
+        "count" : "54734"
+      }, {
+        "item" : "VA",
+        "count" : "52502"
+      }, {
+        "item" : "AZ",
+        "count" : "42440"
+      }, {
+        "item" : "IN",
+        "count" : "42131"
+      }, {
+        "item" : "TN",
+        "count" : "41421"
+      }, {
+        "item" : "MA",
+        "count" : "40948"
+      }, {
+        "item" : "WA",
+        "count" : "40427"
+      }, {
+        "item" : "WI",
+        "count" : "38971"
+      }, {
+        "item" : "MD",
+        "count" : "38858"
+      }, {
+        "item" : "MO",
+        "count" : "38835"
+      } ],
+      "smallest" : "AK",
+      "count" : "2024865",
+      "cardinality" : "51"
+    },
+    "format" : { }
+  }, {
+    "id" : 549047014,
+    "name" : "StateDesc",
+    "dataTypeName" : "text",
+    "description" : "State Name",
+    "fieldName" : "statedesc",
+    "position" : 4,
+    "renderTypeName" : "text",
+    "tableColumnId" : 139633312,
+    "cachedContents" : {
+      "non_null" : "2024865",
+      "largest" : "Wyoming",
+      "null" : "0",
+      "top" : [ {
+        "item" : "California",
+        "count" : "224085"
+      }, {
+        "item" : "Texas",
+        "count" : "146167"
+      }, {
+        "item" : "New York",
+        "count" : "135456"
+      }, {
+        "item" : "Florida",
+        "count" : "116592"
+      }, {
+        "item" : "Pennsylvania",
+        "count" : "89463"
+      }, {
+        "item" : "Illinois",
+        "count" : "87182"
+      }, {
+        "item" : "Ohio",
+        "count" : "82307"
+      }, {
+        "item" : "Michigan",
+        "count" : "76816"
+      }, {
+        "item" : "North Carolina",
+        "count" : "60687"
+      }, {
+        "item" : "New Jersey",
+        "count" : "55964"
+      }, {
+        "item" : "Georgia",
+        "count" : "54734"
+      }, {
+        "item" : "Virginia",
+        "count" : "52502"
+      }, {
+        "item" : "Arizona",
+        "count" : "42440"
+      }, {
+        "item" : "Indiana",
+        "count" : "42131"
+      }, {
+        "item" : "Tennessee",
+        "count" : "41421"
+      }, {
+        "item" : "Massachusetts",
+        "count" : "40948"
+      }, {
+        "item" : "Washington",
+        "count" : "40427"
+      }, {
+        "item" : "Wisconsin",
+        "count" : "38971"
+      }, {
+        "item" : "Maryland",
+        "count" : "38858"
+      }, {
+        "item" : "Missouri",
+        "count" : "38835"
+      } ],
+      "smallest" : "Alabama",
+      "count" : "2024865",
+      "cardinality" : "51"
+    },
+    "format" : { }
+  }, {
+    "id" : 549047015,
+    "name" : "CountyName",
+    "dataTypeName" : "text",
+    "description" : "County name",
+    "fieldName" : "countyname",
+    "position" : 5,
+    "renderTypeName" : "text",
+    "tableColumnId" : 139633313,
+    "cachedContents" : {
+      "non_null" : "2024865",
+      "largest" : "Ziebach",
+      "null" : "0",
+      "top" : [ {
+        "item" : "Los Angeles",
+        "count" : "65066"
+      }, {
+        "item" : "Cook",
+        "count" : "36960"
+      }, {
+        "item" : "Orange",
+        "count" : "26175"
+      }, {
+        "item" : "Jefferson",
+        "count" : "25663"
+      }, {
+        "item" : "Maricopa",
+        "count" : "25449"
+      }, {
+        "item" : "Montgomery",
+        "count" : "23287"
+      }, {
+        "item" : "Harris",
+        "count" : "22114"
+      }, {
+        "item" : "Kings",
+        "count" : "21725"
+      }, {
+        "item" : "Wayne",
+        "count" : "21193"
+      }, {
+        "item" : "Clark",
+        "count" : "19432"
+      }, {
+        "item" : "Queens",
+        "count" : "18083"
+      }, {
+        "item" : "San Diego",
+        "count" : "17520"
+      }, {
+        "item" : "Dallas",
+        "count" : "15764"
+      }, {
+        "item" : "Washington",
+        "count" : "15641"
+      }, {
+        "item" : "Suffolk",
+        "count" : "15282"
+      }, {
+        "item" : "Middlesex",
+        "count" : "14896"
+      }, {
+        "item" : "Miami-Dade",
+        "count" : "14298"
+      }, {
+        "item" : "Franklin",
+        "count" : "13801"
+      }, {
+        "item" : "Marion",
+        "count" : "12738"
+      }, {
+        "item" : "Riverside",
+        "count" : "12654"
+      } ],
+      "smallest" : "Abbeville",
+      "count" : "2024865",
+      "cardinality" : "1839"
+    },
+    "format" : { }
+  }, {
+    "id" : 549047016,
+    "name" : "CountyFIPS",
+    "dataTypeName" : "text",
+    "description" : "County FIPS code",
+    "fieldName" : "countyfips",
+    "position" : 6,
+    "renderTypeName" : "text",
+    "tableColumnId" : 139633314,
+    "cachedContents" : {
+      "non_null" : "2024865",
+      "largest" : "56045",
+      "null" : "0",
+      "top" : [ {
+        "item" : "06037",
+        "count" : "65066"
+      }, {
+        "item" : "17031",
+        "count" : "36792"
+      }, {
+        "item" : "04013",
+        "count" : "25449"
+      }, {
+        "item" : "48201",
+        "count" : "21974"
+      }, {
+        "item" : "36047",
+        "count" : "20971"
+      }, {
+        "item" : "36081",
+        "count" : "18083"
+      }, {
+        "item" : "06073",
+        "count" : "17520"
+      }, {
+        "item" : "26163",
+        "count" : "16828"
+      }, {
+        "item" : "06059",
+        "count" : "16239"
+      }, {
+        "item" : "48113",
+        "count" : "14756"
+      }, {
+        "item" : "12086",
+        "count" : "14298"
+      }, {
+        "item" : "32003",
+        "count" : "13636"
+      }, {
+        "item" : "06065",
+        "count" : "12654"
+      }, {
+        "item" : "39035",
+        "count" : "12404"
+      }, {
+        "item" : "53033",
+        "count" : "11116"
+      }, {
+        "item" : "42003",
+        "count" : "10972"
+      }, {
+        "item" : "42101",
+        "count" : "10525"
+      }, {
+        "item" : "06085",
+        "count" : "10416"
+      }, {
+        "item" : "06071",
+        "count" : "10304"
+      }, {
+        "item" : "48029",
+        "count" : "10132"
+      } ],
+      "smallest" : "01001",
+      "count" : "2024865",
+      "cardinality" : "3142"
+    },
+    "format" : { }
+  }, {
+    "id" : 549047017,
+    "name" : "LocationName",
+    "dataTypeName" : "text",
+    "description" : "Tract FIPS code",
+    "fieldName" : "locationname",
+    "position" : 7,
+    "renderTypeName" : "text",
+    "tableColumnId" : 139633315,
+    "cachedContents" : {
+      "non_null" : "2024865",
+      "largest" : "56045951300",
+      "null" : "0",
+      "top" : [ {
+        "item" : "06037294620",
+        "count" : "28"
+      }, {
+        "item" : "27063480400",
+        "count" : "28"
+      }, {
+        "item" : "18181958600",
+        "count" : "28"
+      }, {
+        "item" : "34031124311",
+        "count" : "28"
+      }, {
+        "item" : "39113040306",
+        "count" : "28"
+      }, {
+        "item" : "17031801601",
+        "count" : "28"
+      }, {
+        "item" : "35001003729",
+        "count" : "28"
+      }, {
+        "item" : "45045002105",
+        "count" : "28"
+      }, {
+        "item" : "12009064602",
+        "count" : "28"
+      }, {
+        "item" : "36077591200",
+        "count" : "28"
+      }, {
+        "item" : "48465950302",
+        "count" : "28"
+      }, {
+        "item" : "24003750803",
+        "count" : "28"
+      }, {
+        "item" : "06037139600",
+        "count" : "28"
+      }, {
+        "item" : "22029000300",
+        "count" : "28"
+      }, {
+        "item" : "49057210508",
+        "count" : "28"
+      }, {
+        "item" : "34033020300",
+        "count" : "28"
+      }, {
+        "item" : "12011070311",
+        "count" : "28"
+      }, {
+        "item" : "37147001003",
+        "count" : "28"
+      }, {
+        "item" : "42129805800",
+        "count" : "28"
+      }, {
+        "item" : "01107050300",
+        "count" : "28"
+      } ],
+      "smallest" : "01001020100",
+      "count" : "2024865",
+      "cardinality" : "72337"
+    },
+    "format" : { }
+  }, {
+    "id" : 549047018,
+    "name" : "DataSource",
+    "dataTypeName" : "text",
+    "description" : "Data source",
+    "fieldName" : "datasource",
+    "position" : 8,
+    "renderTypeName" : "text",
+    "tableColumnId" : 139633316,
+    "cachedContents" : {
+      "non_null" : "2024865",
+      "largest" : "BRFSS",
+      "null" : "0",
+      "top" : [ {
+        "item" : "BRFSS",
+        "count" : "2024865"
+      } ],
+      "smallest" : "BRFSS",
+      "count" : "2024865",
+      "cardinality" : "1"
+    },
+    "format" : { }
+  }, {
+    "id" : 549047019,
+    "name" : "Category",
+    "dataTypeName" : "text",
+    "description" : "Topic",
+    "fieldName" : "category",
+    "position" : 9,
+    "renderTypeName" : "text",
+    "tableColumnId" : 139633317,
+    "cachedContents" : {
+      "non_null" : "2024865",
+      "largest" : "Unhealthy Behaviors",
+      "null" : "0",
+      "top" : [ {
+        "item" : "Health Outcomes",
+        "count" : "940282"
+      }, {
+        "item" : "Prevention",
+        "count" : "722898"
+      }, {
+        "item" : "Unhealthy Behaviors",
+        "count" : "361685"
+      } ],
+      "smallest" : "Health Outcomes",
+      "count" : "2024865",
+      "cardinality" : "3"
+    },
+    "format" : { }
+  }, {
+    "id" : 549047020,
+    "name" : "Measure",
+    "dataTypeName" : "text",
+    "description" : "Measure full name",
+    "fieldName" : "measure",
+    "position" : 10,
+    "renderTypeName" : "text",
+    "tableColumnId" : 139633318,
+    "cachedContents" : {
+      "non_null" : "2024865",
+      "largest" : "Visits to doctor for routine checkup within the past year among adults aged >=18 years",
+      "null" : "0",
+      "top" : [ {
+        "item" : "Visits to doctor for routine checkup within the past year among adults aged >=18 years",
+        "count" : "72337"
+      }, {
+        "item" : "Arthritis among adults aged >=18 years",
+        "count" : "72337"
+      }, {
+        "item" : "Binge drinking among adults aged >=18 years",
+        "count" : "72337"
+      }, {
+        "item" : "Cancer (excluding skin cancer) among adults aged >=18 years",
+        "count" : "72337"
+      }, {
+        "item" : "Obesity among adults aged >=18 years",
+        "count" : "72337"
+      }, {
+        "item" : "Physical health not good for >=14 days among adults aged >=18 years",
+        "count" : "72337"
+      }, {
+        "item" : "Sleeping less than 7 hours among adults aged >=18 years",
+        "count" : "72337"
+      }, {
+        "item" : "Stroke among adults aged >=18 years",
+        "count" : "72337"
+      }, {
+        "item" : "Taking medicine for high blood pressure control among adults aged >=18 years with high blood pressure",
+        "count" : "72337"
+      }, {
+        "item" : "Visits to dentist or dental clinic among adults aged >=18 years",
+        "count" : "72337"
+      }, {
+        "item" : "Cholesterol screening among adults aged >=18 years",
+        "count" : "72337"
+      }, {
+        "item" : "Chronic kidney disease among adults aged >=18 years",
+        "count" : "72337"
+      }, {
+        "item" : "Chronic obstructive pulmonary disease among adults aged >=18 years",
+        "count" : "72337"
+      }, {
+        "item" : "Coronary heart disease among adults aged >=18 years",
+        "count" : "72337"
+      }, {
+        "item" : "Current asthma among adults aged >=18 years",
+        "count" : "72337"
+      }, {
+        "item" : "Current lack of health insurance among adults aged 18-64 years",
+        "count" : "72337"
+      }, {
+        "item" : "Current smoking among adults aged >=18 years",
+        "count" : "72337"
+      }, {
+        "item" : "Diagnosed diabetes among adults aged >=18 years",
+        "count" : "72337"
+      }, {
+        "item" : "High blood pressure among adults aged >=18 years",
+        "count" : "72337"
+      }, {
+        "item" : "High cholesterol among adults aged >=18 years who have been screened in the past 5 years",
+        "count" : "72337"
+      } ],
+      "smallest" : "All teeth lost among adults aged >=65 years",
+      "count" : "2024865",
+      "cardinality" : "28"
+    },
+    "format" : { }
+  }, {
+    "id" : 549047021,
+    "name" : "Data_Value_Unit",
+    "dataTypeName" : "text",
+    "description" : "The data value unit, such as \"%\" for percentage",
+    "fieldName" : "data_value_unit",
+    "position" : 11,
+    "renderTypeName" : "text",
+    "tableColumnId" : 139633319,
+    "cachedContents" : {
+      "non_null" : "2024865",
+      "largest" : "%",
+      "null" : "0",
+      "top" : [ {
+        "item" : "%",
+        "count" : "2024865"
+      } ],
+      "smallest" : "%",
+      "count" : "2024865",
+      "cardinality" : "1"
+    },
+    "format" : { }
+  }, {
+    "id" : 549047022,
+    "name" : "Data_Value_Type",
+    "dataTypeName" : "text",
+    "description" : "The data type, such as age-adjusted prevalence or crude prevalence",
+    "fieldName" : "data_value_type",
+    "position" : 12,
+    "renderTypeName" : "text",
+    "tableColumnId" : 139633320,
+    "cachedContents" : {
+      "non_null" : "2024865",
+      "largest" : "Crude prevalence",
+      "null" : "0",
+      "top" : [ {
+        "item" : "Crude prevalence",
+        "count" : "2024865"
+      } ],
+      "smallest" : "Crude prevalence",
+      "count" : "2024865",
+      "cardinality" : "1"
+    },
+    "format" : { }
+  }, {
+    "id" : 549047023,
+    "name" : "Data_Value",
+    "dataTypeName" : "number",
+    "description" : "Data Value, such as 14.7",
+    "fieldName" : "data_value",
+    "position" : 13,
+    "renderTypeName" : "number",
+    "tableColumnId" : 139633321,
+    "cachedContents" : {
+      "non_null" : "2024864",
+      "largest" : "97.7",
+      "null" : "1",
+      "top" : [ {
+        "item" : "2.8",
+        "count" : "7652"
+      }, {
+        "item" : "2.7",
+        "count" : "7606"
+      }, {
+        "item" : "2.6",
+        "count" : "7576"
+      }, {
+        "item" : "2.9",
+        "count" : "7525"
+      }, {
+        "item" : "3.0",
+        "count" : "7322"
+      }, {
+        "item" : "3.1",
+        "count" : "7134"
+      }, {
+        "item" : "2.5",
+        "count" : "7006"
+      }, {
+        "item" : "3.2",
+        "count" : "6959"
+      }, {
+        "item" : "9.2",
+        "count" : "6823"
+      }, {
+        "item" : "9.7",
+        "count" : "6798"
+      }, {
+        "item" : "9.5",
+        "count" : "6766"
+      }, {
+        "item" : "9.1",
+        "count" : "6761"
+      }, {
+        "item" : "8.8",
+        "count" : "6756"
+      }, {
+        "item" : "9.4",
+        "count" : "6753"
+      }, {
+        "item" : "8.9",
+        "count" : "6752"
+      }, {
+        "item" : "9.3",
+        "count" : "6696"
+      }, {
+        "item" : "8.4",
+        "count" : "6688"
+      }, {
+        "item" : "9.0",
+        "count" : "6674"
+      }, {
+        "item" : "3.3",
+        "count" : "6670"
+      }, {
+        "item" : "8.5",
+        "count" : "6664"
+      } ],
+      "smallest" : "0.3",
+      "count" : "2024865",
+      "cardinality" : "972"
+    },
+    "format" : {
+      "precision" : "1"
+    }
+  }, {
+    "id" : 549047024,
+    "name" : "Data_Value_Footnote_Symbol",
+    "dataTypeName" : "text",
+    "description" : "Footnote symbol",
+    "fieldName" : "data_value_footnote_symbol",
+    "position" : 14,
+    "renderTypeName" : "text",
+    "tableColumnId" : 139633322,
+    "cachedContents" : {
+      "non_null" : "0",
+      "null" : "2024865",
+      "count" : "2024865",
+      "cardinality" : "0"
+    },
+    "format" : { }
+  }, {
+    "id" : 549047025,
+    "name" : "Data_Value_Footnote",
+    "dataTypeName" : "text",
+    "description" : "Footnote text",
+    "fieldName" : "data_value_footnote",
+    "position" : 15,
+    "renderTypeName" : "text",
+    "tableColumnId" : 139633323,
+    "cachedContents" : {
+      "non_null" : "0",
+      "null" : "2024865",
+      "count" : "2024865",
+      "cardinality" : "0"
+    },
+    "format" : { }
+  }, {
+    "id" : 549047026,
+    "name" : "Low_Confidence_Limit",
+    "dataTypeName" : "number",
+    "description" : "Low confidence limit",
+    "fieldName" : "low_confidence_limit",
+    "position" : 16,
+    "renderTypeName" : "number",
+    "tableColumnId" : 139633324,
+    "cachedContents" : {
+      "non_null" : "2024864",
+      "largest" : "97.3",
+      "null" : "1",
+      "top" : [ {
+        "item" : "2.6",
+        "count" : "8628"
+      }, {
+        "item" : "2.5",
+        "count" : "8397"
+      }, {
+        "item" : "2.7",
+        "count" : "8359"
+      }, {
+        "item" : "2.8",
+        "count" : "8318"
+      }, {
+        "item" : "2.4",
+        "count" : "8126"
+      }, {
+        "item" : "2.9",
+        "count" : "8025"
+      }, {
+        "item" : "3.0",
+        "count" : "7800"
+      }, {
+        "item" : "8.2",
+        "count" : "7639"
+      }, {
+        "item" : "8.3",
+        "count" : "7637"
+      }, {
+        "item" : "2.3",
+        "count" : "7630"
+      }, {
+        "item" : "7.9",
+        "count" : "7599"
+      }, {
+        "item" : "8.4",
+        "count" : "7551"
+      }, {
+        "item" : "8.7",
+        "count" : "7548"
+      }, {
+        "item" : "8.5",
+        "count" : "7542"
+      }, {
+        "item" : "8.1",
+        "count" : "7541"
+      }, {
+        "item" : "3.1",
+        "count" : "7525"
+      }, {
+        "item" : "8.0",
+        "count" : "7502"
+      }, {
+        "item" : "7.8",
+        "count" : "7496"
+      }, {
+        "item" : "8.6",
+        "count" : "7484"
+      }, {
+        "item" : "9.3",
+        "count" : "7465"
+      } ],
+      "smallest" : "0.3",
+      "count" : "2024865",
+      "cardinality" : "969"
+    },
+    "format" : {
+      "precision" : "1"
+    }
+  }, {
+    "id" : 549047027,
+    "name" : "High_Confidence_Limit",
+    "dataTypeName" : "number",
+    "description" : "High confidence limit",
+    "fieldName" : "high_confidence_limit",
+    "position" : 17,
+    "renderTypeName" : "number",
+    "tableColumnId" : 139633325,
+    "cachedContents" : {
+      "non_null" : "2024864",
+      "largest" : "98.1",
+      "null" : "1",
+      "top" : [ {
+        "item" : "2.9",
+        "count" : "7135"
+      }, {
+        "item" : "3.0",
+        "count" : "7038"
+      }, {
+        "item" : "3.1",
+        "count" : "6906"
+      }, {
+        "item" : "2.8",
+        "count" : "6840"
+      }, {
+        "item" : "3.2",
+        "count" : "6738"
+      }, {
+        "item" : "3.3",
+        "count" : "6615"
+      }, {
+        "item" : "2.7",
+        "count" : "6449"
+      }, {
+        "item" : "3.4",
+        "count" : "6367"
+      }, {
+        "item" : "9.8",
+        "count" : "6240"
+      }, {
+        "item" : "2.6",
+        "count" : "6112"
+      }, {
+        "item" : "3.5",
+        "count" : "6089"
+      }, {
+        "item" : "9.9",
+        "count" : "6013"
+      }, {
+        "item" : "3.6",
+        "count" : "5991"
+      }, {
+        "item" : "10.3",
+        "count" : "5979"
+      }, {
+        "item" : "10.0",
+        "count" : "5945"
+      }, {
+        "item" : "9.4",
+        "count" : "5931"
+      }, {
+        "item" : "10.1",
+        "count" : "5902"
+      }, {
+        "item" : "9.5",
+        "count" : "5901"
+      }, {
+        "item" : "9.7",
+        "count" : "5890"
+      }, {
+        "item" : "9.6",
+        "count" : "5885"
+      } ],
+      "smallest" : "0.3",
+      "count" : "2024865",
+      "cardinality" : "975"
+    },
+    "format" : {
+      "precision" : "1"
+    }
+  }, {
+    "id" : 549047028,
+    "name" : "TotalPopulation",
+    "dataTypeName" : "number",
+    "description" : " Total population of Census 2010",
+    "fieldName" : "totalpopulation",
+    "position" : 18,
+    "renderTypeName" : "number",
+    "tableColumnId" : 139633326,
+    "cachedContents" : {
+      "non_null" : "2024865",
+      "largest" : "37452",
+      "null" : "0",
+      "top" : [ {
+        "item" : "2973",
+        "count" : "952"
+      }, {
+        "item" : "3152",
+        "count" : "924"
+      }, {
+        "item" : "3412",
+        "count" : "840"
+      }, {
+        "item" : "3498",
+        "count" : "812"
+      }, {
+        "item" : "4101",
+        "count" : "784"
+      }, {
+        "item" : "3968",
+        "count" : "784"
+      }, {
+        "item" : "4165",
+        "count" : "784"
+      }, {
+        "item" : "3791",
+        "count" : "784"
+      }, {
+        "item" : "3916",
+        "count" : "781"
+      }, {
+        "item" : "3616",
+        "count" : "779"
+      }, {
+        "item" : "3527",
+        "count" : "756"
+      }, {
+        "item" : "4010",
+        "count" : "756"
+      }, {
+        "item" : "3425",
+        "count" : "756"
+      }, {
+        "item" : "3909",
+        "count" : "756"
+      }, {
+        "item" : "3321",
+        "count" : "756"
+      }, {
+        "item" : "3529",
+        "count" : "756"
+      }, {
+        "item" : "3762",
+        "count" : "756"
+      }, {
+        "item" : "3992",
+        "count" : "756"
+      }, {
+        "item" : "2942",
+        "count" : "756"
+      }, {
+        "item" : "3641",
+        "count" : "756"
+      } ],
+      "smallest" : "56",
+      "count" : "2024865",
+      "cardinality" : "9085"
+    },
+    "format" : { }
+  }, {
+    "id" : 549047031,
+    "name" : "Geolocation",
+    "dataTypeName" : "point",
+    "description" : "Latitude, Longitude of city centroid (Format: Point(Longitude Latitude))",
+    "fieldName" : "geolocation",
+    "position" : 21,
+    "renderTypeName" : "point",
+    "tableColumnId" : 139633329,
+    "cachedContents" : {
+      "non_null" : "2024865",
+      "null" : "0",
+      "top" : [ {
+        "item" : {
+          "coordinates" : [ -105.1177818, 40.14900877 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      }, {
+        "item" : {
+          "coordinates" : [ -88.51999775, 43.10136248 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      }, {
+        "item" : {
+          "coordinates" : [ -122.4692343, 37.7569416 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      }, {
+        "item" : {
+          "coordinates" : [ -74.80524578, 39.85831641 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      }, {
+        "item" : {
+          "coordinates" : [ -76.8433179, 38.98396494 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      }, {
+        "item" : {
+          "coordinates" : [ -85.66944822, 42.94800389 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      }, {
+        "item" : {
+          "coordinates" : [ -80.08933766, 26.69503499 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      }, {
+        "item" : {
+          "coordinates" : [ -97.78729325, 43.67480807 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      }, {
+        "item" : {
+          "coordinates" : [ -116.949135, 32.79127718 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      }, {
+        "item" : {
+          "coordinates" : [ -72.950941, 41.31690998 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      }, {
+        "item" : {
+          "coordinates" : [ -84.49289738, 39.04210254 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      }, {
+        "item" : {
+          "coordinates" : [ -75.20935609, 40.28922934 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      }, {
+        "item" : {
+          "coordinates" : [ -82.34587201, 34.942118 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      }, {
+        "item" : {
+          "coordinates" : [ -95.30648779, 29.87710561 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      }, {
+        "item" : {
+          "coordinates" : [ -73.64912296, 43.05928232 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      }, {
+        "item" : {
+          "coordinates" : [ -87.60816455, 41.60109387 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      }, {
+        "item" : {
+          "coordinates" : [ -92.72137278, 41.23829996 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      }, {
+        "item" : {
+          "coordinates" : [ -84.0952054, 40.25164065 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      }, {
+        "item" : {
+          "coordinates" : [ -97.69110871, 31.1322564 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      }, {
+        "item" : {
+          "coordinates" : [ -89.08407714, 42.26586467 ],
+          "type" : "Point"
+        },
+        "count" : "28"
+      } ],
+      "count" : "2024865",
+      "cardinality" : "72337"
+    },
+    "format" : { }
+  }, {
+    "id" : 549047032,
+    "name" : "LocationID",
+    "dataTypeName" : "text",
+    "description" : "Census tract FIPS",
+    "fieldName" : "locationid",
+    "position" : 22,
+    "renderTypeName" : "text",
+    "tableColumnId" : 139633330,
+    "cachedContents" : {
+      "non_null" : "2024865",
+      "largest" : "56045951300",
+      "null" : "0",
+      "top" : [ {
+        "item" : "01001020100",
+        "count" : "28"
+      }, {
+        "item" : "01115040106",
+        "count" : "28"
+      }, {
+        "item" : "01001020200",
+        "count" : "28"
+      }, {
+        "item" : "01001020500",
+        "count" : "28"
+      }, {
+        "item" : "01001020300",
+        "count" : "28"
+      }, {
+        "item" : "01115040105",
+        "count" : "28"
+      }, {
+        "item" : "01001020801",
+        "count" : "28"
+      }, {
+        "item" : "01001020400",
+        "count" : "28"
+      }, {
+        "item" : "01001020900",
+        "count" : "28"
+      }, {
+        "item" : "01001021000",
+        "count" : "28"
+      }, {
+        "item" : "01001020600",
+        "count" : "28"
+      }, {
+        "item" : "01003010100",
+        "count" : "28"
+      }, {
+        "item" : "01001020700",
+        "count" : "28"
+      }, {
+        "item" : "01003010300",
+        "count" : "28"
+      }, {
+        "item" : "01003010400",
+        "count" : "28"
+      }, {
+        "item" : "01003010500",
+        "count" : "28"
+      }, {
+        "item" : "01001020802",
+        "count" : "28"
+      }, {
+        "item" : "01003010701",
+        "count" : "28"
+      }, {
+        "item" : "01003010703",
+        "count" : "28"
+      }, {
+        "item" : "01003010704",
+        "count" : "28"
+      } ],
+      "smallest" : "01001020100",
+      "count" : "2024865",
+      "cardinality" : "72337"
+    },
+    "format" : { }
+  }, {
+    "id" : 549047033,
+    "name" : "CategoryID",
+    "dataTypeName" : "text",
+    "description" : "Identifier for Topic/Category",
+    "fieldName" : "categoryid",
+    "position" : 23,
+    "renderTypeName" : "text",
+    "tableColumnId" : 139633331,
+    "cachedContents" : {
+      "non_null" : "2024865",
+      "largest" : "UNHBEH",
+      "null" : "0",
+      "top" : [ {
+        "item" : "HLTHOUT",
+        "count" : "940282"
+      }, {
+        "item" : "PREVENT",
+        "count" : "722898"
+      }, {
+        "item" : "UNHBEH",
+        "count" : "361685"
+      } ],
+      "smallest" : "HLTHOUT",
+      "count" : "2024865",
+      "cardinality" : "3"
+    },
+    "format" : { }
+  }, {
+    "id" : 549047034,
+    "name" : "MeasureId",
+    "dataTypeName" : "text",
+    "description" : "Measure identifier",
+    "fieldName" : "measureid",
+    "position" : 24,
+    "renderTypeName" : "text",
+    "tableColumnId" : 139633332,
+    "cachedContents" : {
+      "non_null" : "2024865",
+      "largest" : "TEETHLOST",
+      "null" : "0",
+      "top" : [ {
+        "item" : "PHLTH",
+        "count" : "72337"
+      }, {
+        "item" : "ARTHRITIS",
+        "count" : "72337"
+      }, {
+        "item" : "BINGE",
+        "count" : "72337"
+      }, {
+        "item" : "BPHIGH",
+        "count" : "72337"
+      }, {
+        "item" : "BPMED",
+        "count" : "72337"
+      }, {
+        "item" : "CANCER",
+        "count" : "72337"
+      }, {
+        "item" : "CASTHMA",
+        "count" : "72337"
+      }, {
+        "item" : "MHLTH",
+        "count" : "72337"
+      }, {
+        "item" : "OBESITY",
+        "count" : "72337"
+      }, {
+        "item" : "SLEEP",
+        "count" : "72337"
+      }, {
+        "item" : "CHD",
+        "count" : "72337"
+      }, {
+        "item" : "CHECKUP",
+        "count" : "72337"
+      }, {
+        "item" : "CHOLSCREEN",
+        "count" : "72337"
+      }, {
+        "item" : "COPD",
+        "count" : "72337"
+      }, {
+        "item" : "ACCESS2",
+        "count" : "72337"
+      }, {
+        "item" : "STROKE",
+        "count" : "72337"
+      }, {
+        "item" : "CSMOKING",
+        "count" : "72337"
+      }, {
+        "item" : "DENTAL",
+        "count" : "72337"
+      }, {
+        "item" : "DIABETES",
+        "count" : "72337"
+      }, {
+        "item" : "HIGHCHOL",
+        "count" : "72337"
+      } ],
+      "smallest" : "ACCESS2",
+      "count" : "2024865",
+      "cardinality" : "28"
+    },
+    "format" : { }
+  }, {
+    "id" : 549047035,
+    "name" : "DataValueTypeID",
+    "dataTypeName" : "text",
+    "description" : "Identifier for the data value type",
+    "fieldName" : "datavaluetypeid",
+    "position" : 25,
+    "renderTypeName" : "text",
+    "tableColumnId" : 139633333,
+    "cachedContents" : {
+      "non_null" : "2024865",
+      "largest" : "CrdPrv",
+      "null" : "0",
+      "top" : [ {
+        "item" : "CrdPrv",
+        "count" : "2024865"
+      } ],
+      "smallest" : "CrdPrv",
+      "count" : "2024865",
+      "cardinality" : "1"
+    },
+    "format" : { }
+  }, {
+    "id" : 549047036,
+    "name" : "Short_Question_Text",
+    "dataTypeName" : "text",
+    "description" : "Measure short name",
+    "fieldName" : "short_question_text",
+    "position" : 26,
+    "renderTypeName" : "text",
+    "tableColumnId" : 139633334,
+    "cachedContents" : {
+      "non_null" : "2024865",
+      "largest" : "Teeth Loss",
+      "null" : "0",
+      "top" : [ {
+        "item" : "Annual Checkup",
+        "count" : "72337"
+      }, {
+        "item" : "Arthritis",
+        "count" : "72337"
+      }, {
+        "item" : "Binge Drinking",
+        "count" : "72337"
+      }, {
+        "item" : "Cancer (except skin)",
+        "count" : "72337"
+      }, {
+        "item" : "Obesity",
+        "count" : "72337"
+      }, {
+        "item" : "Physical Health",
+        "count" : "72337"
+      }, {
+        "item" : "Physical Inactivity",
+        "count" : "72337"
+      }, {
+        "item" : "Sleep <7 hours",
+        "count" : "72337"
+      }, {
+        "item" : "Stroke",
+        "count" : "72337"
+      }, {
+        "item" : "Taking BP Medication",
+        "count" : "72337"
+      }, {
+        "item" : "Cholesterol Screening",
+        "count" : "72337"
+      }, {
+        "item" : "Chronic Kidney Disease",
+        "count" : "72337"
+      }, {
+        "item" : "COPD",
+        "count" : "72337"
+      }, {
+        "item" : "Coronary Heart Disease",
+        "count" : "72337"
+      }, {
+        "item" : "Current Asthma",
+        "count" : "72337"
+      }, {
+        "item" : "Current Smoking",
+        "count" : "72337"
+      }, {
+        "item" : "Dental Visit",
+        "count" : "72337"
+      }, {
+        "item" : "Diabetes",
+        "count" : "72337"
+      }, {
+        "item" : "Health Insurance",
+        "count" : "72337"
+      }, {
+        "item" : "High Blood Pressure",
+        "count" : "72337"
+      } ],
+      "smallest" : "Annual Checkup",
+      "count" : "2024865",
+      "cardinality" : "28"
+    },
+    "format" : { }
+  } ],
+  "grants" : [ {
+    "inherited" : false,
+    "type" : "viewer",
+    "flags" : [ "public" ]
+  } ],
+  "license" : {
+    "name" : "Public Domain"
+  },
+  "metadata" : {
+    "custom_fields" : {
+      "Common Core" : {
+        "Contact Email" : "places@cdc.gov",
+        "Homepage" : "http://www.cdc.gov/nccdphp/dph/",
+        "Described By" : "https://chronicdata.cdc.gov/dataset/PLACES-Local-Data-for-Better-Health-Census-Tract-D/cwsq-ngmh",
+        "References" : "https://www.cdc.gov/places/measure-definitions/index.html",
+        "Contact Name" : "PLACES Public Inquiries",
+        "Issued" : "7/27/2023",
+        "Program Code" : "009:020",
+        "Publisher" : "Centers for Disease Control and Prevention",
+        "Bureau Code" : "009:20",
+        "Public Access Level" : "public"
+      },
+      "Common Core 3" : {
+        "Contact Email" : "places@cdc.gov",
+        "Described By" : "https://chronicdata.cdc.gov/dataset/PLACES-Local-Data-for-Better-Health-Census-Tract-D/cwsq-ngmh",
+        "Contact Name" : "PLACES Public Inquiries",
+        "Program Code" : "009:020",
+        "Restriction Status" : "public",
+        "Publisher" : "Centers for Disease Control and Prevention",
+        "Bureau Code" : "009:20"
+      },
+      "Dataset Information" : {
+        "Glossary/Methodology " : "http://www.cdc.gov/places/"
+      }
+    },
+    "availableDisplayTypes" : [ "table", "fatrow", "page" ]
+  },
+  "owner" : {
+    "id" : "fjjr-gap9",
+    "displayName" : "CDC UserSA",
+    "screenName" : "CDC UserSA",
+    "type" : "interactive",
+    "flags" : [ "acceptedEula", "mayBeStoriesCoOwner" ]
+  },
+  "query" : { },
+  "rights" : [ "read" ],
+  "tableAuthor" : {
+    "id" : "fjjr-gap9",
+    "displayName" : "CDC UserSA",
+    "screenName" : "CDC UserSA",
+    "type" : "interactive",
+    "flags" : [ "acceptedEula", "mayBeStoriesCoOwner" ]
+  },
+  "tags" : [ "places", "census tract", "brfss", "prevalence", "unhealthy", "behaviors", "outcomes", "prevention" ],
+  "flags" : [ "default", "ownerMayBeContacted", "restorable", "restorePossibleForType" ]
+}

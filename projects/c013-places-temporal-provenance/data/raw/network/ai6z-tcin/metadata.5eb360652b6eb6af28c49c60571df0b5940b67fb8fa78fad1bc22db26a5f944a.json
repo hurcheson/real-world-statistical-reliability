@@ -1,0 +1,374 @@
+{
+  "id" : "ai6z-tcin",
+  "name" : "PLACES: Local Data for Better Health, Census Tract Data 2024 release",
+  "assetType" : "dataset",
+  "attribution" : "Centers for Disease Control and Prevention, National Center for Chronic Disease Prevention and Health Promotion, Division of Population Health",
+  "attributionLink" : "http://www.cdc.gov/nccdphp/dph/",
+  "averageRating" : 0,
+  "category" : "500 Cities & Places",
+  "createdAt" : 1757595476,
+  "description" : "This dataset contains model-based census tract estimates. PLACES covers the entire United States—50 states and the District of Columbia—at county, place, census tract, and ZIP Code Tabulation Area levels. It provides information uniformly on this large scale for local areas at four geographic levels. Estimates were provided by the Centers for Disease Control and Prevention (CDC), Division of Population Health, Epidemiology and Surveillance Branch. PLACES was funded by the Robert Wood Johnson Foundation in conjunction with the CDC Foundation. The dataset includes estimates for 40 measures: 12 for health outcomes, 7 for preventive services use, 4 for chronic disease-related health risk behaviors, 7 for disabilities, 3 for health status, and 7 for health-related social needs. These estimates can be used to identify emerging health problems and to help develop and carry out effective, targeted public health prevention activities. Because the small area model cannot detect effects due to local interventions, users are cautioned against using these estimates for program or policy evaluations. Data sources used to generate these model-based estimates are Behavioral Risk Factor Surveillance System (BRFSS) 2022 or 2021 data, Census Bureau 2020 population data, and American Community Survey 2018–2022 estimates. The 2024 release uses 2022 BRFSS data for 36 measures and 2021 BRFSS data for 4 measures (high blood pressure, high cholesterol, cholesterol screening, and taking medicine for high blood pressure control among those with high blood pressure) that the survey collects data on every other year. More information about the methodology can be found at www.cdc.gov/places.",
+  "diciBackend" : false,
+  "displayType" : "table",
+  "downloadCount" : 5429,
+  "hideFromCatalog" : false,
+  "hideFromDataJson" : false,
+  "licenseId" : "PUBLIC_DOMAIN",
+  "locked" : false,
+  "newBackend" : true,
+  "numberOfComments" : 0,
+  "oid" : 41615320,
+  "provenance" : "official",
+  "publicationAppendEnabled" : false,
+  "publicationDate" : 1764849097,
+  "publicationGroup" : 20089440,
+  "publicationStage" : "published",
+  "rowsUpdatedAt" : 1757596023,
+  "rowsUpdatedBy" : "fjjr-gap9",
+  "tableId" : 20089440,
+  "totalTimesRated" : 0,
+  "viewCount" : 1995,
+  "viewLastModified" : 1788998875,
+  "viewType" : "tabular",
+  "approvals" : [ {
+    "reviewedAt" : 1764849098,
+    "reviewedAutomatically" : true,
+    "state" : "approved",
+    "submissionId" : 7238224,
+    "submissionObject" : "public_audience_request",
+    "submissionOutcome" : "change_audience",
+    "submittedAt" : 1764849098,
+    "targetAudience" : "public",
+    "workflowId" : 2100,
+    "submissionDetails" : {
+      "permissionType" : "READ"
+    },
+    "submissionOutcomeApplication" : {
+      "endedAt" : 1764849098,
+      "failureCount" : 0,
+      "startedAt" : 1764849098,
+      "status" : "success"
+    },
+    "submitter" : {
+      "id" : "fjjr-gap9",
+      "displayName" : "CDC UserSA"
+    }
+  } ],
+  "clientContext" : {
+    "clientContextVariables" : [ ],
+    "inheritedVariables" : { }
+  },
+  "columns" : [ {
+    "id" : 617167017,
+    "name" : "Year",
+    "dataTypeName" : "text",
+    "description" : "Year",
+    "fieldName" : "year",
+    "position" : 1,
+    "renderTypeName" : "text",
+    "tableColumnId" : 161636538,
+    "width" : 80,
+    "format" : { }
+  }, {
+    "id" : 617167019,
+    "name" : "StateAbbr",
+    "dataTypeName" : "text",
+    "description" : "State abbreviation",
+    "fieldName" : "stateabbr",
+    "position" : 3,
+    "renderTypeName" : "text",
+    "tableColumnId" : 161636540,
+    "width" : 138,
+    "format" : { }
+  }, {
+    "id" : 617167020,
+    "name" : "StateDesc",
+    "dataTypeName" : "text",
+    "description" : "State Name",
+    "fieldName" : "statedesc",
+    "position" : 4,
+    "renderTypeName" : "text",
+    "tableColumnId" : 161636541,
+    "width" : 170,
+    "format" : { }
+  }, {
+    "id" : 617167021,
+    "name" : "CountyName",
+    "dataTypeName" : "text",
+    "description" : "County name",
+    "fieldName" : "countyname",
+    "position" : 5,
+    "renderTypeName" : "text",
+    "tableColumnId" : 161636542,
+    "format" : { }
+  }, {
+    "id" : 617167022,
+    "name" : "CountyFIPS",
+    "dataTypeName" : "text",
+    "description" : "County FIPS code",
+    "fieldName" : "countyfips",
+    "position" : 6,
+    "renderTypeName" : "text",
+    "tableColumnId" : 161636543,
+    "width" : 144,
+    "format" : { }
+  }, {
+    "id" : 617167023,
+    "name" : "LocationName",
+    "dataTypeName" : "text",
+    "description" : "Tract FIPS code",
+    "fieldName" : "locationname",
+    "position" : 7,
+    "renderTypeName" : "text",
+    "tableColumnId" : 161636544,
+    "format" : { }
+  }, {
+    "id" : 617167024,
+    "name" : "DataSource",
+    "dataTypeName" : "text",
+    "description" : "Data source",
+    "fieldName" : "datasource",
+    "position" : 8,
+    "renderTypeName" : "text",
+    "tableColumnId" : 161636545,
+    "format" : { }
+  }, {
+    "id" : 617167025,
+    "name" : "Category",
+    "dataTypeName" : "text",
+    "description" : "Topic",
+    "fieldName" : "category",
+    "position" : 9,
+    "renderTypeName" : "text",
+    "tableColumnId" : 161636546,
+    "format" : { }
+  }, {
+    "id" : 617167026,
+    "name" : "Measure",
+    "dataTypeName" : "text",
+    "description" : "Measure full name",
+    "fieldName" : "measure",
+    "position" : 10,
+    "renderTypeName" : "text",
+    "tableColumnId" : 161636547,
+    "width" : 308,
+    "format" : { }
+  }, {
+    "id" : 617167027,
+    "name" : "Data_Value_Unit",
+    "dataTypeName" : "text",
+    "description" : "The data value unit, such as \"%\" for percentage",
+    "fieldName" : "data_value_unit",
+    "position" : 11,
+    "renderTypeName" : "text",
+    "tableColumnId" : 161636548,
+    "width" : 165,
+    "format" : { }
+  }, {
+    "id" : 617167028,
+    "name" : "Data_Value_Type",
+    "dataTypeName" : "text",
+    "description" : "The data type, such as age-adjusted prevalence or crude prevalence",
+    "fieldName" : "data_value_type",
+    "position" : 12,
+    "renderTypeName" : "text",
+    "tableColumnId" : 161636549,
+    "format" : { }
+  }, {
+    "id" : 617167029,
+    "name" : "Data_Value",
+    "dataTypeName" : "number",
+    "description" : "Data Value, such as 14.7",
+    "fieldName" : "data_value",
+    "position" : 13,
+    "renderTypeName" : "number",
+    "tableColumnId" : 161636550,
+    "width" : 119,
+    "format" : {
+      "precision" : "1"
+    }
+  }, {
+    "id" : 617167030,
+    "name" : "Data_Value_Footnote_Symbol",
+    "dataTypeName" : "text",
+    "description" : "Footnote symbol",
+    "fieldName" : "data_value_footnote_symbol",
+    "position" : 14,
+    "renderTypeName" : "text",
+    "tableColumnId" : 161636551,
+    "width" : 155,
+    "format" : { }
+  }, {
+    "id" : 617167031,
+    "name" : "Data_Value_Footnote",
+    "dataTypeName" : "text",
+    "description" : "Footnote text",
+    "fieldName" : "data_value_footnote",
+    "position" : 15,
+    "renderTypeName" : "text",
+    "tableColumnId" : 161636552,
+    "format" : { }
+  }, {
+    "id" : 617167032,
+    "name" : "Low_Confidence_Limit",
+    "dataTypeName" : "number",
+    "description" : "Low confidence limit",
+    "fieldName" : "low_confidence_limit",
+    "position" : 16,
+    "renderTypeName" : "number",
+    "tableColumnId" : 161636553,
+    "width" : 136,
+    "format" : {
+      "precision" : "1"
+    }
+  }, {
+    "id" : 617167033,
+    "name" : "High_Confidence_Limit",
+    "dataTypeName" : "number",
+    "description" : "High confidence limit",
+    "fieldName" : "high_confidence_limit",
+    "position" : 17,
+    "renderTypeName" : "number",
+    "tableColumnId" : 161636554,
+    "width" : 146,
+    "format" : {
+      "precision" : "1"
+    }
+  }, {
+    "id" : 617167034,
+    "name" : "TotalPopulation",
+    "dataTypeName" : "number",
+    "description" : " Total population of Census 2020",
+    "fieldName" : "totalpopulation",
+    "position" : 18,
+    "renderTypeName" : "number",
+    "tableColumnId" : 161636555,
+    "width" : 129,
+    "format" : { }
+  }, {
+    "id" : 617167035,
+    "name" : "TotalPop18plus",
+    "dataTypeName" : "number",
+    "description" : "Total population 18 and plus of Census 2020",
+    "fieldName" : "totalpop18plus",
+    "position" : 19,
+    "renderTypeName" : "number",
+    "tableColumnId" : 161636556,
+    "format" : { }
+  }, {
+    "id" : 617167038,
+    "name" : "Geolocation",
+    "dataTypeName" : "point",
+    "description" : "Latitude, Longitude of city centroid (Format: Point(Longitude Latitude))",
+    "fieldName" : "geolocation",
+    "position" : 22,
+    "renderTypeName" : "point",
+    "tableColumnId" : 161636559,
+    "format" : { }
+  }, {
+    "id" : 617167039,
+    "name" : "LocationID",
+    "dataTypeName" : "text",
+    "description" : "Census tract FIPS",
+    "fieldName" : "locationid",
+    "position" : 23,
+    "renderTypeName" : "text",
+    "tableColumnId" : 161636560,
+    "format" : { }
+  }, {
+    "id" : 617167040,
+    "name" : "CategoryID",
+    "dataTypeName" : "text",
+    "description" : "Identifier for Topic/Category",
+    "fieldName" : "categoryid",
+    "position" : 24,
+    "renderTypeName" : "text",
+    "tableColumnId" : 161636561,
+    "format" : { }
+  }, {
+    "id" : 617167041,
+    "name" : "MeasureId",
+    "dataTypeName" : "text",
+    "description" : "Measure identifier",
+    "fieldName" : "measureid",
+    "position" : 25,
+    "renderTypeName" : "text",
+    "tableColumnId" : 161636562,
+    "format" : { }
+  }, {
+    "id" : 617167042,
+    "name" : "DataValueTypeID",
+    "dataTypeName" : "text",
+    "description" : "Identifier for the data value type",
+    "fieldName" : "datavaluetypeid",
+    "position" : 26,
+    "renderTypeName" : "text",
+    "tableColumnId" : 161636563,
+    "width" : 144,
+    "format" : { }
+  }, {
+    "id" : 617167043,
+    "name" : "Short_Question_Text",
+    "dataTypeName" : "text",
+    "description" : "Measure short name",
+    "fieldName" : "short_question_text",
+    "position" : 27,
+    "renderTypeName" : "text",
+    "tableColumnId" : 161636564,
+    "format" : { }
+  } ],
+  "grants" : [ {
+    "inherited" : false,
+    "type" : "viewer",
+    "flags" : [ "public" ]
+  } ],
+  "license" : {
+    "name" : "Public Domain"
+  },
+  "metadata" : {
+    "custom_fields" : {
+      "Common Core" : {
+        "Contact Email" : "places@cdc.gov",
+        "Homepage" : "http://www.cdc.gov/nccdphp/dph/",
+        "Described By" : "https://chronicdata.cdc.gov/dataset/PLACES-Local-Data-for-Better-Health-Census-Tract-D/cwsq-ngmh",
+        "References" : "https://www.cdc.gov/places/measure-definitions/index.html",
+        "Contact Name" : "PLACES Public Inquiries",
+        "Issued" : "7/27/2023",
+        "Program Code" : "009:020",
+        "Publisher" : "Centers for Disease Control and Prevention",
+        "Bureau Code" : "009:20",
+        "Public Access Level" : "public"
+      },
+      "Common Core 3" : {
+        "Contact Email" : "places@cdc.gov",
+        "Described By" : "https://chronicdata.cdc.gov/dataset/PLACES-Local-Data-for-Better-Health-Census-Tract-D/cwsq-ngmh",
+        "Contact Name" : "PLACES Public Inquiries",
+        "Program Code" : "009:020",
+        "Restriction Status" : "public",
+        "Publisher" : "Centers for Disease Control and Prevention",
+        "Bureau Code" : "009:20"
+      },
+      "Dataset Information" : {
+        "Glossary/Methodology " : "http://www.cdc.gov/places/"
+      }
+    }
+  },
+  "owner" : {
+    "id" : "fjjr-gap9",
+    "displayName" : "CDC UserSA",
+    "screenName" : "CDC UserSA",
+    "type" : "interactive",
+    "flags" : [ "acceptedEula", "mayBeStoriesCoOwner" ]
+  },
+  "query" : { },
+  "rights" : [ "read" ],
+  "tableAuthor" : {
+    "id" : "fjjr-gap9",
+    "displayName" : "CDC UserSA",
+    "screenName" : "CDC UserSA",
+    "type" : "interactive",
+    "flags" : [ "acceptedEula", "mayBeStoriesCoOwner" ]
+  },
+  "tags" : [ "places", "census tract", "brfss", "prevalence", "risk", "behaviors", "outcomes", "prevention", "health", "status", "disability" ],
+  "flags" : [ "default", "ownerMayBeContacted", "restorable", "restorePossibleForType" ]
+}
