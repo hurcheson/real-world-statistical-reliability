@@ -1,9 +1,8 @@
 {
   "asset_name": "c013-carry-forward-raw-pages.tar.gz",
-  "byte_size": 45807096,
+  "byte_size": 45807132,
   "contents": "gzip-compressed content-addressed raw CSV pages used by carry-forward diagnostics",
-  "release_tag": "c013-stage0-raw-2026-09-21",
   "repository_path": "projects/c013-places-temporal-provenance/data/raw_archives/c013-carry-forward-raw-pages.tar.gz",
-  "sha256": "f3a59e95b9b2e5f02f8ad765c4e67e69770404a2ab6a0547ca5984fe3ee22a71",
-  "storage_mode": "git-tracked compressed archive fallback because Actions GITHUB_TOKEN cannot create releases"
+  "sha256": "5faadb4018cb26608b7fc6bf77a8f4fc9557e61fbf9b87e32e73777fee6f0814",
+  "storage_mode": "git-tracked compressed archive"
 }
