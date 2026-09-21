@@ -1,0 +1,35 @@
+name: C013 carry-forward smoke test
+
+on:
+  push:
+    branches:
+      - codex/c013-stage0-provenance
+    paths:
+      - projects/c013-places-temporal-provenance/scripts/compute_carry_forward_diagnostics.py
+      - .github/workflows/c013-carry-forward-smoke.yml
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run three carry-forward pairs
+        run: python projects/c013-places-temporal-provenance/scripts/compute_carry_forward_diagnostics.py --max-pairs 3
+      - name: Validate smoke outputs
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path("projects/c013-places-temporal-provenance")
+          rows=[json.loads(x) for x in (root/"outputs/machine/carry_forward_diagnostics.jsonl").read_text().splitlines() if x.strip()]
+          assert len(rows)==3, len(rows)
+          assert all(r["common_geography_count"]>=0 for r in rows)
+          assert all(r["carry_forward_classification"] in {"exact carry-forward","revised carry-forward","ambiguous"} for r in rows)
+          print(rows)
+          PY
