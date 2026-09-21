@@ -1,0 +1,44 @@
+name: C013 Stage0 network archive
+
+on:
+  push:
+    branches:
+      - codex/c013-stage0-provenance
+    paths:
+      - projects/c013-places-temporal-provenance/scripts/archive_socrata_stage0.py
+      - .github/workflows/c013-stage0-network-archive.yml
+
+permissions:
+  contents: write
+
+jobs:
+  archive:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Archive frozen Socrata metadata and grouped coverage
+        run: python projects/c013-places-temporal-provenance/scripts/archive_socrata_stage0.py
+      - name: Validate archived Stage0 state
+        run: |
+          cd projects/c013-places-temporal-provenance
+          PYTHONPATH=src python scripts/validate_stage0.py
+          python -m pytest -q tests
+      - name: Commit content-addressed archive
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add projects/c013-places-temporal-provenance/data/raw/network \
+                  projects/c013-places-temporal-provenance/data/manifests/retrieval_manifest.jsonl \
+                  projects/c013-places-temporal-provenance/outputs/machine/measure_coverage.jsonl
+          if git diff --cached --quiet; then
+            echo "No archive changes"
+          else
+            git commit -m "data: freeze C013 Socrata Stage0 network archive [skip ci]"
+            git push origin HEAD:codex/c013-stage0-provenance
+          fi
