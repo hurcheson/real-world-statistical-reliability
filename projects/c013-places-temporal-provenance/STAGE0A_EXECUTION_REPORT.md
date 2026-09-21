@@ -5,7 +5,8 @@
 **Repository:** `hurcheson/real-world-statistical-reliability`  
 **Repository base commit:** `712701002bf51d94e49bc15e7c3651382d0f3bb0` (`main`)  
 **Branch:** `codex/c013-stage0-provenance`  
-**Final commit:** self-reference cannot be embedded in the commit that contains this report without changing that commit; the externally verified branch HEAD is reported in the handoff after push.  
+**Verified execution-tree commit:** `76304c7eddc176be7ba15853bc9860ab0ae10e40`  
+**Report-finalization note:** a Git commit cannot contain its own SHA without changing that SHA; the externally verified branch HEAD after this report update is therefore reported in the user handoff.  
 
 ## 1. Verified canonical state
 
@@ -143,6 +144,20 @@ Environment: Python 3.13.5; pytest 9.0.2; standard-library runtime dependencies 
 Result: **14 passed, 0 failed, 0 skipped**.
 
 Coverage includes all required Stage 0A invariant classes requested in the execution brief: required fields, composite key, categories, dataset ID, SHA-256, UTC parsing, missing/conflicting source-year handling, exact/revised thresholds, comparability logic, duplicate retrieval semantics, raw immutability, protocol integrity, v0.28.0 consistency, and deterministic fixture serialization.
+
+### GitHub branch verification
+
+Permanent GitHub Actions workflow `.github/workflows/c013-stage0.yml` completed successfully on verified execution-tree commit `76304c7eddc176be7ba15853bc9860ab0ae10e40` (run `35659291238`, Python 3.12). Results:
+
+- C013 tests: **14 passed**;
+- machine-state validation: `{'retrieval_records': 16, 'crosswalk_records': 128}`;
+- preliminary crosswalk SHA-256: `81f7b98a9e30392e65a21d5c59a9ca192fdccda9ee66fbfbe751aa985801b98e`;
+- retrieval manifest SHA-256: `5cb27117dcf71c380adf86ff4cb45faffb74e206f7e1dcfbb8d259494ec12621`;
+- fresh-directory deterministic rerun: passed;
+- C011 invariant tests: **4 passed**;
+- C011 regression test: permanently skipped when the excluded immutable workbook is absent, with an explicit CI message.
+
+An earlier explicit regression attempt (workflow run `35659052433`) produced exactly one failure: `FileNotFoundError` for `projects/c011-qct-precision-screen/data/raw/qct_data_2016.xlsx`; the same run reported `C011_RAW_PRESENT=false`. This is preserved as an environment/provenance-input limitation rather than hidden as a pass.
 
 ### Existing C011 repository tests
 
