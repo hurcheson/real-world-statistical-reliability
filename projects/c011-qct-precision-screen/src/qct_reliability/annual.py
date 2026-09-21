@@ -198,12 +198,24 @@ def population_burden(frame: pd.DataFrame, loose: Replay, tight: Replay):
 
 def precision_summary(frame: pd.DataFrame, replay: Replay, criterion: str, suffixes):
     if criterion == "income":
-        ratios = np.column_stack([_num(frame, f"b19013me1_{s}") / _num(frame, f"b19013est1_{s}") for s in suffixes])
+        ratios = np.column_stack([np.divide(
+            _num(frame, f"b19013me1_{s}"), _num(frame, f"b19013est1_{s}"),
+            out=np.full(len(frame), np.nan), where=_num(frame, f"b19013est1_{s}") != 0
+        ) for s in suffixes])
         passed = replay.income_pass
     elif criterion == "poverty":
-        ratios = np.column_stack([np.maximum(
-            _num(frame, f"b17001me1_{s}") / _num(frame, f"b17001est1_{s}"),
-            _num(frame, f"b17001me2_{s}") / _num(frame, f"b17001est2_{s}")) for s in suffixes])
+        ratios = []
+        for s in suffixes:
+            denominator = _num(frame, f"b17001est1_{s}")
+            numerator = _num(frame, f"b17001est2_{s}")
+            denominator_ratio = np.divide(
+                _num(frame, f"b17001me1_{s}"), denominator,
+                out=np.full(len(frame), np.nan), where=denominator != 0)
+            numerator_ratio = np.divide(
+                _num(frame, f"b17001me2_{s}"), numerator,
+                out=np.full(len(frame), np.nan), where=numerator != 0)
+            ratios.append(np.maximum(denominator_ratio, numerator_ratio))
+        ratios = np.column_stack(ratios)
         passed = replay.poverty_pass
     else:
         raise ValueError(criterion)
