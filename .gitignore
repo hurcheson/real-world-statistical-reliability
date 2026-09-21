@@ -12,3 +12,5 @@ projects/c013-places-temporal-provenance/data/raw/*
 !projects/c013-places-temporal-provenance/data/raw/.gitkeep
 !projects/c013-places-temporal-provenance/data/raw/metadata/
 !projects/c013-places-temporal-provenance/data/raw/metadata/*.json
+
+*.egg-info/
