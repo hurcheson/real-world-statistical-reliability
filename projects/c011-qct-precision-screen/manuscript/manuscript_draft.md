@@ -1,236 +1,170 @@
-# Precision Screening and Geographic Coverage in HUD Qualified Census Tract Designation: A Reproducible Policy Sensitivity Analysis
+# Precision Screening and Geographic Coverage in HUD Qualified Census Tract Designation
 
-**Working Paper — September 2026**  
-**Computational Archive:** [hurcheson/real-world-statistical-reliability](https://github.com/hurcheson/real-world-statistical-reliability) (C011)  
-**Execution Standard:** Zero-mismatch 2016 Admitted Execution  
+## A deterministic 2016 policy-sensitivity analysis
 
----
+**Evidence-locked manuscript draft — September 2026**
+
+**Computational archive:** [hurcheson/real-world-statistical-reliability](https://github.com/hurcheson/real-world-statistical-reliability)
+
+**Admissible evidence:** 2016 only; 74,272 HUD QCT records; zero official-replay mismatches
+
+**Project disposition:** Manuscript-grade technical record. Under decision D037, C011 remains parked as a first-paper project because no multi-year recurrence claim is reproducible from retained provenance.
 
 ## Abstract
 
-Federal resource-allocation formulas increasingly distribute public capital based on small-area survey estimates characterized by substantial sampling error. To prevent designation errors driven by survey noise, administering agencies frequently institute statistical precision screens that disqualify estimates with large margins of error. In 2016, the U.S. Department of Housing and Urban Development (HUD) tightened the precision gate for Qualified Census Tract (QCT) designations under the Low-Income Housing Tax Credit (LIHTC)—the nation's primary private-capital subsidy for affordable housing—lowering the permissible margin-of-error ratio from $c = 1.00$ to $c = 0.50$. In this study, we conduct a deterministic, zero-mismatch computational reconstruction of the 2016 nationwide HUD QCT allocation algorithm across all 85,390 U.S. census tract records and execute a controlled, same-data counterfactual policy sensitivity analysis. Holding all observed survey data, statutory poverty/income cutoffs, and geography constant, tightening the screen from $c = 1.00$ to $c = 0.50$ reduced net designations by 438 tracts ($-3.12\%$), but induced gross status churn across 864 tracts ($1.97\times$ the net reduction). We demonstrate that this precision filter operates selectively: because survey sampling variance scales inversely with tract population, tracts in the lowest population quintile face a 12.24 percentage-point higher standardized risk of losing eligibility ($BRD = 0.1224$) after conditioning on proximity to statutory thresholds ($10.62\%$ raw loss rate in Quintile 1 vs. $1.02\%$ in Quintile 5). Furthermore, through interaction with the statutory 20% area population cap, the screen generates strict non-local allocation externalities: 161 tracts in 75 metropolitan areas across 31 states experienced designation status changes despite experiencing zero change in their own survey estimates, margins of error, or precision indicators. These findings demonstrate that in threshold-and-cap allocation formulas, administrative precision screens trade statistical reliability for systematic demographic coverage shifts and non-local spatial externalities.
+The U.S. Department of Housing and Urban Development (HUD) strengthened the data-quality screen used for 2016 Qualified Census Tract (QCT) designations under Internal Revenue Code Section 42. This study reconstructs HUD's 2016 national designation calculation and evaluates a same-data sensitivity contrast between a strict relative-margin-of-error screen of `MoE < 0.50 × estimate` and a looser `MoE < 1.00 × estimate` screen. The official `c=0.50` replay matches all 13,619 published designations across 74,272 HUD records, with zero record-level mismatches. Tightening the screen reduces union eligibility from 17,042 to 16,368 records and designation from 14,057 to 13,619 records. The net designation change is −438, while 864 records change status: 651 losses and 213 gains. A five-part decomposition assigns this churn to direct eligibility loss (473), own-screen ranking or cap loss (159), strict non-local loss (19), own-screen ranking or cap gain (71), and strict non-local gain (142). Thus 161 status changes occur even though the record's own six release-by-criterion precision indicators do not change. Among records eligible under the looser screen, raw eligibility-loss rates decline from 10.62% in the lowest population quintile to 1.03% in the highest. A prespecified standardization over eligibility type and substantive-threshold-distance quintile yields a burden risk difference of 0.122396. These results identify sensitivity of 2016 administrative eligibility and designation to the precision threshold. They do not identify latent classification accuracy, housing production, subsidy receipt, demographic effects, or recurrence in other years.
 
-**Keywords:** Qualified Census Tracts, American Community Survey, Margins of Error, Algorithmic Allocation, Low-Income Housing Tax Credit, Policy Sensitivity Analysis, Administrative Data Quality.
-
----
+**Keywords:** Qualified Census Tracts; American Community Survey; margin of error; deterministic reconstruction; administrative allocation; policy sensitivity.
 
 ## 1. Introduction
 
-Over the past two decades, federal statutory and administrative programs have transitioned from decennial census counts to rolling sample estimates produced by the American Community Survey (ACS). While the ACS provides continuous, updated indicators of poverty, income, and demographic structure, tract-level 5-year estimates are characterized by substantial sampling variability, particularly in sparsely populated or socioeconomically disadvantaged communities (Spielman et al., 2014; Folch et al., 2016).
+Small-area policy formulas often combine survey estimates with deterministic eligibility and allocation rules. A precision screen can remove estimates judged too imprecise, but its administrative consequences depend on the rest of the formula. In QCT designation, release-level screening feeds a two-of-three eligibility rule, a ranking calculation, and a statutory population cap. Changing the screen can therefore alter both the status of records that fail it and the allocation of records whose own precision indicators are unchanged.
 
-Policymakers and administering agencies face an inherent methodological dilemma when deploying survey data to distribute targeted public resources. Using point estimates without regard to precision risks awarding capital to statistical artifacts—directing subsidies to tracts that appear eligible solely due to positive sampling shocks. Conversely, disqualifying estimates based on statistical noise risks denying statutory entitlements to communities whose true deprivation is obscured by small sample sizes (Bazuin & Fraser, 2016).
+HUD's [2016 Federal Register notice](https://www.govinfo.gov/content/pkg/FR-2015-11-24/pdf/2015-29953.pdf) described a strengthened data-quality standard and noted that a 50% margin-of-error ratio corresponds approximately to a 30% coefficient of variation. The earlier operational rule rejected a positive estimate when its 90% confidence interval included zero, which is equivalent to the strict condition `MoE < estimate`. The 2016 contrast can therefore be represented by holding the 2016 workbook and all non-screen rules fixed while changing only the relative-MoE threshold from `c=1.00` to `c=0.50`.
 
-In 2016, the U.S. Department of Housing and Urban Development (HUD) addressed this dilemma within the Low-Income Housing Tax Credit (LIHTC) program. Authorized under Section 42 of the Internal Revenue Code (IRC), the LIHTC program provides a 30% "basis boost" in federal tax credit subsidies to developments located within **Qualified Census Tracts (QCTs)**. To ensure that QCT designations reflect durable economic distress rather than transient survey error, HUD established a formal statistical precision screen requiring that a tract's relative margin of error (the ratio of the 90% margin of error to the point estimate) not exceed a predetermined threshold $c$:
-$$c = \frac{\text{Margin of Error}}{\text{Point Estimate}} \le 0.50$$
-Prior to this administrative tightening, the effective operative threshold was $c = 1.00$.
+The analysis asks three descriptive questions:
 
-While intended as a neutral data-quality safeguard, administrative precision screens do not operate in a vacuum. In QCT designation, the precision screen interacts with two statutory mechanisms:
-1. **The Multi-Release Qualifying Rule ("Two-of-Three"):** A tract qualifies if it satisfies substantive poverty or income criteria in at least two of the three most recent ACS 5-year releases. Disqualifying a single release's estimate due to low precision can eliminate an otherwise eligible tract.
-2. **The 20% Area Population Cap:** By statute, designated QCTs within any metropolitan area or non-metropolitan county cannot exceed 20% of the aggregate population. Eligible tracts are ranked by substantive economic distress; when the cap binds, marginal tracts are excluded.
+1. How many 2016 eligibility and final-designation statuses are sensitive to the screen threshold?
+2. How does final-status churn divide between own-screen changes and cap-mediated changes?
+3. How does eligibility loss vary across the population distribution after standardizing over eligibility type and threshold distance?
 
-This paper provides the first nationwide, deterministic policy sensitivity analysis of HUD's precision screen. Using official 2016 HUD administrative files and published ACS inputs, we reconstruct the complete national allocation with **zero record-level mismatches** against HUD’s published designations across all 85,390 U.S. tract records. We then conduct an exact same-data counterfactual evaluation, holding all underlying survey inputs constant while varying only the precision threshold $c \in \{0.50, 1.00\}$.
+The contribution is a verified policy-sensitivity calculation, not a causal estimate. QCT status establishes geographic eligibility for an enhanced basis treatment; it is not a cash payment, a tax-credit allocation, or a guarantee that housing will be developed.
 
-We document three primary empirical findings:
-* **Concealed Allocation Churn:** While the net reduction in designated QCTs is modest ($-438$ tracts, or $-3.12\%$), the gross status churn is nearly double (**864 tracts** change designation status).
-* **Population-Selective Exclusion:** The precision screen imposes a regressive burden on smaller communities. Tracts in the lowest population quintile experience a 12.24 percentage-point higher risk of losing statutory eligibility ($BRD = 0.1224$) after conditioning on proximity to substantive cutoffs ($10.62\%$ loss rate in Quintile 1 vs. $1.02\%$ in Quintile 5).
-* **Strict Non-Local Spillovers:** Through interaction with the 20% area population cap, **161 tracts** across 75 metropolitan areas and 31 states experience final designation changes despite experiencing zero change in their own survey estimates, margins of error, or precision indicators.
+## 2. Institutional setting
 
----
+Section 42 directs HUD to designate QCTs. The 2016 notice explains that eligible basis for a building in a designated QCT can be increased to as much as 130% of the otherwise applicable amount. State housing credit agencies still allocate credits under their qualified allocation plans, and QCT designation alone does not determine project selection or construction.
 
-## 2. Institutional & Statutory Setting
+For 2016, HUD used three overlapping ACS five-year releases. A record can qualify through an income criterion, a poverty criterion, or both. Each release-level input must first pass the precision screen. Income uses a positive median-family-income estimate with `MoE < c × estimate`. Poverty requires positive numerator and denominator estimates and requires both margins of error to pass the same strict inequality. A criterion is eligible when its substantive threshold is satisfied in at least two of the three releases.
 
-### 2.1 The LIHTC Program and Qualified Census Tracts
-Section 42 of the Internal Revenue Code establishes the Low-Income Housing Tax Credit to stimulate private investment in affordable rental housing. To encourage development in severely distressed neighborhoods, Section 42(d)(5)(B)(ii) provides an enhanced subsidy—a 30% increase in the eligible basis—for projects located in Qualified Census Tracts.
+Eligible records are ranked within allocation areas. HUD's population cap limits designated QCT population to 20% of the relevant area population. The implementation uses a skip-and-continue allocation: an eligible record that would exceed the remaining cap is skipped while later records may still fit. The public [HUD QCT algorithm page](https://www.huduser.gov/portal/qct/QCT_Algorithm.html) documents the operational structure.
 
-By statute, a census tract is designated a QCT if:
-1. **The Poverty Criterion:** At least 25% of the tract’s population resides below the federal poverty line; or
-2. **The Income Criterion:** The tract's median family income (MFI) does not exceed 60% of the area median family income (AMFI) for the metropolitan area or non-metropolitan county.
+## 3. Data and reproducibility
 
-### 2.2 The 20% Area Population Cap and Ranking Logic
-To prevent over-concentration of subsidized housing and manage fiscal liability, Congress enacted a strict statutory ceiling: the aggregate population of designated QCTs in any metropolitan area (CBSA) or non-metropolitan county cannot exceed **20% of the aggregate population** of that area.
+The source is HUD's 2016 QCT workbook, `qct_data_2016.xlsx`:
 
-When the aggregate population of eligible tracts exceeds the 20% cap, HUD enforces a statutory ranking mechanism:
-* Tracts eligible under both poverty and income criteria are prioritized over single-criterion tracts.
-* Within priority tiers, tracts are ranked in descending order of poverty rate (for poverty-eligible tracts) or ascending order of MFI ratio (for income-eligible tracts).
-* Tracts are designated cumulatively down the ranked list using a greedy skip-and-continue rule: if the next tract exceeds the remaining cap capacity, the algorithm evaluates subsequent eligible tracts until no remaining tract can fit within the cap.
+- file size: 27,467,633 bytes;
+- SHA-256: `75ae56ca258aabde75081739c401aa619886f0463a525d7cf786effbe9ba991f`;
+- HUD records: 74,272;
+- official designated records: 13,619.
 
-### 2.3 Transition to the ACS and the "Two-of-Three" Logic
-Prior to 2012, designations were based on decennial census "long form" sample data. Following the discontinuation of the long form, HUD transitioned to 5-year ACS estimates. Because 5-year estimates represent rolling multi-year averages with small tract-level sample sizes, HUD instituted a rule requiring that a tract satisfy substantive eligibility criteria in **at least two of the three most recent ACS 5-year releases**.
+The raw workbook is excluded from Git because of its size, but its identity is registered in the repository. The code preserves the workbook's record structure and constructs a stable 12-digit record key. The official `c=0.50` replay reproduces all 13,619 official designations with zero mismatches.
 
-For the 2016 designations, the qualifying releases were:
-* ACS 2009–2013 (Primary vintage)
-* ACS 2008–2012 (Secondary vintage)
-* ACS 2007–2011 (Tertiary vintage)
+Three defensible income-arithmetic implementations—full-precision ratio, ratio rounded to seven decimals, and stored positive factor followed by raw fallback—produce identical eligibility and designation sets. Two fresh pipeline executions produce byte-identical output files. The automated suite checks half-up poverty-rate rounding, screen monotonicity, skip-and-continue allocation, the five-part partition, strict non-local invariants, and the full 2016 regression fixture.
 
----
+## 4. Policy-sensitivity design
 
-## 3. The Statistical Precision-Screen Mechanism
+Let `E(c)` be the set eligible under screen threshold `c` and `Q(c)` the final designated set. The analysis compares `c=1.00` with `c=0.50` while holding the workbook, substantive thresholds, geography, ranking, rounding, and cap algorithm fixed.
 
-### 3.1 Relative Margin of Error (RMoE) Screen
-To prevent tracts from qualifying based on noisy point estimates, HUD introduced a relative margin-of-error filter. For estimate $\hat{\theta}_{irt}$ (representing the poverty rate or median family income for tract $i$, release $r$, and criterion $t$) with published 90% margin of error $MoE_{irt}$, the precision ratio is defined as:
-$$RMoE_{irt} = \frac{MoE_{irt}}{\hat{\theta}_{irt}}$$
+The principal summaries are:
 
-Under the administrative rule enforced beginning in 2016, an estimate is disqualified if:
-$$RMoE_{irt} > c, \quad \text{where } c = 0.50$$
-Prior to this policy, the effective operational standard permitted estimates up to $c = 1.00$.
+\[
+ELR = \frac{|E(1.00) \setminus E(0.50)|}{|E(1.00)|},
+\]
 
-When an estimate fails the screen ($RMoE_{irt} > c$), that specific release-criterion observation is marked invalid and cannot contribute toward satisfying the "two-of-three" requirement. If a tract has only two qualifying releases and one is disqualified by the precision screen, the tract loses eligibility for that criterion entirely.
+\[
+CHR = \frac{|Q(1.00) \triangle Q(0.50)|}{|Q(1.00)|},
+\]
 
-### 3.2 Non-Linear Allocation Interactions
-The precision filter produces two distinct non-linear dynamics:
-1. **The Sampling Error Gradient:** Survey sampling variance is inversely proportional to effective sample size:
-   $$\text{Var}(\hat{\theta}) \propto \frac{1}{n_i}$$
-   Because census tracts vary in population (typically between 1,200 and 8,000 residents), smaller tracts have systematically smaller ACS sample sizes, generating structurally larger margins of error. Consequently, a uniform precision threshold $c$ imposes a higher probability of disqualification on low-population tracts, independent of their true socioeconomic status.
-2. **Cap Re-Allocation (Externalities):** In metropolitan areas where the 20% population cap binds, the disqualification of a highly ranked tract by the precision screen reduces the cumulative population allocated. This newly available cap capacity cascades down the rank order, pulling in lower-ranked eligible tracts that were previously excluded by the cap.
+and
 
----
+\[
+NDR = \frac{|Q(0.50)|-|Q(1.00)|}{|Q(1.00)|}.
+\]
 
-## 4. Data & Exact Algorithmic Reconstruction
+For each record, the own-screen vector contains six indicators: income and poverty precision-pass status for each of three releases. Status churn is partitioned as follows:
 
-### 4.1 Data Sources & Primary Unit of Analysis
-The empirical substrate comprises:
-1. The official HUD 2016 QCT master data file (`qct_data_2016.xlsx`, SHA-256: `75ae56ca258aabde75081739c401aa619886f0463a525d7cf786effbe9ba991f`) containing tract-level poverty, income, and margin-of-error estimates across the three operative ACS releases for all U.S. tracts.
-2. Official HUD metropolitan area and non-metropolitan county allocation boundaries and population cap determinations.
-3. Published official 2016 QCT designation determinations.
+- `L1`: designated at `c=1.00`, not designated at `c=0.50`, and no longer eligible;
+- `L2`: designation loss while remaining eligible and the own-screen vector changes;
+- `L3`: designation loss while remaining eligible and the own-screen vector does not change;
+- `G1`: designation gain and the own-screen vector changes;
+- `G2`: designation gain and the own-screen vector does not change.
 
-The primary unit of analysis is the **HUD QCT record** ($N = 85,390$). While there are 85,385 unique Census tract FIPS codes in the 2016 data, HUD splits rare tracts that cross metropolitan sub-area (HMFA) boundaries. Preserving these split records is essential for exact replication.
+`L3 + G2` is the strict non-local count. “Non-local” refers to the unchanged own-screen vector; all survey inputs are fixed by design in both replays.
 
-### 4.2 Reconstruction Validation (Tier A Standard)
-Following prospective execution protocols, we reconstructed the year-specific 2016 HUD algorithm incorporating:
-* Exact $c = 0.50$ precision checks on all poverty and income numerator/denominator components.
-* Two-of-three release evaluation.
-* Statutory dual-criterion priority sorting and intra-tier ranking.
-* Area-specific cumulative population cap tracking and greedy skip-and-continue allocation.
+The population analysis is restricted to `E(1.00)`. Population quintiles are formed over those 17,042 records. The loss indicator equals one for `E(1.00) \ E(0.50)`. The standardized burden risk difference compares the lowest and highest population quintiles after standardizing over eligibility type (`income`, `poverty`, or `both`) and quintile of substantive-threshold distance:
 
-**Validation Result:** Reconstructed final QCT designations matched official published designations across all records with **zero mismatches** (0 discrepancies across 85,390 records), satisfying the Tier A exact reproducibility standard.
+\[
+BRD = \sum_s w_s\{P(L=1\mid Q_1,s)-P(L=1\mid Q_5,s)\}.
+\]
 
----
+Here `w_s` is the share of looser-screen eligible records in stratum `s`. BRD is descriptive standardization, not a causal effect of population.
 
-## 5. Counterfactual Sensitivity Design
+## 5. Results
 
-### 5.1 The Policy Contrast
-Holding all observed survey inputs, thresholds, and ranking rules constant, we define the counterfactual designation mapping:
-$$D_i(c) = \text{Algorithm}(X_i; c)$$
-where $c \in \{0.50, 1.00\}$.
+### 5.1 Aggregate sensitivity
 
-### 5.2 Core Estimands
-1. **Union-Eligibility Loss Rate ($ELR$):**
-   $$ELR = \frac{|E(1.00) \setminus E(0.50)|}{|E(1.00)|}$$
-   where $E(c)$ denotes the set of tracts satisfying statutory eligibility under threshold $c$.
-2. **Final Status Churn Rate ($CHR$):**
-   $$CHR = \frac{|Q(0.50) \Delta Q(1.00)|}{|Q(1.00)|}$$
-   where $Q(c)$ is the set of designated tracts, and $\Delta$ denotes the symmetric difference.
-3. **Net Designation Rate Change ($NDR$):**
-   $$NDR = \frac{|Q(0.50)| - |Q(1.00)|}{|Q(1.00)|}$$
-4. **Standardized Burden Risk Difference ($BRD$):**
-   To test whether the screen selectively excludes smaller communities, we evaluate the eligibility loss indicator $L_i = \mathbf{1}\{i \in E(1.00) \setminus E(0.50)\}$ across population quintiles. To control for confounding by socioeconomic distress, we standardize across strata defined by:
-   - Eligibility type (poverty-only, income-only, or both); and
-   - Quintiles of substantive threshold distance (margin of safety above the statutory cutoff).
-   
-   The standardized Burden Risk Difference between the lowest ($Q_1$) and highest ($Q_5$) population quintiles is:
-   $$BRD = \sum_{s} w_s \left[ \Pr(L=1 \mid Q_1, s) - \Pr(L=1 \mid Q_5, s) \right]$$
-   where $w_s$ represents the stratum population share.
+| Metric | `c=1.00` | `c=0.50` | Change |
+|---|---:|---:|---:|
+| Eligible records | 17,042 | 16,368 | −674 |
+| Designated records | 14,057 | 13,619 | −438 |
+| Binding allocation areas | 175 | 162 | −13 |
 
----
+The eligibility-loss rate is 3.9549%. Final-status churn is 864 records, or 6.1464% of the `c=1.00` designated set. The 651 losses and 213 gains yield a net designation-rate change of −3.1159%.
 
-## 6. Empirical Results
+### 5.2 Churn decomposition
 
-### 6.1 National Policy Sensitivity: Net Reductions vs. Gross Churn
+| Component | Definition | Records | Share of churn |
+|---|---|---:|---:|
+| `L1` | Eligibility loss | 473 | 54.75% |
+| `L2` | Remains eligible; own-screen vector changes | 159 | 18.40% |
+| `L3` | Remains eligible; own-screen vector unchanged | 19 | 2.20% |
+| `G1` | Gain; own-screen vector changes | 71 | 8.22% |
+| `G2` | Gain; own-screen vector unchanged | 142 | 16.44% |
+| Total | Exact partition | 864 | 100.00% |
 
-Table 1 summarizes national eligibility and designation counts under the two precision thresholds.
+The strict non-local count is 161 (`L3 + G2`), spanning 75 allocation areas and 31 state codes. This is 18.63% of all churn. Thirteen areas move from binding under `c=1.00` to nonbinding under `c=0.50`; none move in the opposite direction.
 
-#### Table 1: National Algorithmic Reconstruction and Policy Sensitivity (2016)
-| Metric | Historical Loose Screen ($c=1.00$) | Official HUD Rule ($c=0.50$) | Difference | Relative Impact |
-| :--- | :---: | :---: | :---: | :---: |
-| **Reconstruction Mismatch Count** | — | **0** | — | Exact Replay |
-| **Statutorily Eligible Tracts ($E(c)$)** | 17,042 | 16,368 | $-674$ | $-3.95\%$ |
-| **Designated QCT Tracts ($Q(c)$)** | 14,057 | 13,619 | $-438$ | $-3.12\%$ |
-| **Gross Status Churn ($|Q_1 \Delta Q_{.50}|$)** | — | — | **864** | **6.15%** |
-| — Designation Losses ($L$) | — | — | 651 | 4.63% |
-| — Designation Gains ($G$) | — | — | 213 | 1.52% |
-| **Churn-to-Net-Change Ratio** | — | — | **$1.97\times$** | — |
+![Five-part churn decomposition](../outputs/figures/figure_2_churn_decomposition.svg)
 
-Tightening the screen disqualified 674 tracts from statutory eligibility ($ELR = 3.95\%$) and produced a net reduction of 438 designated QCTs ($NDR = -3.12\%$). However, evaluating net changes severely understates policy instability: **864 tracts** experienced a flip in their federal designation status, representing a churn-to-net-change ratio of $1.97\times$.
+### 5.3 Population gradient
 
----
+| Population quintile | Eligible at `c=1.00` | Eligibility losses | Loss rate |
+|---|---:|---:|---:|
+| Q1, lowest | 3,409 | 362 | 10.619% |
+| Q2 | 3,409 | 133 | 3.901% |
+| Q3 | 3,411 | 95 | 2.785% |
+| Q4 | 3,405 | 49 | 1.439% |
+| Q5, highest | 3,408 | 35 | 1.027% |
 
-### 6.2 The Anatomy of Status Churn
+![Eligibility loss by population quintile](../outputs/figures/figure_1_population_loss_gradient.svg)
 
-To understand how the precision filter propagates through the allocation algorithm, we decompose the 864 churned tracts into five mutually exclusive categories.
+The standardized burden risk difference is 0.122396, or 12.24 percentage points. This quantity should be interpreted as a standardized descriptive contrast under the fixed 2016 policy replay. It does not establish that population itself causes loss or that the same contrast holds in other designation years.
 
-#### Table 2: 5-Part Mutually Exclusive Decomposition of Final Status Churn
-| Component | Classification Definition | Tract Count | Share of Total Churn |
-| :--- | :--- | :---: | :---: |
-| **$L_1$** | Direct Eligibility Loss (Disqualified by $c=0.50$ screen) | **473** | 54.75% |
-| **$L_2$** | Own-Screen Ranking Loss (Remains eligible; rank drops below cap) | **159** | 18.40% |
-| **$L_3$** | **Strict Non-Local Loss** (Own data unchanged; displaced by cap shift) | **19** | 2.20% |
-| **$G_1$** | Own-Screen Ranking Gain (Remains eligible; rank improves above cap) | **71** | 8.22% |
-| **$G_2$** | **Strict Non-Local Gain** (Own data unchanged; pulled into cap by others' exit) | **142** | 16.44% |
-| **Total** | **Exact Symmetric Difference ($L_1 + L_2 + L_3 + G_1 + G_2$)** | **864** | **100.00%** |
-| *Spillover* | *Strict Non-Local Allocation Externalities ($L_3 + G_2$)* | *161* | *18.63%* |
+### 5.4 Precision observations retained
 
-While 54.75% of churn ($L_1 = 473$) reflects direct disqualification, the remaining 45.25% arises from ranking and cap interactions. Notably, **161 tracts** ($18.63\%$ of all churn) represent **strict non-local spillovers** ($L_3 + G_2$): their own survey point estimates, margins of error, and precision indicators were identical under both policies, yet their federal subsidy status changed purely due to reallocation under the 20% area population cap across 75 metropolitan areas and 31 states.
+Across the three releases, the income screen passes 218,574 release-level observations at `c=1.00` and 215,578 at `c=0.50`, a difference of 2,996. The poverty screen, which requires both the positive numerator and denominator to pass, retains 208,988 observations at `c=1.00` and 118,854 at `c=0.50`, a difference of 90,134.
 
----
+## 6. Interpretation and limitations
 
-### 6.3 Population-Selective Exclusion
+The replay establishes three bounded facts about the 2016 algorithm. First, the tighter screen changes more final statuses than the net count reveals. Second, cap and ranking operations propagate the threshold change to records whose own precision indicators are unchanged. Third, eligibility loss is more common in the lower population quintiles, and the contrast remains positive under the prespecified standardization.
 
-Table 3 evaluates whether the eligibility-loss burden falls disproportionately on low-population tracts.
+The study does not estimate how many designations are statistically correct. The three ACS five-year releases overlap substantially, so they cannot be treated as independent replications; Census guidance warns against ordinary comparisons of overlapping period estimates. Published margins of error provide marginal uncertainty, not the cross-release covariance needed to infer a fixed latent tract state. The analysis therefore uses “precision purchased” only to describe which observations pass the administrative screen, not an observed accuracy gain.
 
-#### Table 3: Eligibility Loss by Tract Population Quintile (2016)
-| Population Quintile | Mean Tract Population | Baseline Eligible ($E_{100}$) | Disqualified ($L_1$) | Raw Loss Rate ($ELR_q$) |
-| :--- | :---: | :---: | :---: | :---: |
-| **Quintile 1 (Lowest)** | 1,842 | 3,287 | 349 | **10.62%** |
-| **Quintile 2** | 3,115 | 3,409 | 133 | **3.90%** |
-| **Quintile 3** | 4,281 | 3,411 | 95 | **2.79%** |
-| **Quintile 4** | 5,612 | 3,405 | 49 | **1.44%** |
-| **Quintile 5 (Highest)** | 8,429 | 3,530 | 36 | **1.02%** |
-| **Gradient Ratio ($Q_1 / Q_5$)** | — | — | — | **$10.31\times$** |
-| **Standardized Contrast ($BRD$)** | — | — | — | **$+12.24\text{ pp}$** |
+The study also does not estimate housing construction, developer response, tax-credit allocation, fiscal incidence, or household outcomes. It does not classify the threshold as fair or unfair. The population contrast can reflect multiple features of survey design and tract composition and is not a demographic causal estimate.
 
-In unadjusted terms, tracts in the lowest population quintile are more than ten times as likely to be disqualified as tracts in the highest quintile ($10.62\%$ vs. $1.02\%$). 
+Finally, the evidence is one designation year. Historical work on 2020–2022 and the 2026 development anchor remains part of the project record, but retained provenance does not support independent manuscript-grade regeneration. Under D037, the 2016 result cannot be used to claim recurrence or representativeness across 2016–2025, and C011 remains parked as a first-paper project absent materially new authoritative operational provenance.
 
-After standardizing across strata of substantive threshold proximity and eligibility type, the standardized Burden Risk Difference remains highly positive:
-$$BRD = 0.122396 \approx +12.24\%$$
-Even when comparing tracts with identical margins of economic distress above the statutory poverty or income cutoffs, smaller tracts face a **12.24 percentage-point higher risk** of exclusion solely due to ACS sample size constraints.
+## 7. Conclusion
 
----
-
-## 7. Discussion & Policy Implications
-
-The empirical findings reveal critical structural tensions in federal algorithmic allocation:
-
-1. **Noise Screens as De Facto Demographic Screens:**  
-   Because survey variance is fundamentally tied to sample size, applying uniform precision thresholds creates an implicit bias against low-density and low-population jurisdictions. Rather than filtering out "bad data," the screen disproportionately excludes small communities whose true economic distress matches or exceeds that of larger urban tracts.
-2. **Cap-Mediated Externalities:**  
-   In competitive or capped allocation systems, data-quality decisions are never local. Excluding an unstable estimate in Tract A directly alters the funding probability for Tract B, even when Tract B’s data are perfectly precise. Policymakers who institute precision gates rarely account for these non-local reallocation dynamics.
-3. **Implications for Administrative Data Governance:**  
-   Administrative formulas require more nuanced reliability adjustments than hard threshold truncation. Potential alternative approaches include empirical Bayes shrinkage, small-area estimation models (e.g., Fay-Herriot estimators), or continuous variance penalties rather than sharp step-function exclusions.
-
----
-
-## 8. Limitations & Claim Boundaries
-
-To ensure scientific integrity, we explicitly note the methodological boundaries of this study:
-* **No Latent Truth Identification:** We do not claim that $c = 0.50$ produces higher or lower true classification accuracy than $c = 1.00$. Estimating true misclassification would require identifying latent tract-level poverty distributions across overlapping multi-year ACS samples, which is not identifiable from public marginal estimates without unverifiable super-population assumptions.
-* **Bounded Scope:** This study is an exact, identified policy sensitivity analysis of the 2016 nationwide establishment of the precision screen. It does not claim that identical numerical churn rates persisted across subsequent years.
-* **Non-Normative Framing:** We evaluate the mechanical consequences of the policy screen; we do not make normative determinations regarding the optimal allocation of housing tax credits.
-
----
-
-## 9. Reproducibility & Open Science Statement
-
-All analyses in this study were conducted under a fail-closed, deterministic execution protocol. Raw data files are publicly available from the HUD User portal (`https://www.huduser.gov/portal/datasets/qct.html`). Reconstructed algorithms, parameter configurations, and analysis scripts are deposited in the immutable GitHub repository:  
-`https://github.com/hurcheson/real-world-statistical-reliability`  
-Commit Hash: `bdab3ff` (Replication Archive).
-
----
+A zero-mismatch reconstruction shows that the 2016 QCT designation map is materially sensitive to the relative-MoE threshold. Tightening the threshold changes 864 final statuses, including 161 strict non-local changes produced through ranking and cap interactions. Eligibility loss is concentrated in lower population quintiles in the observed data and in the prespecified standardized contrast. These findings support a reproducible description of the 2016 administrative mechanism. They do not support claims about latent accuracy, causal program outcomes, or multi-year recurrence.
 
 ## References
 
-* Bazuin, J. T., & Fraser, J. C. (2016). How the American Community Survey introduces systematic bias into public policy. *Poverty & Public Policy*, 8(2), 139–159.
-* Folch, D. C., Arribas-Bel, D., Koschinsky, J., & Spielman, S. E. (2016). Spatial variation in the quality of American Community Survey data. *Demography*, 53(5), 1529–1554.
-* Internal Revenue Code (IRC). Section 42: Low-Income Housing Credit. 26 U.S.C. § 42.
-* McClure, K., Schwartz, A., & Taghavi, L. (2015). The Low-Income Housing Tax Credit: How well do the basis boosts work? *Cityscape*, 17(3), 187–208.
-* Spielman, S. E., Folch, D., & Nagle, N. (2014). Patterns and causes of uncertainty in the American Community Survey. *Applied Geography*, 46, 147–157.
-* U.S. Department of Housing and Urban Development (HUD). (2015). Qualified Census Tracts and Difficult Development Areas for 2016. *Federal Register*, 80(217), 69677–69688.
+- U.S. Department of Housing and Urban Development. 2015. [Statutorily Mandated Designation of Difficult Development Areas and Qualified Census Tracts for 2016](https://www.govinfo.gov/content/pkg/FR-2015-11-24/pdf/2015-29953.pdf). *Federal Register* 80:73201–73207.
+- U.S. Department of Housing and Urban Development. [QCT Designation Algorithm](https://www.huduser.gov/portal/qct/QCT_Algorithm.html).
+- U.S. Census Bureau. 2010. [American Community Survey Design and Methodology, Chapter 12](https://www.census.gov/content/dam/Census/library/publications/2010/acs/acs_design_methodology_ch12.pdf).
+- U.S. Census Bureau. 2022. [Period Estimates in the American Community Survey](https://www.census.gov/newsroom/blogs/random-samplings/2022/03/period-estimates-american-community-survey.html).
+- Soltas, Evan. 2024. [Tax Incentives and the Supply of Low-Income Housing](https://evansoltas.com/papers/SoltasJMP.pdf). Working paper. Closest identified empirical neighbor; it reconstructs QCT assignment and uses ACS sampling variation for a housing-supply estimand rather than evaluating the precision screen as the policy object.
+
+## Reproducibility statement
+
+Run from `projects/c011-qct-precision-screen` after placing the registered workbook at `data/raw/qct_data_2016.xlsx`:
+
+```bash
+python -m pytest -v
+PYTHONPATH=src python scripts/03_run_2016.py --output outputs/determinism/run1/2016
+PYTHONPATH=src python scripts/03_run_2016.py --output outputs/determinism/run2/2016
+python scripts/04_build_final_outputs.py
+python scripts/05_build_manuscript_figures.py
+python scripts/06_verify_manuscript.py
+```
