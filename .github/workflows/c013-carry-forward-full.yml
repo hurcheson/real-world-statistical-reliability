@@ -73,28 +73,27 @@ jobs:
           },indent=2,sort_keys=True)+"\n")
           print(out.read_text())
           PY
-      - name: Preserve raw pages as draft release asset
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Commit final diagnostics, crosswalk, and compressed raw archive
         run: |
-          TAG="c013-stage0-raw-2026-09-21"
-          if gh release view "$TAG" >/dev/null 2>&1; then
-            gh release upload "$TAG" c013-carry-forward-raw-pages.tar.gz --clobber
-          else
-            gh release create "$TAG" --draft \
-              --title "C013 Stage 0 raw carry-forward archive" \
-              --notes "Raw public CDC/Socrata query pages for the frozen C013 carry-forward diagnostics. See branch codex/c013-stage0-provenance for query manifests and hashes." \
-              --target "$GITHUB_SHA" \
-              c013-carry-forward-raw-pages.tar.gz
-          fi
-      - name: Commit final diagnostics and crosswalk
-        run: |
+          mkdir -p projects/c013-places-temporal-provenance/data/raw_archives
+          mv c013-carry-forward-raw-pages.tar.gz \
+            projects/c013-places-temporal-provenance/data/raw_archives/c013-carry-forward-raw-pages.tar.gz
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("projects/c013-places-temporal-provenance/outputs/machine/carry_forward_raw_archive.json")
+          x=json.loads(p.read_text())
+          x["storage_mode"]="git-tracked compressed archive fallback because Actions GITHUB_TOKEN cannot create releases"
+          x["repository_path"]="projects/c013-places-temporal-provenance/data/raw_archives/c013-carry-forward-raw-pages.tar.gz"
+          p.write_text(json.dumps(x,indent=2,sort_keys=True)+"\n")
+          PY
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add projects/c013-places-temporal-provenance/data/manifests/carry_forward_query_manifest.jsonl \
                   projects/c013-places-temporal-provenance/outputs/machine/carry_forward_diagnostics.jsonl \
                   projects/c013-places-temporal-provenance/outputs/machine/provenance_crosswalk.jsonl \
-                  projects/c013-places-temporal-provenance/outputs/machine/carry_forward_raw_archive.json
+                  projects/c013-places-temporal-provenance/outputs/machine/carry_forward_raw_archive.json \
+                  projects/c013-places-temporal-provenance/data/raw_archives/c013-carry-forward-raw-pages.tar.gz
           git commit -m "data: complete C013 Stage0 carry-forward diagnostics [skip ci]"
           git pull --rebase origin codex/c013-stage0-provenance
           git push origin HEAD:codex/c013-stage0-provenance
