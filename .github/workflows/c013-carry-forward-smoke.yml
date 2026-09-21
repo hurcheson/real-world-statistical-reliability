@@ -25,6 +25,35 @@ jobs:
         run: python projects/c013-places-temporal-provenance/scripts/compute_carry_forward_diagnostics.py --start-pair 45 --max-pairs 2
       - name: Run later county carry-forward smoke pairs
         run: python projects/c013-places-temporal-provenance/scripts/compute_carry_forward_diagnostics.py --start-pair 105 --max-pairs 2
+      - name: Run 2019-to-2020 tract bridge smoke
+        run: python projects/c013-places-temporal-provenance/scripts/compute_carry_forward_diagnostics.py --start-pair 41 --max-pairs 4
+      - name: Validate tract bridge linkage
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("projects/c013-places-temporal-provenance/outputs/machine/carry_forward_diagnostics.jsonl")
+          rows=[json.loads(x) for x in p.read_text().splitlines() if x.strip()]
+          assert len(rows)==4
+          assert all(r["common_geography_count"]>20000 for r in rows), rows
+          assert all(r["linkage_status"]=="linked common geography" for r in rows)
+          print(rows)
+          PY
+      - name: Run 2023-to-2024 tract geography-break smoke
+        run: python projects/c013-places-temporal-provenance/scripts/compute_carry_forward_diagnostics.py --start-pair 113 --max-pairs 4
+      - name: Validate cross-vintage ambiguity
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("projects/c013-places-temporal-provenance/outputs/machine/carry_forward_diagnostics.jsonl")
+          rows=[json.loads(x) for x in p.read_text().splitlines() if x.strip()]
+          assert len(rows)==4
+          assert all(r["carry_forward_classification"]=="ambiguous" for r in rows)
+          assert all(r["exact_copy_percentage"] is None for r in rows)
+          assert all(r["linkage_status"]=="unlinked geography-vintage break" for r in rows)
+          print(rows)
+          PY
       - name: Validate smoke outputs
         run: |
           python - <<'PY'
@@ -32,7 +61,7 @@ jobs:
           from pathlib import Path
           root=Path("projects/c013-places-temporal-provenance")
           rows=[json.loads(x) for x in (root/"outputs/machine/carry_forward_diagnostics.jsonl").read_text().splitlines() if x.strip()]
-          assert len(rows)==2, len(rows)
+          assert len(rows)==4, len(rows)
           assert all(r["common_geography_count"]>=0 for r in rows)
           assert all(r["carry_forward_classification"] in {"exact carry-forward","revised carry-forward","ambiguous"} for r in rows)
           print(rows)
