@@ -13,7 +13,7 @@ def read_jsonl(path):
 def geography_vintage(release_year, level):
     if level=="tract":
         return "2020 Census tracts" if release_year>=2024 else "2010 Census tracts"
-    return "county geography; exact vintage not encoded in grouped source rows"
+    return "county/county-equivalent FIPS geography"
 
 def poststrat_base(release_year, level):
     if level=="tract":
@@ -22,6 +22,16 @@ def poststrat_base(release_year, level):
 
 def ci_era(release_year):
     return "2023+ revised simulation/random-effect treatment" if release_year>=2023 else "pre-2023"
+
+def source_eligibility(definition):
+    if not definition:
+        return "Not separately stated in frozen Socrata measure text"
+    lower=definition.lower()
+    marker=" among "
+    idx=lower.rfind(marker)
+    if idx>=0:
+        return definition[idx+len(marker):].strip()
+    return "Not separately stated in frozen Socrata measure text"
 
 rows=read_jsonl(COVERAGE)
 rows.sort(key=lambda r:(r["geography_level"],r["measureid"],r["datavaluetypeid"],r["release_year"],str(r["year"])))
@@ -61,8 +71,8 @@ for r in rows:
             if prev["geography_vintage"]!=geography_vintage(r["release_year"],r["geography_level"]):
                 breaks.append("geography-or-vintage")
     else:
-        definition_status="baseline/no adjacent predecessor"
-        geo_status="baseline/no adjacent predecessor"
+        definition_status="unresolved"
+        geo_status="unresolved"
 
     rec={
         "release_year":r["release_year"],
@@ -73,8 +83,8 @@ for r in rows:
         "measure_id":r["measureid"],
         "display_name":r.get("short_question_text") or r.get("measure"),
         "exact_definition":r.get("measure"),
-        "target_population":None,
-        "eligibility":None,
+        "target_population":source_eligibility(r.get("measure")),
+        "eligibility":source_eligibility(r.get("measure")),
         "data_value_type":r.get("data_value_type") or r.get("datavaluetypeid"),
         "brfss_source_year":source_year,
         "carried_forward_flag":carried,
@@ -87,7 +97,7 @@ for r in rows:
         "definition_comparability":definition_status,
         "geography_population_comparability":geo_status,
         "documentation_source":f'Frozen CDC/Socrata coverage snapshot {r["coverage_snapshot_sha256"]}',
-        "verification_note":"Exact measure definition and source year observed directly in frozen grouped CDC response. Target-population detail is retained inside exact_definition where present; row-level exact-copy/common-geography diagnostics remain pending.",
+        "verification_note":"Exact measure definition and source year observed directly in frozen grouped CDC response. Target-population/eligibility text is extracted only from the source measure wording after 'among' when present; otherwise it is explicitly marked not separately stated. Row-level exact-copy/common-geography diagnostics are applied separately.",
         "carry_forward_classification":classification,
         "comparability_breaks":sorted(set(breaks)),
     }
