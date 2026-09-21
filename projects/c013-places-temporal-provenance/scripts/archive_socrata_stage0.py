@@ -23,8 +23,16 @@ def sha256_bytes(body: bytes) -> str:
 
 def get(url: str):
     req = urllib.request.Request(url, headers={"User-Agent": "c013-stage0-provenance/0.3 research"})
-    with urllib.request.urlopen(req, timeout=45) as r:
-        return r.read(), int(r.status), r.headers.get("Content-Type")
+    last = None
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return r.read(), int(r.status), r.headers.get("Content-Type")
+        except (TimeoutError, urllib.error.URLError) as exc:
+            last = exc
+            if attempt < 2:
+                time.sleep(2 ** attempt)
+    raise last
 
 def snapshot(dataset_id: str, kind: str, url: str):
     body, status, content_type = get(url)
