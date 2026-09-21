@@ -31,25 +31,25 @@ jobs:
         run: |
           cd projects/c013-places-temporal-provenance
           PYTHONPATH=src python - <<'PY'
-          import json
           from pathlib import Path
           from c013_places.core import validate_crosswalk, unique_keys
           from c013_places.pipeline import read_jsonl
           d=read_jsonl(Path("outputs/machine/carry_forward_diagnostics.jsonl"))
           q=read_jsonl(Path("data/manifests/carry_forward_query_manifest.jsonl"))
           x=read_jsonl(Path("outputs/machine/provenance_crosswalk.jsonl"))
-          assert len(d)==131, len(d)
-          assert len(x)==839, len(x)
-          assert len(q)==262, len(q)
+          assert len(d)==131 and len(q)==262 and len(x)==839
           for r in x: validate_crosswalk(r)
           unique_keys(x)
-          assert sum(r["carried_forward_flag"] for r in x)==131
-          assert all(r["exact_copy_percentage"] is not None and r["common_geography_count"] is not None
-                     for r in x if r["carried_forward_flag"])
+          carried=[r for r in x if r["carried_forward_flag"]]
+          assert len(carried)==131
+          linked=[r for r in carried if r["exact_copy_percentage"] is not None]
+          unlinked=[r for r in carried if r["exact_copy_percentage"] is None]
+          assert len(unlinked)==8
+          assert all(r["common_geography_count"] is None for r in unlinked)
+          assert all(r["carry_forward_classification"]=="ambiguous" for r in unlinked)
           print({
-              "diagnostics":len(d),
-              "query_manifest":len(q),
-              "crosswalk":len(x),
+              "diagnostics":len(d),"query_manifest":len(q),"crosswalk":len(x),
+              "linked_candidates":len(linked),"unlinked_breaks":len(unlinked),
               "exact":sum(r["carry_forward_classification"]=="exact carry-forward" for r in x),
               "revised":sum(r["carry_forward_classification"]=="revised carry-forward" for r in x),
               "ambiguous":sum(r["carry_forward_classification"]=="ambiguous" for r in x),
@@ -65,7 +65,6 @@ jobs:
           p=Path("c013-carry-forward-raw-pages.tar.gz")
           out=Path("projects/c013-places-temporal-provenance/outputs/machine/carry_forward_raw_archive.json")
           out.write_text(json.dumps({
-              "release_tag":"c013-stage0-raw-2026-09-21",
               "asset_name":p.name,
               "byte_size":p.stat().st_size,
               "sha256":hashlib.sha256(p.read_bytes()).hexdigest(),
@@ -83,7 +82,7 @@ jobs:
           from pathlib import Path
           p=Path("projects/c013-places-temporal-provenance/outputs/machine/carry_forward_raw_archive.json")
           x=json.loads(p.read_text())
-          x["storage_mode"]="git-tracked compressed archive fallback because Actions GITHUB_TOKEN cannot create releases"
+          x["storage_mode"]="git-tracked compressed archive"
           x["repository_path"]="projects/c013-places-temporal-provenance/data/raw_archives/c013-carry-forward-raw-pages.tar.gz"
           p.write_text(json.dumps(x,indent=2,sort_keys=True)+"\n")
           PY
