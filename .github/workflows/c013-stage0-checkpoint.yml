@@ -1,0 +1,38 @@
+name: C013 Stage0 checkpoint verification
+
+on:
+  push:
+    branches:
+      - codex/c013-stage0-provenance
+  workflow_dispatch:
+
+jobs:
+  legacy-c011-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install C011 test environment
+        run: python -m pip install -e "projects/c011-qct-precision-screen[test]"
+      - name: Run C011 invariant tests
+        run: python -m pytest -q projects/c011-qct-precision-screen/tests/test_invariants.py
+      - name: Run C011 regression test and preserve result
+        id: regression
+        continue-on-error: true
+        run: |
+          python -m pytest -q projects/c011-qct-precision-screen/tests/test_2016_regression.py 2>&1 | tee c011_regression.log
+      - name: Show raw-input availability
+        run: |
+          if test -f projects/c011-qct-precision-screen/data/raw/qct_data_2016.xlsx; then
+            echo "C011_RAW_PRESENT=true"
+            sha256sum projects/c011-qct-precision-screen/data/raw/qct_data_2016.xlsx
+          else
+            echo "C011_RAW_PRESENT=false"
+          fi
+      - name: Upload regression log
+        uses: actions/upload-artifact@v4
+        with:
+          name: c011-regression-log
+          path: c011_regression.log
