@@ -16,22 +16,29 @@
   {
     "id": "P003",
     "severity": "technical",
-    "status": "open",
-    "finding": "Current tool bridge can inspect official HTTP content but cannot transfer raw response bytes into the local runtime.",
-    "consequence": "Stored Stage 0A metadata extracts are hashable exact local representations, but are not claimed as raw HTTP snapshots. Full raw-byte archival remains required before Stage 0B can be called fully reproducible."
+    "status": "resolved",
+    "finding": "The local tool bridge could not transfer raw HTTP bytes, but the GitHub Actions network runner successfully archived direct CDC/Socrata HTTP responses for all 16 frozen anchors.",
+    "consequence": "Raw-byte provenance is now preserved as 64 content-addressed metadata/count/sample/coverage snapshots with SHA-256 hashes in the retrieval manifest."
   },
   {
     "id": "P004",
     "severity": "technical",
-    "status": "open",
-    "finding": "Direct metadata rendering for rja3-32tc, ai6z-tcin and fu4u-a9bh failed in the browser layer, while first-party/HHS catalog records remained discoverable.",
-    "consequence": "Keep retrieval status partial and retry via direct scripted network environment."
+    "status": "resolved",
+    "finding": "Direct scripted retrieval succeeded for rja3-32tc, ai6z-tcin and fu4u-a9bh, including metadata, count, sample and grouped coverage responses.",
+    "consequence": "The three archive anchors no longer require catalog-only substitution for Stage 0 identity/schema verification."
   },
   {
     "id": "P005",
     "severity": "scientific",
-    "status": "by-design",
-    "finding": "Exact-copy percentages and common-geography counts are not populated in preliminary rows without archived row-level snapshots.",
-    "consequence": "Carry-forward classification remains ambiguous where documentation indicates same source wave until exact/revised diagnostic can be computed."
+    "status": "open",
+    "finding": "Exact-copy percentages and common-geography counts remain unresolved because row-level point estimates and interval bounds have not yet been frozen for adjacent-release comparisons.",
+    "consequence": "Full Stage 0 cannot close until exact/revised carry-forward diagnostics are reproducibly computed from public row-level data or an equivalent immutable sufficient archive."
+  },
+  {
+    "id": "P006",
+    "severity": "technical",
+    "status": "resolved",
+    "finding": "All 16 frozen dataset anchors returned HTTP 200 metadata, row-count and sample queries in the networked runner; grouped measure/source-year coverage produced 839 observed cells.",
+    "consequence": "Dataset resolution and complete anchor-level coverage are no longer blockers."
   }
 ]
