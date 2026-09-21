@@ -34,14 +34,25 @@ def default_geo_fields(release_year, level):
         return ["uniqueid"]
     return ["locationid"]
 
-def pair_geo_fields(prev, cur):
+def pair_linkage(prev, cur):
     if cur["geography_level"]=="county" and prev["release_year"]==2020 and cur["release_year"]==2021:
-        return ["stateabbr","locationname"], ["stateabbr","locationname"]
+        return ["stateabbr","locationname"], ["stateabbr","locationname"], "linked common geography"
     if cur["geography_level"]=="tract" and prev["release_year"]==2019 and cur["release_year"]==2020:
-        return ["tractfips"], ["locationid"]
+        return (
+            default_geo_fields(prev["release_year"],prev["geography_level"]),
+            default_geo_fields(cur["release_year"],cur["geography_level"]),
+            "unlinked product-scope break",
+        )
+    if cur["geography_level"]=="tract" and prev["release_year"]==2023 and cur["release_year"]==2024:
+        return (
+            default_geo_fields(prev["release_year"],prev["geography_level"]),
+            default_geo_fields(cur["release_year"],cur["geography_level"]),
+            "unlinked geography-vintage break",
+        )
     return (
         default_geo_fields(prev["release_year"],prev["geography_level"]),
         default_geo_fields(cur["release_year"],cur["geography_level"]),
+        "linked common geography",
     )
 
 def norm_num(x):
@@ -161,36 +172,43 @@ diagnostics=[]
 query_manifest=[]
 for i,(prev,cur) in enumerate(candidates,1):
     print(f"[{i}/{len(candidates)}] {cur['release_year']} {cur['geography_level']} {cur['measureid']} {cur['datavaluetypeid']} source={cur['year']}",flush=True)
-    prev_gfs,cur_gfs=pair_geo_fields(prev,cur)
+    prev_gfs,cur_gfs,linkage_status=pair_linkage(prev,cur)
     a,ma=fetch_cell(prev,prev_gfs)
     b,mb=fetch_cell(cur,cur_gfs)
     query_manifest.extend([ma,mb])
-    cross_vintage_unlinked=(
-        cur["geography_level"]=="tract" and prev["release_year"]==2023 and cur["release_year"]==2024
-    )
-    common=set(a)&set(b)
-    comparable=[g for g in common if None not in a[g] and None not in b[g]]
-    exact=sum(a[g]==b[g] for g in comparable)
-    pct=None if cross_vintage_unlinked else ((100.0*exact/len(comparable)) if comparable else None)
-    if pct==100.0:
-        cls="exact carry-forward"
-    elif pct is not None and pct>=99.5:
-        cls="revised carry-forward"
-    else:
+    if linkage_status.startswith("unlinked"):
+        common=None
+        comparable=None
+        exact=None
+        pct=None
         cls="ambiguous"
+        predecessor_only=None
+        current_only=None
+    else:
+        common_set=set(a)&set(b)
+        comparable_set=[g for g in common_set if None not in a[g] and None not in b[g]]
+        exact=sum(a[g]==b[g] for g in comparable_set)
+        pct=(100.0*exact/len(comparable_set)) if comparable_set else None
+        cls=("exact carry-forward" if pct==100.0 else
+             "revised carry-forward" if pct is not None and pct>=99.5 else
+             "ambiguous")
+        common=len(common_set)
+        comparable=len(comparable_set)
+        predecessor_only=len(set(a)-set(b))
+        current_only=len(set(b)-set(a))
     diagnostics.append({
         "predecessor":cell_descriptor(prev),
         "current":cell_descriptor(cur),
         "predecessor_rows":len(a),
         "current_rows":len(b),
-        "common_geography_count":len(common),
-        "comparable_common_geography_count":len(comparable),
-        "predecessor_only_count":len(set(a)-set(b)),
-        "current_only_count":len(set(b)-set(a)),
+        "common_geography_count":common,
+        "comparable_common_geography_count":comparable,
+        "predecessor_only_count":predecessor_only,
+        "current_only_count":current_only,
         "exact_equal_count":exact,
         "exact_copy_percentage":pct,
-        "carry_forward_classification":"ambiguous" if cross_vintage_unlinked else cls,
-        "linkage_status":"unlinked geography-vintage break" if cross_vintage_unlinked else "linked common geography",
+        "carry_forward_classification":cls,
+        "linkage_status":linkage_status,
         "predecessor_query_sha256":ma["combined_raw_sha256"],
         "current_query_sha256":mb["combined_raw_sha256"],
     })
