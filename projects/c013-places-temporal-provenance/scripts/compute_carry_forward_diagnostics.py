@@ -27,8 +27,12 @@ def read_jsonl(path):
 def now_utc():
     return datetime.now(timezone.utc).isoformat().replace("+00:00","Z")
 
-def geo_field(release_year, level):
-    return "uniqueid" if level=="tract" and release_year<=2019 else "locationid"
+def geo_fields(release_year, level):
+    if level=="county":
+        return ["stateabbr","locationname"]
+    if level=="tract" and release_year<=2019:
+        return ["uniqueid"]
+    return ["locationid"]
 
 def norm_num(x):
     if x in (None,"","NA","null"):
@@ -64,9 +68,12 @@ def cell_descriptor(r):
 
 def fetch_cell(r):
     did=r["dataset_id"]
-    gf=geo_field(r["release_year"],r["geography_level"])
-    select=",".join([gf,"data_value","low_confidence_limit","high_confidence_limit"])
-    where=f"measureid='{r['measureid']}' AND datavaluetypeid='{r['datavaluetypeid']}' AND year='{r['year']}' AND {gf} IS NOT NULL"
+    gfs=geo_fields(r["release_year"],r["geography_level"])
+    select=",".join(gfs+["data_value","low_confidence_limit","high_confidence_limit"])
+    where=(
+        f"measureid='{r['measureid']}' AND datavaluetypeid='{r['datavaluetypeid']}' "
+        f"AND year='{r['year']}' AND " + " AND ".join(f"{gf} IS NOT NULL" for gf in gfs)
+    )
     base=f"https://data.cdc.gov/resource/{did}.csv"
     limit=50000
     offset=0
@@ -77,7 +84,7 @@ def fetch_cell(r):
     retrieval_time=now_utc()
     page_records=[]
     while True:
-        params={"$select":select,"$where":where,"$order":gf,"$limit":str(limit),"$offset":str(offset)}
+        params={"$select":select,"$where":where,"$order":",".join(gfs),"$limit":str(limit),"$offset":str(offset)}
         url=base+"?"+urllib.parse.urlencode(params)
         raw,status,content_type=get(url)
         sha=hashlib.sha256(raw).hexdigest()
@@ -96,7 +103,7 @@ def fetch_cell(r):
             out.write_bytes(packed)
         reader=list(csv.DictReader(io.StringIO(raw.decode("utf-8-sig"))))
         for row in reader:
-            key=row.get(gf)
+            key="|".join(str(row.get(gf,"")) for gf in gfs)
             if key in values:
                 raise ValueError(f"duplicate geography key {key} in {cell_name}")
             values[key]=(norm_num(row.get("data_value")),norm_num(row.get("low_confidence_limit")),norm_num(row.get("high_confidence_limit")))
@@ -105,7 +112,7 @@ def fetch_cell(r):
             break
         offset+=limit
     manifest=cell_descriptor(r)|{
-        "geography_id_field":gf,
+        "geography_id_fields":gfs,
         "retrieved_at_utc":retrieval_time,
         "rows":len(values),
         "raw_bytes":total_bytes,
