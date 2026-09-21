@@ -46,10 +46,16 @@ jobs:
           unique_keys(final)
           carried=[r for r in final if r["carried_forward_flag"]]
           assert len(carried)==131
-          assert all(r["exact_copy_percentage"] is not None and r["common_geography_count"] is not None for r in carried)
+          linked=[r for r in carried if r["exact_copy_percentage"] is not None]
+          unlinked=[r for r in carried if r["exact_copy_percentage"] is None]
+          assert len(unlinked)==8
+          assert all(r["common_geography_count"] is None for r in unlinked)
+          assert all(r["carry_forward_classification"]=="ambiguous" for r in unlinked)
           print({
               "full_crosswalk_records":len(final),
               "carried_forward_candidates":len(carried),
+              "linked_candidates":len(linked),
+              "unlinked_breaks":len(unlinked),
               "exact":sum(r["carry_forward_classification"]=="exact carry-forward" for r in final),
               "revised":sum(r["carry_forward_classification"]=="revised carry-forward" for r in final),
               "ambiguous":sum(r["carry_forward_classification"]=="ambiguous" for r in final),
