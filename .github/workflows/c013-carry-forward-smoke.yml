@@ -1,12 +1,7 @@
 name: C013 carry-forward smoke test
 
 on:
-  push:
-    branches:
-      - codex/c013-stage0-provenance
-    paths:
-      - projects/c013-places-temporal-provenance/scripts/compute_carry_forward_diagnostics.py
-      - .github/workflows/c013-carry-forward-smoke.yml
+  workflow_dispatch:
 
 permissions:
   contents: read
