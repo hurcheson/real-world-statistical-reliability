@@ -2,13 +2,7 @@
 name: C013 Stage0 network archive
 
 on:
-  push:
-    branches:
-      - codex/c013-stage0-provenance
-    paths:
-      - projects/c013-places-temporal-provenance/scripts/archive_socrata_stage0.py
-      - .github/workflows/c013-stage0-network-archive.yml
-      - projects/c013-places-temporal-provenance/tests/test_stage0.py
+  workflow_dispatch:
 
 permissions:
   contents: write
