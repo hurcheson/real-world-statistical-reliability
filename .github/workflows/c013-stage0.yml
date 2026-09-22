@@ -26,7 +26,13 @@ jobs:
           cd projects/c013-places-temporal-provenance
           PYTHONPATH=src python scripts/validate_stage0.py
           python -m compileall -q src scripts
-          sha256sum outputs/machine/preliminary_provenance_crosswalk.jsonl data/manifests/retrieval_manifest.jsonl
+          sha256sum \
+            data/manifests/retrieval_manifest.jsonl \
+            data/manifests/carry_forward_query_manifest.jsonl \
+            outputs/machine/preliminary_provenance_crosswalk.jsonl \
+            outputs/machine/provenance_crosswalk.jsonl \
+            outputs/machine/carry_forward_diagnostics.jsonl \
+            data/raw_archives/c013-carry-forward-raw-pages.tar.gz
       - name: Fresh-directory deterministic rerun
         run: |
           tmp=$(mktemp -d)
@@ -35,6 +41,7 @@ jobs:
           PYTHONPATH=src python scripts/validate_stage0.py > run1.txt
           PYTHONPATH=src python scripts/validate_stage0.py > run2.txt
           cmp run1.txt run2.txt
+          sha256sum outputs/machine/provenance_crosswalk.jsonl outputs/machine/carry_forward_diagnostics.jsonl
       - name: Install C011 test environment
         run: python -m pip install -e "projects/c011-qct-precision-screen[test]"
       - name: Run C011 invariant tests
