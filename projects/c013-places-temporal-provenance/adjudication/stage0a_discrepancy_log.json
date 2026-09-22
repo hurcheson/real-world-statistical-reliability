@@ -1,0 +1,51 @@
+[
+  {
+    "id": "P001",
+    "severity": "material",
+    "status": "verified",
+    "finding": "cwsq-ngmh is now the live 2025 census-tract dataset; 2024 is preserved under ai6z-tcin.",
+    "consequence": "Dataset ID cannot be interpreted solely from older bookmarked catalog title; manifest must bind ID + title + retrieval date + hash."
+  },
+  {
+    "id": "P002",
+    "severity": "material",
+    "status": "verified",
+    "finding": "swc5-untb is now the live 2025 county dataset; 2024 is preserved under fu4u-a9bh.",
+    "consequence": "Same immutable-snapshot rule as P001."
+  },
+  {
+    "id": "P003",
+    "severity": "technical",
+    "status": "resolved",
+    "finding": "The local tool bridge could not transfer raw HTTP bytes, but the GitHub Actions network runner successfully archived direct CDC/Socrata HTTP responses for all 16 frozen anchors.",
+    "consequence": "Raw-byte provenance is now preserved as 64 content-addressed metadata/count/sample/coverage snapshots with SHA-256 hashes in the retrieval manifest."
+  },
+  {
+    "id": "P004",
+    "severity": "technical",
+    "status": "resolved",
+    "finding": "Direct scripted retrieval succeeded for rja3-32tc, ai6z-tcin and fu4u-a9bh, including metadata, count, sample and grouped coverage responses.",
+    "consequence": "The three archive anchors no longer require catalog-only substitution for Stage 0 identity/schema verification."
+  },
+  {
+    "id": "P005",
+    "severity": "scientific",
+    "status": "resolved",
+    "finding": "All 131 adjacent-release same-source-wave candidates were evaluated with frozen public row-level queries. The corrected comparator yields 115 exact carry-forwards, 0 revised carry-forwards, and 16 ambiguous pairs.",
+    "consequence": "Exact-copy/common-geography diagnostics are no longer a Stage 0 blocker. Eight ambiguous pairs are intentionally non-linkable across product/geography-vintage breaks; eight linked 2023→2024 county BP/cholesterol pairs are empirically far below the 99.5% revised-carry-forward threshold."
+  },
+  {
+    "id": "P006",
+    "severity": "technical",
+    "status": "resolved",
+    "finding": "All 16 frozen dataset anchors returned HTTP 200 metadata, row-count and sample queries in the networked runner; grouped measure/source-year coverage produced 839 observed cells.",
+    "consequence": "Dataset resolution and complete anchor-level coverage are no longer blockers."
+  },
+  {
+    "id": "P007",
+    "severity": "scientific",
+    "status": "resolved",
+    "finding": "An earlier comparator version produced 118 exact / 13 ambiguous pairs before tract linkage rules were tightened. Commits 22ef1ef and 29f4f73 explicitly prevented invalid linkage across the 2019→2020 product-scope transition and the 2023→2024 tract-vintage transition. Two subsequent full runs reproduced the corrected result: 115 exact / 16 ambiguous / 0 revised, with diagnostics SHA-256 500c0531a6a63ac8f0bbaf63b4ccc92b59de8f5b6c762b7b7d5972adc1c584b7.",
+    "consequence": "The 118/13 result is superseded and must not be cited. The corrected 115/16 result is controlling for Stage 0."
+  }
+]

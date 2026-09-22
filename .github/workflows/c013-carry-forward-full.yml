@@ -1,0 +1,92 @@
+name: C013 full carry-forward diagnostics
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compute all frozen carry-forward diagnostics
+        run: python projects/c013-places-temporal-provenance/scripts/compute_carry_forward_diagnostics.py
+      - name: Apply diagnostics to final provenance crosswalk
+        run: python projects/c013-places-temporal-provenance/scripts/apply_carry_forward_diagnostics.py
+      - name: Validate final Stage0 crosswalk
+        run: |
+          cd projects/c013-places-temporal-provenance
+          PYTHONPATH=src python - <<'PY'
+          from pathlib import Path
+          from c013_places.core import validate_crosswalk, unique_keys
+          from c013_places.pipeline import read_jsonl
+          d=read_jsonl(Path("outputs/machine/carry_forward_diagnostics.jsonl"))
+          q=read_jsonl(Path("data/manifests/carry_forward_query_manifest.jsonl"))
+          x=read_jsonl(Path("outputs/machine/provenance_crosswalk.jsonl"))
+          assert len(d)==131 and len(q)==262 and len(x)==839
+          for r in x: validate_crosswalk(r)
+          unique_keys(x)
+          carried=[r for r in x if r["carried_forward_flag"]]
+          assert len(carried)==131
+          linked=[r for r in carried if r["exact_copy_percentage"] is not None]
+          unlinked=[r for r in carried if r["exact_copy_percentage"] is None]
+          assert len(unlinked)==8
+          assert all(r["common_geography_count"] is None for r in unlinked)
+          assert all(r["carry_forward_classification"]=="ambiguous" for r in unlinked)
+          print({
+              "diagnostics":len(d),"query_manifest":len(q),"crosswalk":len(x),
+              "linked_candidates":len(linked),"unlinked_breaks":len(unlinked),
+              "exact":sum(r["carry_forward_classification"]=="exact carry-forward" for r in x),
+              "revised":sum(r["carry_forward_classification"]=="revised carry-forward" for r in x),
+              "ambiguous":sum(r["carry_forward_classification"]=="ambiguous" for r in x),
+          })
+          PY
+      - name: Package raw comparison pages
+        run: |
+          tar -czf c013-carry-forward-raw-pages.tar.gz \
+            -C projects/c013-places-temporal-provenance data/raw/carry_forward_pages
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          p=Path("c013-carry-forward-raw-pages.tar.gz")
+          out=Path("projects/c013-places-temporal-provenance/outputs/machine/carry_forward_raw_archive.json")
+          out.write_text(json.dumps({
+              "asset_name":p.name,
+              "byte_size":p.stat().st_size,
+              "sha256":hashlib.sha256(p.read_bytes()).hexdigest(),
+              "contents":"gzip-compressed content-addressed raw CSV pages used by carry-forward diagnostics"
+          },indent=2,sort_keys=True)+"\n")
+          print(out.read_text())
+          PY
+      - name: Commit final diagnostics, crosswalk, and compressed raw archive
+        run: |
+          mkdir -p projects/c013-places-temporal-provenance/data/raw_archives
+          mv c013-carry-forward-raw-pages.tar.gz \
+            projects/c013-places-temporal-provenance/data/raw_archives/c013-carry-forward-raw-pages.tar.gz
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("projects/c013-places-temporal-provenance/outputs/machine/carry_forward_raw_archive.json")
+          x=json.loads(p.read_text())
+          x["storage_mode"]="git-tracked compressed archive"
+          x["repository_path"]="projects/c013-places-temporal-provenance/data/raw_archives/c013-carry-forward-raw-pages.tar.gz"
+          p.write_text(json.dumps(x,indent=2,sort_keys=True)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add projects/c013-places-temporal-provenance/data/manifests/carry_forward_query_manifest.jsonl \
+                  projects/c013-places-temporal-provenance/outputs/machine/carry_forward_diagnostics.jsonl \
+                  projects/c013-places-temporal-provenance/outputs/machine/provenance_crosswalk.jsonl \
+                  projects/c013-places-temporal-provenance/outputs/machine/carry_forward_raw_archive.json \
+                  projects/c013-places-temporal-provenance/data/raw_archives/c013-carry-forward-raw-pages.tar.gz
+          git commit -m "data: complete C013 Stage0 carry-forward diagnostics [skip ci]"
+          git pull --rebase origin codex/c013-stage0-provenance
+          git push origin HEAD:codex/c013-stage0-provenance

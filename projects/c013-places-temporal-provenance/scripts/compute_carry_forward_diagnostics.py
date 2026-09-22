@@ -1,0 +1,225 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import csv
+import gzip
+import hashlib
+import io
+import json
+import time
+import urllib.error
+import urllib.parse
+import urllib.request
+from datetime import datetime, timezone
+from decimal import Decimal, InvalidOperation
+from pathlib import Path
+
+ROOT=Path(__file__).resolve().parents[1]
+COVERAGE=ROOT/"outputs/machine/measure_coverage.jsonl"
+RAW=ROOT/"data/raw/carry_forward_pages"
+DIAG=ROOT/"outputs/machine/carry_forward_diagnostics.jsonl"
+QMAN=ROOT/"data/manifests/carry_forward_query_manifest.jsonl"
+
+def read_jsonl(path):
+    return [json.loads(x) for x in path.read_text().splitlines() if x.strip()]
+
+def now_utc():
+    return datetime.now(timezone.utc).isoformat().replace("+00:00","Z")
+
+def default_geo_fields(release_year, level):
+    if level=="county":
+        return ["locationid"] if release_year>=2021 else ["stateabbr","locationname"]
+    if level=="tract" and release_year<=2019:
+        return ["uniqueid"]
+    return ["locationid"]
+
+def pair_linkage(prev, cur):
+    if cur["geography_level"]=="county" and prev["release_year"]==2020 and cur["release_year"]==2021:
+        return ["stateabbr","locationname"], ["stateabbr","locationname"], "linked common geography"
+    if cur["geography_level"]=="tract" and prev["release_year"]==2019 and cur["release_year"]==2020:
+        return (
+            default_geo_fields(prev["release_year"],prev["geography_level"]),
+            default_geo_fields(cur["release_year"],cur["geography_level"]),
+            "unlinked product-scope break",
+        )
+    if cur["geography_level"]=="tract" and prev["release_year"]==2023 and cur["release_year"]==2024:
+        return (
+            default_geo_fields(prev["release_year"],prev["geography_level"]),
+            default_geo_fields(cur["release_year"],cur["geography_level"]),
+            "unlinked geography-vintage break",
+        )
+    return (
+        default_geo_fields(prev["release_year"],prev["geography_level"]),
+        default_geo_fields(cur["release_year"],cur["geography_level"]),
+        "linked common geography",
+    )
+
+def norm_num(x):
+    if x in (None,"","NA","null"):
+        return None
+    try:
+        return Decimal(str(x))
+    except InvalidOperation:
+        return str(x)
+
+def get(url):
+    req=urllib.request.Request(url,headers={"User-Agent":"c013-stage0-provenance/0.4 research"})
+    last=None
+    for attempt in range(4):
+        try:
+            with urllib.request.urlopen(req,timeout=90) as r:
+                return r.read(),int(r.status),r.headers.get("Content-Type")
+        except (TimeoutError,urllib.error.URLError) as exc:
+            last=exc
+            if attempt<3:
+                time.sleep(2**attempt)
+    raise last
+
+def cell_descriptor(r):
+    return {
+        "release_year":r["release_year"],
+        "dataset_id":r["dataset_id"],
+        "geography_level":r["geography_level"],
+        "measure_id":r["measureid"],
+        "data_value_type_id":r["datavaluetypeid"],
+        "data_value_type":r.get("data_value_type"),
+        "brfss_source_year":int(r["year"]),
+    }
+
+def fetch_cell(r, gfs=None):
+    did=r["dataset_id"]
+    if gfs is None:
+        gfs=default_geo_fields(r["release_year"],r["geography_level"])
+    select=",".join(gfs+["data_value","low_confidence_limit","high_confidence_limit"])
+    where=(
+        f"measureid='{r['measureid']}' AND datavaluetypeid='{r['datavaluetypeid']}' "
+        f"AND year='{r['year']}' AND " + " AND ".join(f"{gf} IS NOT NULL" for gf in gfs)
+    )
+    base=f"https://data.cdc.gov/resource/{did}.csv"
+    limit=50000
+    offset=0
+    values={}
+    duplicate_identical_rows=0
+    page_shas=[]
+    raw_hasher=hashlib.sha256()
+    total_bytes=0
+    retrieval_time=now_utc()
+    page_records=[]
+    while True:
+        params={"$select":select,"$where":where,"$order":",".join(gfs),"$limit":str(limit),"$offset":str(offset)}
+        url=base+"?"+urllib.parse.urlencode(params)
+        raw,status,content_type=get(url)
+        sha=hashlib.sha256(raw).hexdigest()
+        page_shas.append(sha)
+        raw_hasher.update(len(raw).to_bytes(8,"big"))
+        raw_hasher.update(raw)
+        total_bytes+=len(raw)
+        cell_name=f"{r['release_year']}_{r['measureid']}_{r['datavaluetypeid']}_{r['year']}"
+        rel=Path("data/raw/carry_forward_pages")/did/cell_name/f"offset_{offset}.{sha}.csv.gz"
+        out=ROOT/rel
+        out.parent.mkdir(parents=True,exist_ok=True)
+        packed=gzip.compress(raw,compresslevel=9,mtime=0)
+        if out.exists() and out.read_bytes()!=packed:
+            raise RuntimeError(f"immutable raw-page collision: {rel}")
+        if not out.exists():
+            out.write_bytes(packed)
+        reader=list(csv.DictReader(io.StringIO(raw.decode("utf-8-sig"))))
+        for row in reader:
+            key="|".join(str(row.get(gf,"")) for gf in gfs)
+            value=(norm_num(row.get("data_value")),norm_num(row.get("low_confidence_limit")),norm_num(row.get("high_confidence_limit")))
+            if key in values:
+                if values[key] != value:
+                    raise ValueError(f"conflicting duplicate geography key {key} in {cell_name}")
+                duplicate_identical_rows += 1
+                continue
+            values[key]=value
+        page_records.append({"offset":offset,"rows":len(reader),"sha256":sha,"snapshot_id":str(rel).replace("\\","/"),"url":url})
+        if len(reader)<limit:
+            break
+        offset+=limit
+    manifest=cell_descriptor(r)|{
+        "geography_id_fields":gfs,
+        "retrieved_at_utc":retrieval_time,
+        "rows":len(values),
+        "duplicate_identical_rows_collapsed":duplicate_identical_rows,
+        "raw_bytes":total_bytes,
+        "combined_raw_sha256":raw_hasher.hexdigest(),
+        "pages":page_records,
+    }
+    return values,manifest
+
+rows=read_jsonl(COVERAGE)
+by_key={(r["geography_level"],r["measureid"],r["datavaluetypeid"],r["release_year"]):r for r in rows}
+candidates=[]
+for cur in rows:
+    prev=by_key.get((cur["geography_level"],cur["measureid"],cur["datavaluetypeid"],cur["release_year"]-1))
+    if prev and str(prev.get("year"))==str(cur.get("year")):
+        candidates.append((prev,cur))
+candidates.sort(key=lambda pair:(pair[1]["release_year"],pair[1]["geography_level"],pair[1]["measureid"],pair[1]["datavaluetypeid"]))
+
+ap=argparse.ArgumentParser()
+ap.add_argument("--max-pairs",type=int,default=None)
+ap.add_argument("--start-pair",type=int,default=1,help="1-based index in the frozen sorted carry-forward candidate list")
+args=ap.parse_args()
+if args.start_pair < 1:
+    raise ValueError("--start-pair must be >= 1")
+candidates=candidates[args.start_pair-1:]
+if args.max_pairs is not None:
+    candidates=candidates[:args.max_pairs]
+
+diagnostics=[]
+query_manifest=[]
+for i,(prev,cur) in enumerate(candidates,1):
+    print(f"[{i}/{len(candidates)}] {cur['release_year']} {cur['geography_level']} {cur['measureid']} {cur['datavaluetypeid']} source={cur['year']}",flush=True)
+    prev_gfs,cur_gfs,linkage_status=pair_linkage(prev,cur)
+    a,ma=fetch_cell(prev,prev_gfs)
+    b,mb=fetch_cell(cur,cur_gfs)
+    query_manifest.extend([ma,mb])
+    if linkage_status.startswith("unlinked"):
+        common=None
+        comparable=None
+        exact=None
+        pct=None
+        cls="ambiguous"
+        predecessor_only=None
+        current_only=None
+    else:
+        common_set=set(a)&set(b)
+        comparable_set=[g for g in common_set if None not in a[g] and None not in b[g]]
+        exact=sum(a[g]==b[g] for g in comparable_set)
+        pct=(100.0*exact/len(comparable_set)) if comparable_set else None
+        cls=("exact carry-forward" if pct==100.0 else
+             "revised carry-forward" if pct is not None and pct>=99.5 else
+             "ambiguous")
+        common=len(common_set)
+        comparable=len(comparable_set)
+        predecessor_only=len(set(a)-set(b))
+        current_only=len(set(b)-set(a))
+    diagnostics.append({
+        "predecessor":cell_descriptor(prev),
+        "current":cell_descriptor(cur),
+        "predecessor_rows":len(a),
+        "current_rows":len(b),
+        "common_geography_count":common,
+        "comparable_common_geography_count":comparable,
+        "predecessor_only_count":predecessor_only,
+        "current_only_count":current_only,
+        "exact_equal_count":exact,
+        "exact_copy_percentage":pct,
+        "carry_forward_classification":cls,
+        "linkage_status":linkage_status,
+        "predecessor_query_sha256":ma["combined_raw_sha256"],
+        "current_query_sha256":mb["combined_raw_sha256"],
+    })
+
+DIAG.write_text("".join(json.dumps(r,sort_keys=True)+"\n" for r in diagnostics))
+QMAN.write_text("".join(json.dumps(r,sort_keys=True)+"\n" for r in query_manifest))
+print(json.dumps({
+    "pairs":len(diagnostics),
+    "exact":sum(r["carry_forward_classification"]=="exact carry-forward" for r in diagnostics),
+    "revised":sum(r["carry_forward_classification"]=="revised carry-forward" for r in diagnostics),
+    "ambiguous":sum(r["carry_forward_classification"]=="ambiguous" for r in diagnostics),
+    "diagnostics_sha256":hashlib.sha256(DIAG.read_bytes()).hexdigest(),
+    "query_manifest_sha256":hashlib.sha256(QMAN.read_bytes()).hexdigest(),
+},sort_keys=True))

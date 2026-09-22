@@ -1,0 +1,70 @@
+name: C013 Stage0 full crosswalk build
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build full metadata crosswalk
+        run: python projects/c013-places-temporal-provenance/scripts/build_full_crosswalk.py
+      - name: Apply frozen carry-forward diagnostics
+        run: python projects/c013-places-temporal-provenance/scripts/apply_carry_forward_diagnostics.py
+      - name: Validate final crosswalk records
+        run: |
+          cd projects/c013-places-temporal-provenance
+          PYTHONPATH=src python - <<'PY'
+          from pathlib import Path
+          from c013_places.pipeline import read_jsonl
+          from c013_places.core import validate_crosswalk, unique_keys
+          full=read_jsonl(Path("outputs/machine/full_provenance_crosswalk.jsonl"))
+          final=read_jsonl(Path("outputs/machine/provenance_crosswalk.jsonl"))
+          assert len(full)==839 and len(final)==839
+          for r in final:
+              validate_crosswalk(r)
+              assert isinstance(r["target_population"],str) and r["target_population"]
+              assert isinstance(r["eligibility"],str) and r["eligibility"]
+              assert r["definition_comparability"] in {"comparable","break","unresolved"}
+              assert r["geography_population_comparability"] in {"comparable","break","unresolved"}
+          unique_keys(final)
+          carried=[r for r in final if r["carried_forward_flag"]]
+          assert len(carried)==131
+          linked=[r for r in carried if r["exact_copy_percentage"] is not None]
+          unlinked=[r for r in carried if r["exact_copy_percentage"] is None]
+          assert len(unlinked)==8
+          assert all(r["common_geography_count"] is None for r in unlinked)
+          assert all(r["carry_forward_classification"]=="ambiguous" for r in unlinked)
+          print({
+              "full_crosswalk_records":len(final),
+              "carried_forward_candidates":len(carried),
+              "linked_candidates":len(linked),
+              "unlinked_breaks":len(unlinked),
+              "exact":sum(r["carry_forward_classification"]=="exact carry-forward" for r in final),
+              "revised":sum(r["carry_forward_classification"]=="revised carry-forward" for r in final),
+              "ambiguous":sum(r["carry_forward_classification"]=="ambiguous" for r in final),
+          })
+          PY
+      - name: Commit refined crosswalks
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add projects/c013-places-temporal-provenance/outputs/machine/full_provenance_crosswalk.jsonl \
+                  projects/c013-places-temporal-provenance/outputs/machine/provenance_crosswalk.jsonl
+          if git diff --cached --quiet; then
+            echo "No crosswalk changes"
+          else
+            git commit -m "data: finalize C013 Stage0 provenance crosswalk [skip ci]"
+            git pull --rebase origin codex/c013-stage0-provenance
+            git push origin HEAD:codex/c013-stage0-provenance
+          fi

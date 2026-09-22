@@ -1,0 +1,55 @@
+name: C013 Stage0 verification
+
+on:
+  push:
+    branches:
+      - codex/c013-stage0-provenance
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install C013 test environment
+        run: python -m pip install -e "projects/c013-places-temporal-provenance[test]"
+      - name: Run C013 tests
+        run: python -m pytest -q projects/c013-places-temporal-provenance/tests
+      - name: Validate C013 machine-readable state
+        run: |
+          cd projects/c013-places-temporal-provenance
+          PYTHONPATH=src python scripts/validate_stage0.py
+          python -m compileall -q src scripts
+          sha256sum \
+            data/manifests/retrieval_manifest.jsonl \
+            data/manifests/carry_forward_query_manifest.jsonl \
+            outputs/machine/preliminary_provenance_crosswalk.jsonl \
+            outputs/machine/provenance_crosswalk.jsonl \
+            outputs/machine/carry_forward_diagnostics.jsonl \
+            data/raw_archives/c013-carry-forward-raw-pages.tar.gz
+      - name: Fresh-directory deterministic rerun
+        run: |
+          tmp=$(mktemp -d)
+          cp -a projects/c013-places-temporal-provenance "$tmp/project"
+          cd "$tmp/project"
+          PYTHONPATH=src python scripts/validate_stage0.py > run1.txt
+          PYTHONPATH=src python scripts/validate_stage0.py > run2.txt
+          cmp run1.txt run2.txt
+          sha256sum outputs/machine/provenance_crosswalk.jsonl outputs/machine/carry_forward_diagnostics.jsonl
+      - name: Install C011 test environment
+        run: python -m pip install -e "projects/c011-qct-precision-screen[test]"
+      - name: Run C011 invariant tests
+        run: python -m pytest -q projects/c011-qct-precision-screen/tests/test_invariants.py
+      - name: Run C011 regression when immutable raw input is available
+        run: |
+          if test -f projects/c011-qct-precision-screen/data/raw/qct_data_2016.xlsx; then
+            python -m pytest -q projects/c011-qct-precision-screen/tests/test_2016_regression.py
+          else
+            echo "SKIP: C011 regression requires excluded immutable raw workbook qct_data_2016.xlsx"
+          fi

@@ -1,0 +1,113 @@
+{
+  "version": "0.1.0",
+  "retrieved_at_utc": "2026-09-21T21:36:26Z",
+  "entries": [
+    {
+      "id": "E-CDC-FAQ",
+      "citation": "CDC PLACES FAQ",
+      "url": "https://www.cdc.gov/places/faqs/index.html",
+      "sections_read": [
+        "Can I use PLACES to track local changes over time?",
+        "confidence interval/method notes"
+      ],
+      "provenance_facts": [
+        "CDC says current modeling does not support tracking local change over time",
+        "subcounty poststratification uses fixed decennial population; county uses annual population estimates",
+        "time is not a model variable"
+      ],
+      "uncertainty": "Current page can change; archive raw HTML/PDF in a network-enabled execution environment.",
+      "relevance": [
+        "temporal interpretability",
+        "poststratification-basis",
+        "CI limits"
+      ],
+      "side_findings": [
+        "CDC discourages program/policy evaluation from local differences alone"
+      ]
+    },
+    {
+      "id": "E-CDC-METH",
+      "citation": "CDC PLACES Methodology",
+      "url": "https://www.cdc.gov/places/methodology/index.html",
+      "sections_read": [
+        "MRP inputs",
+        "geographic population bases",
+        "Monte Carlo uncertainty"
+      ],
+      "provenance_facts": [
+        "MRP uses BRFSS plus ACS/Census inputs",
+        "county and subcounty population bases differ",
+        "PLACES reports modeled estimates and 95% intervals"
+      ],
+      "uncertainty": "Historical methodology versions still need byte-archived copies.",
+      "relevance": [
+        "poststratification-basis",
+        "CI-method-era"
+      ]
+    },
+    {
+      "id": "E-CDC-REL",
+      "citation": "CDC PLACES release notes / data notes",
+      "url": "https://www.cdc.gov/places/help/data-notes/index.html",
+      "sections_read": [
+        "2020-2025 release source-year notes",
+        "carry-forward notes",
+        "definition/availability changes"
+      ],
+      "provenance_facts": [
+        "alternating BRFSS measures are carried across releases",
+        "2025 uses 2023 main and 2022 rotating measures",
+        "2024/2025 product evolution includes measure-definition/availability changes"
+      ],
+      "uncertainty": "Historical pages must be snapshotted before publication use.",
+      "relevance": [
+        "source-year",
+        "carry-forward",
+        "definition comparability"
+      ]
+    },
+    {
+      "id": "E-SOCRATA",
+      "citation": "CDC Socrata metadata for frozen dataset anchors",
+      "url": "https://data.cdc.gov/",
+      "sections_read": [
+        "dataset title/description",
+        "Year metadata cache where rendered",
+        "schema column metadata where rendered"
+      ],
+      "provenance_facts": [
+        "IDs bind to release-specific catalog objects at retrieval time",
+        "cwsq-ngmh and swc5-untb currently title as 2025",
+        "ai6z-tcin and fu4u-a9bh catalog as 2024 archives"
+      ],
+      "uncertainty": "Some direct metadata endpoints did not render; raw-byte transfer unavailable.",
+      "relevance": [
+        "dataset identity",
+        "schema fingerprint",
+        "source-year"
+      ]
+    },
+    {
+      "id": "E-C013-PROS",
+      "citation": "O002-A1 Full Prosecution \u2014 PLACES as Longitudinal Data",
+      "url": "research/canonical/22_C013_PLACES_TEMPORAL_PROSECUTION.md",
+      "sections_read": [
+        "binding decision",
+        "release/source crosswalk",
+        "exact-copy reproductions",
+        "scope/fairness boundaries"
+      ],
+      "provenance_facts": [
+        "candidate survives",
+        "2016-2025 source-year map",
+        "known exact copied waves",
+        "comparability break points"
+      ],
+      "uncertainty": "Prosecution evidence is authoritative program state, but external claims still require archived primary sources.",
+      "relevance": [
+        "all crosswalk fields",
+        "execution rules"
+      ]
+    }
+  ]
+}

@@ -1,9 +1,3 @@
-# Real-World Statistical Reliability
+# Real-World Statistical Reliability — C013 Stage 0 branch workspace
 
-Reproducible research on statistical reliability under imperfect real-world data.
-C011 is the archived HUD Qualified Census Tract precision-screen execution project. Under
-the controlling D037 adjudication it is parked as a first-paper project; only the 2016 replay
-currently clears the complete manuscript reproducibility gate.
-
-Canonical research records live in `research/canonical/`. Executable C011 work lives in
-`projects/c011-qct-precision-screen/`.
+This local checkout package contains the authoritative v0.28.0 canonical research snapshot and the new `projects/c013-places-temporal-provenance/` Stage 0A foundation. It is intended for synchronization onto `codex/c013-stage0-provenance`; it does not merge or alter `main`.

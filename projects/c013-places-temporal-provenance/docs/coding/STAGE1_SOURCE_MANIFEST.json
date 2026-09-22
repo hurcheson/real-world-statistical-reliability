@@ -1,0 +1,87 @@
+{
+  "manifest_version": "1.0.0",
+  "checked_on": "2026-09-21",
+  "purpose": "Neutral source-access registry for independent Stage 1 coding. It contains no prior C013 coding judgments.",
+  "rules": [
+    "Coders may use a public full text, institutional/library access, or a user-supplied lawful copy.",
+    "Do not infer that a feature is absent merely because only an abstract or metadata record is accessible.",
+    "Record access limitations explicitly in the coding form.",
+    "Do not inspect the prior C013 prosecution coding table before both coder forms are locked."
+  ],
+  "works": [
+    {
+      "id": "E1",
+      "access_status": "public_full_text_identified",
+      "urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11315458/",
+        "https://doi.org/10.1080/10511482.2022.2076715"
+      ]
+    },
+    {
+      "id": "E2",
+      "access_status": "public_abstract_and_methods_identified_full_text_not_confirmed",
+      "urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/39237065/",
+        "https://www.sciencedirect.com/science/article/abs/pii/S0749379724003003",
+        "https://mdanderson.elsevierpure.com/en/publications/spatial-and-temporal-patterns-of-chronic-disease-burden-in-the-us/"
+      ]
+    },
+    {
+      "id": "E3",
+      "access_status": "public_full_text_identified",
+      "urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12279623/",
+        "https://link.springer.com/article/10.1007/s11524-025-00976-x"
+      ]
+    },
+    {
+      "id": "E4",
+      "access_status": "public_full_text_identified",
+      "urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12739454/",
+        "https://formative.jmir.org/2025/1/e74195"
+      ]
+    },
+    {
+      "id": "E5",
+      "access_status": "complete_indexed_abstract_identified",
+      "urls": [
+        "https://openalex.org/W4415540272",
+        "https://doi.org/10.14309/01.ajg.0001129756.58233.3d"
+      ]
+    },
+    {
+      "id": "E6",
+      "access_status": "public_full_text_and_supplement_identified",
+      "urls": [
+        "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2853519",
+        "https://doi.org/10.1001/jamanetworkopen.2026.30685"
+      ]
+    },
+    {
+      "id": "E7",
+      "access_status": "open_access_article_or_supplement_page_identified",
+      "urls": [
+        "https://www.sciencedirect.com/science/article/pii/S3050840126000152",
+        "https://doi.org/10.1016/j.neuros.2026.100034"
+      ]
+    },
+    {
+      "id": "E8",
+      "access_status": "public_full_text_identified",
+      "urls": [
+        "https://www.preprints.org/manuscript/202602.0362",
+        "https://www.preprints.org/manuscript/202602.0362/v1/download",
+        "https://doi.org/10.20944/preprints202602.0362.v1"
+      ]
+    },
+    {
+      "id": "E9",
+      "access_status": "doi_known_public_record_not_resolved_in_current_discovery",
+      "urls": [
+        "https://doi.org/10.7282/t3-xd0f-8817"
+      ],
+      "note": "Do not code repository-text absence as author nondisclosure. If a lawful full text or repository record is later supplied, register that source before coding E9."
+    }
+  ]
+}

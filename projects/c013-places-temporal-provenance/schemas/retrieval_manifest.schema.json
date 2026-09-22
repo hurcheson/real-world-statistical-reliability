@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "C013 retrieval manifest record",
+  "type": "object",
+  "required": [
+    "provider",
+    "catalog",
+    "dataset_id",
+    "canonical_url",
+    "api_endpoint",
+    "request_parameters",
+    "retrieved_at_utc",
+    "result_status",
+    "content_type",
+    "snapshot_id",
+    "byte_size",
+    "row_count",
+    "schema_fingerprint",
+    "sha256",
+    "documentation_source",
+    "retrieval_notes",
+    "snapshot_mode"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "provider": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "catalog": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dataset_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]{4}-[a-z0-9]{4}$"
+    },
+    "canonical_url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "api_endpoint": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "request_parameters": {
+      "type": "object"
+    },
+    "retrieved_at_utc": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "result_status": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "content_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "snapshot_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "byte_size": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "row_count": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "schema_fingerprint": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "documentation_source": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "retrieval_notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "snapshot_mode": {
+      "enum": [
+        "frozen snapshot",
+        "live endpoint",
+        "extracted official metadata"
+      ]
+    }
+  }
+}

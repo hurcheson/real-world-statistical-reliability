@@ -1,0 +1,41 @@
+{
+  "dataset_id": "dv4u-3x3q",
+  "documented_brfss_years": [
+    2018,
+    2017
+  ],
+  "extracted_fact": "23 measures BRFSS 2018; 4 BP/cholesterol measures 2017; metadata cache 176,008 rows",
+  "geography_level": "county",
+  "observed_schema_profile": [
+    "year",
+    "stateabbr",
+    "statedesc",
+    "locationname",
+    "datasource",
+    "category",
+    "measure",
+    "data_value_unit",
+    "data_value_type",
+    "data_value",
+    "data_value_footnote_symbol",
+    "data_value_footnote",
+    "low_confidence_limit",
+    "high_confidence_limit",
+    "totalpopulation",
+    "geolocation",
+    "locationid",
+    "categoryid",
+    "measureid",
+    "datavaluetypeid",
+    "short_question_text"
+  ],
+  "official_title": "PLACES: Local Data for Better Health, County Data 2020 release",
+  "product": "PLACES",
+  "raw_http_bytes_available": false,
+  "release_year": 2020,
+  "retrieved_at_utc": "2026-09-21T21:36:26Z",
+  "row_count_from_metadata_cache": 176008,
+  "snapshot_kind": "browser-mediated extracted official metadata; not raw HTTP bytes",
+  "source_url": "https://data.cdc.gov/api/views/dv4u-3x3q",
+  "technical_note": "Web retrieval exposed official metadata content but not transferable raw response bytes to the execution container; byte-level raw archival is deferred and explicitly not claimed."
+}

@@ -1,0 +1,92 @@
+name: C013 carry-forward smoke test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run legacy linked smoke pairs
+        run: python projects/c013-places-temporal-provenance/scripts/compute_carry_forward_diagnostics.py --max-pairs 3
+      - name: Validate legacy exact copies
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("projects/c013-places-temporal-provenance/outputs/machine/carry_forward_diagnostics.jsonl")
+          rows=[json.loads(x) for x in p.read_text().splitlines() if x.strip()]
+          assert len(rows)==3
+          assert all(r["linkage_status"]=="linked common geography" for r in rows)
+          assert all(r["carry_forward_classification"]=="exact carry-forward" for r in rows)
+          assert all(r["exact_copy_percentage"]==100.0 for r in rows)
+          print(rows)
+          PY
+      - name: Run 2020-to-2021 county bridge smoke
+        run: python projects/c013-places-temporal-provenance/scripts/compute_carry_forward_diagnostics.py --start-pair 45 --max-pairs 2
+      - name: Validate county bridge
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("projects/c013-places-temporal-provenance/outputs/machine/carry_forward_diagnostics.jsonl")
+          rows=[json.loads(x) for x in p.read_text().splitlines() if x.strip()]
+          assert len(rows)==2
+          assert all(r["linkage_status"]=="linked common geography" for r in rows)
+          assert all(r["carry_forward_classification"]=="exact carry-forward" for r in rows)
+          assert all(r["common_geography_count"]==3142 for r in rows)
+          print(rows)
+          PY
+      - name: Run later county FIPS smoke
+        run: python projects/c013-places-temporal-provenance/scripts/compute_carry_forward_diagnostics.py --start-pair 105 --max-pairs 2
+      - name: Validate later county FIPS
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("projects/c013-places-temporal-provenance/outputs/machine/carry_forward_diagnostics.jsonl")
+          rows=[json.loads(x) for x in p.read_text().splitlines() if x.strip()]
+          assert len(rows)==2
+          assert all(r["linkage_status"]=="linked common geography" for r in rows)
+          assert all(r["common_geography_count"] is not None for r in rows)
+          print(rows)
+          PY
+      - name: Run 2019-to-2020 product-scope break smoke
+        run: python projects/c013-places-temporal-provenance/scripts/compute_carry_forward_diagnostics.py --start-pair 41 --max-pairs 4
+      - name: Validate product-scope ambiguity
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("projects/c013-places-temporal-provenance/outputs/machine/carry_forward_diagnostics.jsonl")
+          rows=[json.loads(x) for x in p.read_text().splitlines() if x.strip()]
+          assert len(rows)==4
+          assert all(r["linkage_status"]=="unlinked product-scope break" for r in rows)
+          assert all(r["carry_forward_classification"]=="ambiguous" for r in rows)
+          assert all(r["exact_copy_percentage"] is None for r in rows)
+          assert all(r["common_geography_count"] is None for r in rows)
+          print(rows)
+          PY
+      - name: Run 2023-to-2024 geography-vintage break smoke
+        run: python projects/c013-places-temporal-provenance/scripts/compute_carry_forward_diagnostics.py --start-pair 113 --max-pairs 4
+      - name: Validate geography-vintage ambiguity
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("projects/c013-places-temporal-provenance/outputs/machine/carry_forward_diagnostics.jsonl")
+          rows=[json.loads(x) for x in p.read_text().splitlines() if x.strip()]
+          assert len(rows)==4
+          assert all(r["linkage_status"]=="unlinked geography-vintage break" for r in rows)
+          assert all(r["carry_forward_classification"]=="ambiguous" for r in rows)
+          assert all(r["exact_copy_percentage"] is None for r in rows)
+          assert all(r["common_geography_count"] is None for r in rows)
+          print(rows)
+          PY

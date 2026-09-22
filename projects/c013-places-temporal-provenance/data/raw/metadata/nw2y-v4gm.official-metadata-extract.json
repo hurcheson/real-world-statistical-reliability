@@ -1,0 +1,41 @@
+{
+  "dataset_id": "nw2y-v4gm",
+  "documented_brfss_years": [
+    2020,
+    2019
+  ],
+  "extracted_fact": "25 measures BRFSS 2020; 4 BP/cholesterol measures 2019",
+  "geography_level": "tract",
+  "observed_schema_profile": [
+    "year",
+    "stateabbr",
+    "statedesc",
+    "locationname",
+    "datasource",
+    "category",
+    "measure",
+    "data_value_unit",
+    "data_value_type",
+    "data_value",
+    "data_value_footnote_symbol",
+    "data_value_footnote",
+    "low_confidence_limit",
+    "high_confidence_limit",
+    "totalpopulation",
+    "geolocation",
+    "locationid",
+    "categoryid",
+    "measureid",
+    "datavaluetypeid",
+    "short_question_text"
+  ],
+  "official_title": "PLACES: Local Data for Better Health, Census Tract Data 2022 release",
+  "product": "PLACES",
+  "raw_http_bytes_available": false,
+  "release_year": 2022,
+  "retrieved_at_utc": "2026-09-21T21:36:26Z",
+  "row_count_from_metadata_cache": null,
+  "snapshot_kind": "browser-mediated extracted official metadata; not raw HTTP bytes",
+  "source_url": "https://data.cdc.gov/api/views/nw2y-v4gm",
+  "technical_note": "Web retrieval exposed official metadata content but not transferable raw response bytes to the execution container; byte-level raw archival is deferred and explicitly not claimed."
+}
