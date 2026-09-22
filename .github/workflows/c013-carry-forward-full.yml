@@ -1,13 +1,7 @@
 name: C013 full carry-forward diagnostics
 
 on:
-  push:
-    branches:
-      - codex/c013-stage0-provenance
-    paths:
-      - projects/c013-places-temporal-provenance/scripts/compute_carry_forward_diagnostics.py
-      - projects/c013-places-temporal-provenance/scripts/apply_carry_forward_diagnostics.py
-      - .github/workflows/c013-carry-forward-full.yml
+  workflow_dispatch:
 
 permissions:
   contents: write
