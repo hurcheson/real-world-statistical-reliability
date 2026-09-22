@@ -1,0 +1,219 @@
+{
+  "schema_version": "1.0.0",
+  "frozen_on": "2026-09-21",
+  "protocol_sha256": "fa87dc628428b9c9b613f20f2fa80769fe16d153e1f749962fc32b2ceb126629",
+  "corpus_ids": [
+    "E1",
+    "E2",
+    "E3",
+    "E4",
+    "E5",
+    "E6",
+    "E7",
+    "E8",
+    "E9"
+  ],
+  "required_columns": [
+    "coder_id",
+    "work_id",
+    "coding_status",
+    "coding_date_utc",
+    "evidence_access",
+    "evidence_sources_consulted",
+    "eligibility",
+    "eligibility_basis",
+    "exclusion_reason",
+    "eligibility_evidence_location",
+    "eligibility_note",
+    "temporal_role_primary",
+    "temporal_role_secondary",
+    "temporal_role_evidence_location",
+    "temporal_role_note",
+    "dataset_product_reported",
+    "nominal_time_labels_verbatim",
+    "nominal_release_count",
+    "release_years_reported",
+    "dataset_ids_reported",
+    "source_years_reported",
+    "source_mapping_completeness",
+    "year_semantics",
+    "measure_names_or_ids",
+    "mapping_evidence_location",
+    "mapping_note",
+    "provenance_disclosure",
+    "discl_dataset_product",
+    "discl_release_years",
+    "discl_dataset_ids",
+    "discl_source_years",
+    "discl_modeled_estimate_status",
+    "discl_carry_forward_rotation",
+    "discl_definition_change",
+    "discl_geography_population_change",
+    "discl_uncertainty_dependence",
+    "provenance_evidence_location",
+    "provenance_note",
+    "decision_language_level",
+    "decision_audience",
+    "causal_language_flag",
+    "decision_evidence_location",
+    "decision_note",
+    "primary_fragility",
+    "secondary_fragilities",
+    "fragility_evidence_location",
+    "fragility_note",
+    "coder_confidence",
+    "access_limitation_note",
+    "final_coder_comment"
+  ],
+  "enums": {
+    "coder_id": [
+      "A",
+      "B"
+    ],
+    "coding_status": [
+      "not_started",
+      "in_progress",
+      "complete_locked"
+    ],
+    "evidence_access": [
+      "full_text_public",
+      "full_text_institutional_or_uploaded",
+      "abstract_complete",
+      "abstract_or_metadata_partial",
+      "inaccessible"
+    ],
+    "eligibility": [
+      "eligible",
+      "exclude",
+      "uncertain_access",
+      "uncertain_scope"
+    ],
+    "eligibility_basis": [
+      "IC1_multirelease_use",
+      "IC2_crossrelease_interpretation",
+      "both",
+      "none",
+      "uncertain"
+    ],
+    "exclusion_reason": [
+      "",
+      "single_release",
+      "baseline_or_cross_sectional_only",
+      "temporal_outcome_from_other_source",
+      "agency_or_methods_description",
+      "general_theory",
+      "duplicate_version",
+      "multirelease_use_unverified",
+      "other"
+    ],
+    "temporal_role_primary": [
+      "two_wave_change",
+      "multiwave_trend",
+      "pre_post_change",
+      "longitudinal_association",
+      "persistence_or_autoregression",
+      "rank_hotspot_or_set",
+      "projection_or_forecast",
+      "composite_index_temporal",
+      "contextual_temporal_layer",
+      "other",
+      "not_assessable"
+    ],
+    "dataset_product_reported": [
+      "500_Cities",
+      "PLACES",
+      "both",
+      "other",
+      "unclear",
+      "not_assessable"
+    ],
+    "source_mapping_completeness": [
+      "complete",
+      "partial",
+      "absent",
+      "unclear_due_access"
+    ],
+    "year_semantics": [
+      "explicit_source_year",
+      "explicit_release_year",
+      "mixed_or_measure_specific",
+      "unlabeled_year",
+      "unclear",
+      "not_assessable"
+    ],
+    "provenance_disclosure": [
+      "none",
+      "minimal",
+      "partial",
+      "substantial",
+      "complete_reconstructible",
+      "not_assessable_access"
+    ],
+    "binary_or_unclear": [
+      "yes",
+      "no",
+      "unclear",
+      "not_assessable"
+    ],
+    "decision_language_level": [
+      "none",
+      "descriptive_scientific",
+      "interpretive_implication",
+      "action_or_planning",
+      "allocation_or_prioritization",
+      "policy_or_intervention",
+      "not_assessable_access"
+    ],
+    "decision_audience": [
+      "none",
+      "researchers",
+      "public_health_practitioners",
+      "planners",
+      "policymakers",
+      "clinicians",
+      "community_organizations",
+      "multiple",
+      "other",
+      "unclear",
+      "not_assessable"
+    ],
+    "causal_language_flag": [
+      "yes",
+      "no",
+      "unclear",
+      "not_assessable"
+    ],
+    "primary_fragility": [
+      "none_identified",
+      "release_source_misalignment",
+      "carry_forward_pseudowaves",
+      "mixed_source_year_composite",
+      "definition_noncomparability",
+      "geography_population_noncomparability",
+      "uncertainty_dependence",
+      "rank_or_set_instability",
+      "temporal_model_support",
+      "reproducibility_information_gap",
+      "multiple_no_single_primary",
+      "not_assessable_access"
+    ],
+    "coder_confidence": [
+      "high",
+      "moderate",
+      "low"
+    ]
+  },
+  "list_fields": [
+    "evidence_sources_consulted",
+    "temporal_role_secondary",
+    "release_years_reported",
+    "dataset_ids_reported",
+    "source_years_reported",
+    "measure_names_or_ids",
+    "decision_audience",
+    "secondary_fragilities"
+  ],
+  "list_delimiter": "|",
+  "missing_data_rule": "Leave genuinely unreported fields blank only when the codebook permits it; use explicit not_assessable/unclear categories when access or semantics prevent a determination.",
+  "quote_rule": "Prefer section/page/table/figure locations and paraphrase. If a direct quote is needed, keep quoted text brief and do not build a substitute full-text archive."
+}

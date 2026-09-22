@@ -1,0 +1,62 @@
+{
+  "registry_version": "1.0.0",
+  "frozen_starting_corpus_date": "2026-09-21",
+  "protocol_sha256": "fa87dc628428b9c9b613f20f2fa80769fe16d153e1f749962fc32b2ceb126629",
+  "note": "E1–E9 are the frozen starting corpus. Bibliographic form is carried from the prosecution ledger only to route works to the primary peer-reviewed corpus versus active-work appendix after eligibility adjudication; no prior temporal-role, provenance, decision-language, or fragility coding is included here.",
+  "works": [
+    {
+      "id": "E1",
+      "title": "While Some Things Change, Do Others Stay the Same? The Heterogeneity of Neighborhood Health Returns to Gentrification",
+      "doi": "10.1080/10511482.2022.2076715",
+      "starting_form": "peer-reviewed article"
+    },
+    {
+      "id": "E2",
+      "title": "Spatial and Temporal Patterns of Chronic Disease Burden in the U.S., 2018–2021",
+      "doi": "10.1016/j.amepre.2024.08.022",
+      "starting_form": "peer-reviewed article"
+    },
+    {
+      "id": "E3",
+      "title": "A Computational Approach to Analyzing Spatiotemporal Trends in Gun Violence and Mental Health Disparities among Racialized Communities in US Metropolitan Areas",
+      "doi": "10.1007/s11524-025-00976-x",
+      "starting_form": "peer-reviewed article"
+    },
+    {
+      "id": "E4",
+      "title": "Changes in the Neighborhood Built Environment and Chronic Health Conditions in Washington, DC, in 2014–2019: Longitudinal Analysis",
+      "doi": "10.2196/74195",
+      "starting_form": "peer-reviewed article"
+    },
+    {
+      "id": "E5",
+      "title": "S574 Examining Colorectal Cancer Screening Patterns Across US Counties Using Geospatial Analysis Pre- and Post-COVID-19",
+      "doi": "10.14309/01.ajg.0001129756.58233.3d",
+      "starting_form": "conference abstract"
+    },
+    {
+      "id": "E6",
+      "title": "Historical Redlining and Spatiotemporal Patterns in Breast Cancer Screening",
+      "doi": "10.1001/jamanetworkopen.2026.30685",
+      "starting_form": "peer-reviewed article"
+    },
+    {
+      "id": "E7",
+      "title": "Temporal Trends in Stroke Prevalence Across North Dakota Before, During, and After the COVID-19 Pandemic",
+      "doi": "10.1016/j.neuros.2026.100034",
+      "starting_form": "conference/supplement article"
+    },
+    {
+      "id": "E8",
+      "title": "Reshaping Oral Health Inequities—Pandemic Impact (COVID-19) on Geo-Spatial Structures of Geriatric Tooth Loss",
+      "doi": "10.20944/preprints202602.0362.v1",
+      "starting_form": "preprint"
+    },
+    {
+      "id": "E9",
+      "title": "The temporal relations among neighborhood-level binge drinking, depression, and gun violence",
+      "doi": "10.7282/t3-xd0f-8817",
+      "starting_form": "dissertation"
+    }
+  ]
+}

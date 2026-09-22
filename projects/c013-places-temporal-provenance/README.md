@@ -31,6 +31,14 @@ The 16 ambiguous pairs split into:
 
 An earlier 118-exact / 13-ambiguous run is superseded. It preceded the tightened tract-linkage rules and must not be cited.
 
+## Stage 1 preparation
+
+Stage 1 preparation is now authorized with Hurcheson designated **Coder A** and an independent **Coder B** to be recruited.
+
+The neutral Stage 1 packet is under `docs/coding/` and contains a frozen codebook, E1–E9 registry, source-access manifest, separate blank coder forms, adjudication template, schema, and validation support. The earlier prosecution's paper-specific codes are intentionally not prefilled.
+
+**Independent coding has not started.** Stage 1 cannot complete until both human forms are independently coded, validated, locked, hashed, and adjudicated.
+
 ## Execution boundary
 
-Stage 0 is complete. The next protocol stage is **Stage 1 — corpus recoding**, which requires independent dual-human coding. No automatic transition to Stage 1, case-study expansion, manuscript drafting, or abstract drafting is authorized by this directory.
+Stage 0 is complete. Stage 1 infrastructure is prepared, but the corpus-level manuscript gate remains closed pending independent dual-human coding. No case-study expansion, manuscript drafting, abstract drafting, or final C013 paper verdict is authorized.
