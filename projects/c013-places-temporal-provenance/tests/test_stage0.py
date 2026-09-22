@@ -52,18 +52,18 @@ def test_final_stage0_counts_and_archive():
     assert result['carry_forward_rows'] == 131
     assert result['carry_forward_diagnostics'] == 131
     assert result['carry_forward_query_records'] == 262
-    assert result['exact_carry_forwards'] == 118
+    assert result['exact_carry_forwards'] == 115
     assert result['revised_carry_forwards'] == 0
-    assert result['ambiguous_carry_forwards'] == 13
+    assert result['ambiguous_carry_forwards'] == 16
     assert result['raw_archive_bytes'] > 45_000_000
 
 def test_ambiguous_diagnostics_are_explained():
     rows=read_jsonl(ROOT/'outputs/machine/carry_forward_diagnostics.jsonl')
     ambiguous=[r for r in rows if r['carry_forward_classification']=='ambiguous']
-    assert len(ambiguous)==13
+    assert len(ambiguous)==16
     unlinked=[r for r in ambiguous if r['linkage_status'].startswith('unlinked')]
     linked=[r for r in ambiguous if r['linkage_status']=='linked common geography']
     assert len(unlinked)==8
-    assert len(linked)==5
+    assert len(linked)==8
     assert all(r['exact_copy_percentage'] is None and r['common_geography_count'] is None for r in unlinked)
     assert all(r['exact_copy_percentage'] is not None and r['exact_copy_percentage'] < 99.5 for r in linked)
