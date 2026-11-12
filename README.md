@@ -13,7 +13,7 @@ The repository includes a technical investigation of **HUD Qualified Census Trac
 - `research/canonical/` — canonical research decisions and documentation.
 - `projects/c011-qct-precision-screen/` — executable analysis and [project-level instructions](projects/c011-qct-precision-screen/README.md).
 - `projects/c011-qct-precision-screen/data/manifest.csv` and associated provenance records — source details and hashes for raw HUD workbooks, which are excluded from Git.
-- `projects/c011-qct-precision-screen/C011_FINAL_REPRODUCIBILITY_ADJUDICATION.md` — controlling status and limitations (consult the repository's actual path if the file is relocated).
+- [`C011_FINAL_REPRODUCIBILITY_ADJUDICATION.md`](C011_FINAL_REPRODUCIBILITY_ADJUDICATION.md) — controlling status and limitations (consult the repository's actual path if the file is relocated).
 
 ## How to evaluate the work
 
